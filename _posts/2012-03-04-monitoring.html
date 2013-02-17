@@ -1,0 +1,19 @@
+---
+permalink: /monitoring/index.html
+layout: post
+title: Monitoring?
+published: true
+categories: []
+---
+<p>On monitoring:</p>
+<p>when you manage and develop both infrastructure , u'll experience tests or monitoring solution, which ensures the quality of your end product (code or infrastructure). Like for code quality , you can have unit tests, functional tests, integration tests etc, similarly you might have system monitoring, dependancy monnitoring , application monitoring , BAM , CEP etc etc. In this post i'll narrate few of them</p>
+<ol>
+<li>System monitoring : Like cpu load, free memory (RAM), disk space etc. SNMP based hardware monitoring &nbsp;etc</li>
+<li>Dependency monitoring : Like web server process, there states , %cpu consumption, rss etc.</li>
+<li>Integration : all third party or other integration points are available or not.</li>
+<li>BAM: Business activity monitoring. Define, KPI &nbsp;or key performance indicators, which will in turn define the state of your business (quantitatively) . Like sucessful transactions per day or month, etc.&nbsp;</li>
+<li>Process instrumentation or tracing : kprobes, system tap etc &nbsp;or othet tracing like methodologies like dtrace, which lets you monitor at individual method level etc. These are predoominantly use for language or other interpreter optimizations.</li>
+<li>Complex event processing : Though not directly related, some of these monitoring can or should use some form of complex event processing &nbsp;to deduce meaningful information. This is only important (or even significant) if the volume of &nbsp;data is large.</li>
+</ol>
+<p>&nbsp;</p>
+<p>Depending upon your problem you should employ one of more of these solutions. Theres opensource solutions/tooling available for all of them. BAM is kinda tricky, not BAM in itself, but defining the KPI part is bit trippy.</p>

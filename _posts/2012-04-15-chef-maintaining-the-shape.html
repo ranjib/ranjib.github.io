@@ -1,0 +1,18 @@
+---
+permalink: /chef-maintaining-the-shape/index.html
+layout: post
+title: ! 'Chef:: Maintaining the shape'
+published: true
+categories: []
+---
+<p>Following are the things Im trying out to keep my chef code bases( and the infrastructure they control ) in shape:</p>
+<ol>
+<li>Lint stuffs: Syntax checking (rb,irb, conf files etc), style checks, some best practices check (like chek for chef solo), mostly using foodcritic wrapped in rake running it under Go (this setup was done by nikhil initally)</li>
+<li>Check for cotext level best practices (check for defined environments, nodes with empty runlist, number of updated resources after two consecutive runs [to check idempotency], direct asignment of recipes[always via role] etc) using rspec/chef api and rake. This is more like integration test.</li>
+<li>Infrastructure test: triggering nrpe based tests or minitest report handlers to acknowledge the service provisioning has taken &nbsp;place correctly.</li>
+<li>Versioning cookbooks, version freezing cookbooks per environment and above all enforcing conventions like (app_project_environment) . Rest of the checks does the tooling by exploiting these conventions. Anything which does not adhere to these, bound to becom a work of art.</li>
+<li>Measuring most of the stuff using defined states and quantifiiable metrics (if possible), and then graph it(nagios/nrpe and graphite)</li>
+<li>Having a common understanding of what goes where (definition? library? lwrp? mulitple recipes?) inside a chef code base.</li>
+<li>And now in the process of setting up a CI server to test the whole community+our own cookbooks against ubuntu/centos containers using openvz against our own build pipelines.</li>
+</ol>
+<p>I know loads of folks are doing lot of interesting things in this space. Specially if you are building SaaS / PaaS , you are bound to hit the volume of chef/puppet/cfengine scripts that will need its own CI.</p>

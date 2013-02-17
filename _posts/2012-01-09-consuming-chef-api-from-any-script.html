@@ -1,0 +1,21 @@
+---
+permalink: /consuming-chef-api-from-any-script/index.html
+layout: post
+title: Consuming chef api from any script  -  part 1
+published: true
+categories: []
+---
+<p>Its been more than a year since we have adopted chef for ThoughtWorks. We use chef not only for configuration management but also for provisioning instances.  Since most of our infrastructure is automated many of the services needs to integrate with chef programmatically. Knife, the command line interface of chef provides easy integration via knife plugin and knife exec. But in this post i&rsquo;ll showcase how chef can be used from any script if you have an api client configured. At bare minimum we need to set three parameters to get our script talking to a chef server, these are chef server url, node_name and client key. Once configured we can use chef api to interact with chef server. Lets start with enlisting the number of nodes</p>
+
+<div class="CodeRay">
+  <div class="code"><pre>require <span class="string"><span class="delimiter">'</span><span class="content">rubygems</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">chef</span><span class="delimiter">'</span></span>  
+
+<span class="constant">Chef</span>::<span class="constant">Config</span>[<span class="symbol">:node_name</span>]=<span class="string"><span class="delimiter">'</span><span class="content">client_name</span><span class="delimiter">'</span></span>
+<span class="constant">Chef</span>::<span class="constant">Config</span>[<span class="symbol">:client_key</span>]=<span class="string"><span class="delimiter">'</span><span class="content">path to client cert.pem</span><span class="delimiter">'</span></span>
+<span class="constant">Chef</span>::<span class="constant">Config</span>[<span class="symbol">:chef_server_url</span>]=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://ur chef server:4000</span><span class="delimiter">&quot;</span></span>     
+
+<span class="constant">Chef</span>::<span class="constant">Node</span>.list.each <span class="keyword">do</span> |node|  
+    puts node.first      
+<span class="keyword">end</span></pre></div>
+</div>
