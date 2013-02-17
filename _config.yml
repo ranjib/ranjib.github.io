@@ -4,3 +4,6 @@ auto: true
 server: true
 future: true
 baseurl: /
+markdown: rdiscount
+permalink: /:year/:month/:day/:title
+rdiscount extensions: [smart]
