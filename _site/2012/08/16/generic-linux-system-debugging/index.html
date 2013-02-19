@@ -81,75 +81,62 @@
           </div>
           <div class="span9">
             <div>
-  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
-
-  <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
-<ul>
-<li><span style="font-size: small;">Testability of the recipe.</span></li>
-<li><span style="font-size: small;">Ease with which one can spot the environment specific differences</span></li>
-</ul>
-<p><span style="font-size: small;">The techniques:</span></p>
-<ol>
-<li><span style="font-size: small;"><strong>Conditionals:</strong>&nbsp;</span> <span style="font-size: small;">Use raw if else conditions two apply different resources in different environments. If you are sure that the difference will be only limited to certain minute details I start employing raw conditional &nbsp;statements like this:</span>
-<div class="CodeRay">
-  <div class="code"><pre>if node.chef_environment == 'development' do
-  #
-  # do not configure basic auth
-  #
-else
-  #
-  #  configure basic auth
-  #
-end</pre></div>
-</div>
-
-What is important is that we should also writ equivalent unit tests for such scenarios. </li>
-<li><span style="font-size: small;"><strong>Attributes: </strong>Use attributes to model the differences </span> <span style="font-size: small;">&nbsp;In chef attributes can be overridden on per environment basis. This provides an elegant way to implement environment specific changes. In following example version of ruby &nbsp;needs to be different in two environment.</span>
-<div class="CodeRay">
-  <div class="code"><pre># the default attribute looks like
-default[:ruby][:version] = '1.8.7' 
-
-#
-# the resource inside ruby recipe might use it like this
-#
-ruby_version= 'ruby-'+ node[:ruby][:version]
-
-execute &quot;download_ruby&quot; do 
-  cwd &quot;/opt&quot;
-  command &quot;wget -c http://someurl/#{ruby_version}.tgz&quot;
-end
-
-#
-#</pre></div>
-</div>
-
-Then this can be overridden in all servers within staging environment with this
-<div class="CodeRay">
-  <div class="code"><pre>name &quot;staging&quot;
-override_attributes(&quot;ruby&quot;=&gt;{&quot;version&quot;=&gt;'1.9.3'})</pre></div>
-</div>
-
-</li>
-<li><span style="font-size: small;"><strong>Environment specific chef recipes/components: </strong>Use environment specific recipes and other components on the fly </span> <span style="font-size: small;">If the amount of differences is large enough involving multiple resources and significant configuration differences within a single file you can use the environment name itself to dynamically load an environment specific template or &nbsp;environment specific sub recipe. For example the deploy recipe invokes data base backup as well as load balancer rotation (the instance should be out of load balancer during the deployment) tasks only in production not in any other environments. For this we can have a dedicated recipe name deploy::production . On the other hand the main deploy recipe &nbsp;uses something like this</span>
-<div class="CodeRay">
-  <div class="code"><pre>pre_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_pre_deployment&quot;
-include_recipe sub_recipe
-#
-# Perform deployment
-#
-post_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_post_deployment&quot;</pre></div>
-</div>
-
-You can use similar strategies to include environment specific configurations also. e.g
-<div class="CodeRay">
-  <div class="code"><pre>template &quot;/etc/nginx/nginx.conf&quot; do
-  source &quot;nginx.&quot; + node.chef_environment + &quot;conf.erb&quot;
-end</pre></div>
-</div>
-
-This one will pick up nginx.staging.conf.erb as template in staging environment's nginx configuration while nginx.production.conf.erb in production environments. This does impose a problem that every environment now should have a corresponding sub recipe or template. But again you can further scope this using one of the earlier two technique. In this case also , it is possible to do a file glob and pick up the environment specific differences. </li>
-</ol>
+  <h3> Generic linux system debugging </h3>
+  <p>Following is a list of commands i use for day to day system debugging. These are very generic commands, they do not assume any understanding of what the server is running. As in, whether its a database server, a web server or a backup server etc. I use alsmost the same set of tools also to monitor most of our servers.&nbsp;</p>
+<p>I am assuming we are on RHEL or RHEL derivatives , albeit exact same or similar tools are available for debians as well&nbsp;</p>
+<p>First install some of the necessary packages (you should remove some of these once the troubleshooting session is over)</p>
+<p style="padding-left: 30px;"><strong>yum install htop traceroute screen telnet sysstat iptraf-ng</strong></p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p>Check &nbsp;global server health related stuffs</p>
+<p style="padding-left: 30px;">Check system resources:</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">Check cpu load:</p>
+<p style="padding-left: 60px;"><strong>w</strong></p>
+<p style="padding-left: 30px;">Check &nbsp;memory:</p>
+<p style="padding-left: 60px;"><strong>free -m</strong></p>
+<p style="padding-left: 30px;">&nbsp;Total Number of processess:</p>
+<p style="padding-left: 60px;"><strong>ps aux | wc -l</strong></p>
+<p style="padding-left: 30px;">Check free disk space:</p>
+<p style="padding-left: 60px;"><strong>df -h</strong></p>
+<p>Look ate changes in pattern, context switches, io rate changes. You should know the output of vmstat very well.</p>
 <p>&nbsp;</p>
+<p style="padding-left: 60px;"><strong>vmstat 1 5&nbsp;</strong></p>
+<p style="padding-left: 30px;">Check disk usage of a file/directory</p>
+<p style="padding-left: 60px;"><strong>du -sh &nbsp;/*</strong></p>
+<p style="padding-left: 30px;">To externally figure out what all ports are open(from outside the server),execute this:</p>
+<p style="padding-left: 60px;"><strong>nmap -P0 &lt;ip&gt;</strong></p>
+<p style="padding-left: 30px;">To check tcp network reachability:</p>
+<p style="padding-left: 60px;"><strong>tcptrace-route &lt;ip&gt;</strong></p>
+<p style="padding-left: 30px;">To check the bandwidth usage of by host , traffic type use these tools:</p>
+<p style="padding-left: 60px;"><strong>iptraf-ng</strong></p>
+<p style="padding-left: 60px;"><strong>tcpdump</strong></p>
+<p style="padding-left: 30px;"><strong><br /></strong></p>
+<p>Wondering what a file does? Whats his type? From where it came?</p>
+<p style="padding-left: 30px;">To check the type of a file execute this:</p>
+<p style="padding-left: 60px;"><strong>file &lt;filename&gt;</strong></p>
+<p style="padding-left: 30px;">To check which package has installed this file, execute this:</p>
+<p style="padding-left: 60px;"><strong>rpm -qf &lt;path to a file&gt;</strong></p>
+<p style="padding-left: 30px;">To check what all that package has installed, execute this:</p>
+<p style="padding-left: 60px;"><strong>rpm -ql &lt;name of package&gt;</strong></p>
+<p>99% of the problems are resource crunch(disk, memory, cpu, io etc) due to one or many processes&nbsp;</p>
+<p style="padding-left: 30px;">Following is a set of command that can help you nail down the process</p>
+<p style="padding-left: 60px;">To list out all the programs that are listening to a tcp or udp port, execute this</p>
+<p style="padding-left: 90px;"><strong>netstat -tulpn</strong></p>
+<p style="padding-left: 60px;">To nail down a process from its behavior:</p>
+<p style="padding-left: 90px;">To Find the process bind to a port, execute any of this:</p>
+<p style="padding-left: 120px;"><strong>lsof -i :&lt;port&gt;</strong></p>
+<p style="padding-left: 120px;"><strong>netstat -tulpn | grep &lt;port&gt;</strong></p>
+<p style="padding-left: 120px;"><strong>fuser &lt;port&gt;/&lt;protocol&gt;</strong></p>
+<p style="padding-left: 90px;">To Find the process that is using a file, execute this:</p>
+<p style="padding-left: 120px;"><strong>fuser &lt;filename&gt;</strong></p>
+<p style="padding-left: 60px;">Once the process causing the crunch is known</p>
+<p style="padding-left: 60px;">To list resource usage of an individual process, execute this:</p>
+<p style="padding-left: 90px;"><strong>ps -p &lt;pid&gt; -o comm,args,pcpu,pmem,rss</strong></p>
+<p style="padding-left: 60px;">To check syscall profiles for a program/executable:</p>
+<p style="padding-left: 90px;"><strong>strace -c &lt;executable file name&gt;</strong></p>
+<p style="padding-left: 60px;"><strong>&nbsp;</strong>To attach to a running process, and check the syscall related details</p>
+<p style="padding-left: 90px;"><strong>strace -p &lt;pid&gt;</strong></p>
+<p style="padding-left: 30px;">&nbsp;</p>
 
 </div>
 

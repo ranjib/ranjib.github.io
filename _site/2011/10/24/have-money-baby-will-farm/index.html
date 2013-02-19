@@ -81,74 +81,14 @@
           </div>
           <div class="span9">
             <div>
-  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
-
-  <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
-<ul>
-<li><span style="font-size: small;">Testability of the recipe.</span></li>
-<li><span style="font-size: small;">Ease with which one can spot the environment specific differences</span></li>
-</ul>
-<p><span style="font-size: small;">The techniques:</span></p>
-<ol>
-<li><span style="font-size: small;"><strong>Conditionals:</strong>&nbsp;</span> <span style="font-size: small;">Use raw if else conditions two apply different resources in different environments. If you are sure that the difference will be only limited to certain minute details I start employing raw conditional &nbsp;statements like this:</span>
-<div class="CodeRay">
-  <div class="code"><pre>if node.chef_environment == 'development' do
-  #
-  # do not configure basic auth
-  #
-else
-  #
-  #  configure basic auth
-  #
-end</pre></div>
-</div>
-
-What is important is that we should also writ equivalent unit tests for such scenarios. </li>
-<li><span style="font-size: small;"><strong>Attributes: </strong>Use attributes to model the differences </span> <span style="font-size: small;">&nbsp;In chef attributes can be overridden on per environment basis. This provides an elegant way to implement environment specific changes. In following example version of ruby &nbsp;needs to be different in two environment.</span>
-<div class="CodeRay">
-  <div class="code"><pre># the default attribute looks like
-default[:ruby][:version] = '1.8.7' 
-
-#
-# the resource inside ruby recipe might use it like this
-#
-ruby_version= 'ruby-'+ node[:ruby][:version]
-
-execute &quot;download_ruby&quot; do 
-  cwd &quot;/opt&quot;
-  command &quot;wget -c http://someurl/#{ruby_version}.tgz&quot;
-end
-
-#
-#</pre></div>
-</div>
-
-Then this can be overridden in all servers within staging environment with this
-<div class="CodeRay">
-  <div class="code"><pre>name &quot;staging&quot;
-override_attributes(&quot;ruby&quot;=&gt;{&quot;version&quot;=&gt;'1.9.3'})</pre></div>
-</div>
-
-</li>
-<li><span style="font-size: small;"><strong>Environment specific chef recipes/components: </strong>Use environment specific recipes and other components on the fly </span> <span style="font-size: small;">If the amount of differences is large enough involving multiple resources and significant configuration differences within a single file you can use the environment name itself to dynamically load an environment specific template or &nbsp;environment specific sub recipe. For example the deploy recipe invokes data base backup as well as load balancer rotation (the instance should be out of load balancer during the deployment) tasks only in production not in any other environments. For this we can have a dedicated recipe name deploy::production . On the other hand the main deploy recipe &nbsp;uses something like this</span>
-<div class="CodeRay">
-  <div class="code"><pre>pre_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_pre_deployment&quot;
-include_recipe sub_recipe
-#
-# Perform deployment
-#
-post_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_post_deployment&quot;</pre></div>
-</div>
-
-You can use similar strategies to include environment specific configurations also. e.g
-<div class="CodeRay">
-  <div class="code"><pre>template &quot;/etc/nginx/nginx.conf&quot; do
-  source &quot;nginx.&quot; + node.chef_environment + &quot;conf.erb&quot;
-end</pre></div>
-</div>
-
-This one will pick up nginx.staging.conf.erb as template in staging environment's nginx configuration while nginx.production.conf.erb in production environments. This does impose a problem that every environment now should have a corresponding sub recipe or template. But again you can further scope this using one of the earlier two technique. In this case also , it is possible to do a file glob and pick up the environment specific differences. </li>
-</ol>
+  <h3> Have money? Baby will farm. </h3>
+  <p>Grown in a small town, i had always dream to farm. Cultivation. But looking at the current farmer suicide rate in india (specially in maharastra) , i dont think agricultural farming is a good move. I am still able to earn considerable amount of money in software industry.</p>
+<p>Was chatting with "the papa" (will be introduce in greater depth in follow up post) on the prospects of farming. "The papa"&nbsp; suggested&nbsp; honey bee farming. Its cheap, profitable and require less space. May be one can do it in his/her balcony?</p>
+<p>But i think one should try ostrich farming.</p>
+<p>&nbsp;</p>
+<p>Why?</p>
+<p>&nbsp;</p>
+<p>They are amusing!</p>
 <p>&nbsp;</p>
 
 </div>

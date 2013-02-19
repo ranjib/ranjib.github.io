@@ -81,75 +81,19 @@
           </div>
           <div class="span9">
             <div>
-  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
-
-  <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
-<ul>
-<li><span style="font-size: small;">Testability of the recipe.</span></li>
-<li><span style="font-size: small;">Ease with which one can spot the environment specific differences</span></li>
-</ul>
-<p><span style="font-size: small;">The techniques:</span></p>
+  <h3> Infrastructure tooling patterns </h3>
+  <p>Following is my grouping of tools that i have learned/used as a sysad and devops person at ThoughtWorks while maintaining our distributed infrastructure, setting up our private cloud installations, and in many different client gigs .</p>
+<p>One can add some  of these tooling as and when required as your infrastructure / deployment/app grows.</p>
 <ol>
-<li><span style="font-size: small;"><strong>Conditionals:</strong>&nbsp;</span> <span style="font-size: small;">Use raw if else conditions two apply different resources in different environments. If you are sure that the difference will be only limited to certain minute details I start employing raw conditional &nbsp;statements like this:</span>
-<div class="CodeRay">
-  <div class="code"><pre>if node.chef_environment == 'development' do
-  #
-  # do not configure basic auth
-  #
-else
-  #
-  #  configure basic auth
-  #
-end</pre></div>
-</div>
-
-What is important is that we should also writ equivalent unit tests for such scenarios. </li>
-<li><span style="font-size: small;"><strong>Attributes: </strong>Use attributes to model the differences </span> <span style="font-size: small;">&nbsp;In chef attributes can be overridden on per environment basis. This provides an elegant way to implement environment specific changes. In following example version of ruby &nbsp;needs to be different in two environment.</span>
-<div class="CodeRay">
-  <div class="code"><pre># the default attribute looks like
-default[:ruby][:version] = '1.8.7' 
-
-#
-# the resource inside ruby recipe might use it like this
-#
-ruby_version= 'ruby-'+ node[:ruby][:version]
-
-execute &quot;download_ruby&quot; do 
-  cwd &quot;/opt&quot;
-  command &quot;wget -c http://someurl/#{ruby_version}.tgz&quot;
-end
-
-#
-#</pre></div>
-</div>
-
-Then this can be overridden in all servers within staging environment with this
-<div class="CodeRay">
-  <div class="code"><pre>name &quot;staging&quot;
-override_attributes(&quot;ruby&quot;=&gt;{&quot;version&quot;=&gt;'1.9.3'})</pre></div>
-</div>
-
-</li>
-<li><span style="font-size: small;"><strong>Environment specific chef recipes/components: </strong>Use environment specific recipes and other components on the fly </span> <span style="font-size: small;">If the amount of differences is large enough involving multiple resources and significant configuration differences within a single file you can use the environment name itself to dynamically load an environment specific template or &nbsp;environment specific sub recipe. For example the deploy recipe invokes data base backup as well as load balancer rotation (the instance should be out of load balancer during the deployment) tasks only in production not in any other environments. For this we can have a dedicated recipe name deploy::production . On the other hand the main deploy recipe &nbsp;uses something like this</span>
-<div class="CodeRay">
-  <div class="code"><pre>pre_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_pre_deployment&quot;
-include_recipe sub_recipe
-#
-# Perform deployment
-#
-post_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_post_deployment&quot;</pre></div>
-</div>
-
-You can use similar strategies to include environment specific configurations also. e.g
-<div class="CodeRay">
-  <div class="code"><pre>template &quot;/etc/nginx/nginx.conf&quot; do
-  source &quot;nginx.&quot; + node.chef_environment + &quot;conf.erb&quot;
-end</pre></div>
-</div>
-
-This one will pick up nginx.staging.conf.erb as template in staging environment's nginx configuration while nginx.production.conf.erb in production environments. This does impose a problem that every environment now should have a corresponding sub recipe or template. But again you can further scope this using one of the earlier two technique. In this case also , it is possible to do a file glob and pick up the environment specific differences. </li>
+<li>&nbsp;Provisioner : Abstracts your vm / environment provisioning mechanism. Mostly relevant if you are on cloud. Examples are boto, fog. Very important if you plan to do something like auto scaling. Gives you elastic infrastructure.</li>
+<li>Configuration management system: Lets you create reusable environments by expressing packages, services, files and other component via a dsl , also addresses cross platform issues. Puppet , Chef, Cfengine, salt are examples. A mature CMS setup will give you context aware infrastructure, like you web server can automatically know who is db server or the load balancer can automatically know who all are the web servers. A mature CMS setup will also incorporate the notion of environments, and have version-ed infrastructures. Like UAT can have app deployment version 1.3 while prod in 1.1 and staging in 2.0 etc.&nbsp; </li>
+<li>Application Deployers: Let you deploy your application. CMS can do this too. But there are dedicated apps for this, vlad, cap, func and fabric comes in these category. They also help you automating add hoc system automation. Most of these are ssh in a loop (or uses gnu parallel).</li>
+<li>Orchestrator: Kind of app deployers but incorporates middle ware like facilities, to do async command dispatching. Mcollective /salt are example. Both of them uses a middleware (salt uses zeromq while mcollective can use any stomp compliant AMQP) to broker 1-&gt;N, 1&gt;1, N&gt;M, N&gt;N  real time , async dispatching. Can be used with platforms that dont have ssh. Massively scalable.&nbsp; </li>
+<li>Monitoring solution: Three kinds of monitoring you'll need mostly. System (disk, cpu load, memory ), Services  (web server, db server etc), App (a cuke script that check the whole app is working). A good monitoring solution is one which easily integrates with all other infra services, lets you define metric  (app response time, free memory, cached memory etc). Customization notifications(email, jabber, sms etc) , escalations. Charting of the metrics (to get trends), reporting , event handlers (use this in conjunction with provisioner to get auto scaling features). Exampls are nagios, zabbix, zenoss and many many more. None of them are complete, but all of them can be complemented with some others (like for charting Graphite) to make a decent solution. Nagios has text based configs, does not uses any db, easy to install,scales well and one of the oldest one hence integration with other apps is very easy.&nbsp; </li>
+<li>Log management and log analytic: Three parts of these solution: a) Forwarding : a client that will sit in every vm and forward the log to a central location. Options are rsyslog, syslog, syslog-ng, graylog agent, logstash, splunk forwarders etc. b) Gathering : A server that will sit and accepts all logs. Syslog-ng, rsyslog, splunk, graylog2 3) Analytics : In most cases you will be searching , indexing your logs for particular patterns. Garylog2, logstash (both uses elastic search). Splunk (very powerful , very costly). A matured log management solution will let you set up alerts based on patterns (like failed transactions, 50Xs, 40Xs etc).&nbsp; </li>
+<li>Supervisors: They observe a service and take appropriate action to bring them alive whenever they are down. Bypassing the whole network monitoring &gt; event handler loop. Very help full for shaky service. Monit, bluepill, god etc are some example. A good supervisor has less meory/cpu footprint, provides fast healing capacity and rich dsl for expressing a service state (like which port should be responsive, which process should be running, how to fix the process if it dies, alert when it takes an action etc).&nbsp; </li>
+<li>Security, hardening and auditing tools: They deserve a separate para. Things like bastille ensures you have done the basic OS level hardening. It can also assess your infrastructure and lock it down if needed. Tools like PSAD and snort uses iptables log to automatically block intruders. Some of the  CMS  tools like puppet or chef can be used to audit.&nbsp;</li>
 </ol>
-<p>&nbsp;</p>
 
 </div>
 

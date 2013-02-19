@@ -81,74 +81,39 @@
           </div>
           <div class="span9">
             <div>
-  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
-
-  <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
-<ul>
-<li><span style="font-size: small;">Testability of the recipe.</span></li>
-<li><span style="font-size: small;">Ease with which one can spot the environment specific differences</span></li>
-</ul>
-<p><span style="font-size: small;">The techniques:</span></p>
+  <h3> Evolving enterprise infrastructure using Chef </h3>
+  <p>People consider chef as a configuration management tool. You specify certain state using the infrastructure dsl that chef provides. Apply them , and get reproducible infrastructure. I have found chef more than that.</p>
 <ol>
-<li><span style="font-size: small;"><strong>Conditionals:</strong>&nbsp;</span> <span style="font-size: small;">Use raw if else conditions two apply different resources in different environments. If you are sure that the difference will be only limited to certain minute details I start employing raw conditional &nbsp;statements like this:</span>
-<div class="CodeRay">
-  <div class="code"><pre>if node.chef_environment == 'development' do
-  #
-  # do not configure basic auth
-  #
-else
-  #
-  #  configure basic auth
-  #
-end</pre></div>
-</div>
-
-What is important is that we should also writ equivalent unit tests for such scenarios. </li>
-<li><span style="font-size: small;"><strong>Attributes: </strong>Use attributes to model the differences </span> <span style="font-size: small;">&nbsp;In chef attributes can be overridden on per environment basis. This provides an elegant way to implement environment specific changes. In following example version of ruby &nbsp;needs to be different in two environment.</span>
-<div class="CodeRay">
-  <div class="code"><pre># the default attribute looks like
-default[:ruby][:version] = '1.8.7' 
-
-#
-# the resource inside ruby recipe might use it like this
-#
-ruby_version= 'ruby-'+ node[:ruby][:version]
-
-execute &quot;download_ruby&quot; do 
-  cwd &quot;/opt&quot;
-  command &quot;wget -c http://someurl/#{ruby_version}.tgz&quot;
-end
-
-#
-#</pre></div>
-</div>
-
-Then this can be overridden in all servers within staging environment with this
-<div class="CodeRay">
-  <div class="code"><pre>name &quot;staging&quot;
-override_attributes(&quot;ruby&quot;=&gt;{&quot;version&quot;=&gt;'1.9.3'})</pre></div>
-</div>
-
-</li>
-<li><span style="font-size: small;"><strong>Environment specific chef recipes/components: </strong>Use environment specific recipes and other components on the fly </span> <span style="font-size: small;">If the amount of differences is large enough involving multiple resources and significant configuration differences within a single file you can use the environment name itself to dynamically load an environment specific template or &nbsp;environment specific sub recipe. For example the deploy recipe invokes data base backup as well as load balancer rotation (the instance should be out of load balancer during the deployment) tasks only in production not in any other environments. For this we can have a dedicated recipe name deploy::production . On the other hand the main deploy recipe &nbsp;uses something like this</span>
-<div class="CodeRay">
-  <div class="code"><pre>pre_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_pre_deployment&quot;
-include_recipe sub_recipe
-#
-# Perform deployment
-#
-post_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_post_deployment&quot;</pre></div>
-</div>
-
-You can use similar strategies to include environment specific configurations also. e.g
-<div class="CodeRay">
-  <div class="code"><pre>template &quot;/etc/nginx/nginx.conf&quot; do
-  source &quot;nginx.&quot; + node.chef_environment + &quot;conf.erb&quot;
-end</pre></div>
-</div>
-
-This one will pick up nginx.staging.conf.erb as template in staging environment's nginx configuration while nginx.production.conf.erb in production environments. This does impose a problem that every environment now should have a corresponding sub recipe or template. But again you can further scope this using one of the earlier two technique. In this case also , it is possible to do a file glob and pick up the environment specific differences. </li>
+<li><strong>Chef</strong> is a modular infrastructure management toolkit. There are several way to look at chef:&nbsp;At its core chef is an api layer over day to day system administration works. All other chef components leverage this api.</li>
+<li><strong>chef-client</strong> and <strong>chef-solo</strong> are two binaries that execute chef scripts in client/server &nbsp; or server less chef setups.</li>
+<li><strong>knife</strong> is a command line interface to chef-managed infrastructure.</li>
 </ol>
+<p>All these things together gives you traditional configuration management style workflows, a chef managed infrastructure.&nbsp;</p>
+<p>Now, there are ample one off tasks that happens only once in a server's life time. Incident management, audits are other example. There are configurations related to third party hosted solutions. &nbsp;Enterprise's own service deployments. &nbsp;Most of these workflows dont model well in conventional configuration management style infrastructure management.</p>
+<p>For such workflows chef can be easily extended. Chef provides multiple avenues to extend its capabilities:</p>
+<ul>
+<li>&nbsp;Chef internally distributed as a set of different libraries. &nbsp;&nbsp;</li>
+</ul>
+<ol>
+<li><ol>
+<li>at its core chef has <strong>Mixlib::ShellOut</strong> , which is a separate rubygem. This is the component that provides portable command execution. Since 90% of the time configuration management systems dispatch command , this is the component that can be called as heart of chef. If you have lots of shell-script based tools you can easily port them with mixlib-shellout. I have rarely seen bash scripts that checks the return value of every command it invoke. Its more difficult to maintain long shell scripts. With mixlin-shellout its much easy to express safe guard measures.</li>
+<li>chef uses <strong>mixlib-json</strong> to convert json data. This is also a separate gem, and you can independently use it. You might be wondering why this is important. JSON is the principle marshalling solution in chef and most other modern system. mixlib-json &nbsp;facilitates the inclusion of a json conversion library from the available ones. You can use mixlib-json independently to grab raw data and serialize them and feed into other programs in a relatively portable way.</li>
+<li><strong>mixlib-cli</strong> and <strong>mixlib-config</strong> . Mixlib::CLI lets you easily parse command line arguments. While mixlib-config lets you read,access override configuration values. Again both of them are distributed as separate gems. You can used these two and build your custom command line tool chains rapidly.</li>
+<li><strong>knife-plugins</strong>. Knife can be extended using plugins. Its a more formal way of extending knife via sub-commands. The best part of chef is its pure ruby everywhere, so you can pretty much use any rubygem (fog,aws-sdk,openvz) to have any cloud based infrastructure automation tool also. There are ample cases where your configurations are not applied against a server (linux or windows etc). They can be hosted solutions. Like IAM entries inside aws, or ultradns based resource records, pagerduty escalation policies, saleforce settings campfire notifications etc. knife-plugin ecosystem along with the other libraries provide an elegant way to develop such tooling.</li>
+</ol></li>
+</ol>
+<p>Instead of using directly an organization can start automating smaller chunks of work and then refactor them into portable recipe so that a conventions configuration management style infrastrcuture is possible. Chef's philosophy emphasizes on resource as the primary building block and idempotency is a desired criteria. It is desired because there is an implicit assumption of repetetive invocation of chef runs within a system. Once you have get your infrastructure to this level, there are lot magic that can be leveraged from chef , also lot other tool that work on top of chef can be adopted.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<ul>
+<li>Chef is also available as a single monolithic operating system package. Its called <strong>omnibus</strong> installers. They are present for most of the popular os. For instance the linux installer bundles everything on top of glibc. So you have an isolated,battle tested working chef binary that you can introduce to your system without inflicting major drifts.</li>
+</ul>
+<p>This is crucial, as its lets you minimize iterative migrate manual or semi-automated infrastructure under full configuration management. Or if not traditional configuration management, still reproducible and automatic infrastructure. &nbsp;Start with only omnibus installer and then iteratively automate the most repetitive and &nbsp;time consuming tasks. Whatever it is.</p>
+<ul>
+<li>Once you have adopted chef significantly you'll realize the volume of chef-scripts is large. This is by product of treating &nbsp;large infrastructure as code. Code needs maintenance. And the maintenance can be easy if appropriate software development practices are applied. Having tests, keeping your chef scipts under a CI adds tremendous value. But the entire paradigm depends upon how easy to write tests against chef script. Last one year has seen tremendous efforts on this aspect. Now we have decently effective unit testing , functional testing and integration testing frameworks (<strong>chefspec,cucumber-chef,minitest-handler</strong> are examples respectively). Chef allows you to treat infrastructure as any other functional domain , like mobile or banking or health care. Any developers can work with domain experts to develop neat chef scripts (an operations guy is an example of domain expert).</li>
+</ul>
+<p>&nbsp;Together these things makes it much easier for an enterprise to iteratively improve and evolve its infrastructure to accommodate newer innovations(like cloud adoption, automatic failovers, disposable servers) with greater agility using chef....</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 
 </div>
