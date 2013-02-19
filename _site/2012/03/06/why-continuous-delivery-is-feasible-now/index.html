@@ -10,9 +10,9 @@
   <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <header>
-      <h1><a href="/">Why continuous delivery is feasible now?</a></h1>
-    </header>
+    <div class=row>
+      <div class="span9 offset3"><h1><a href="/">Counting bytes and measuring latencies</a></h1></div>
+     </div>
       <div class="row">
           <div class="span3">
             <ul>
@@ -80,27 +80,78 @@
             </ul>
           </div>
           <div class="span9">
-            <p>&nbsp;I had joined thoughtworks as a sysad and only recently, i have started working as consultant for our client projects. Now, as i work with different offshore development teams across projects i actually get to experience &nbsp;XP practices. Few days back i was discussing with chai (a veteran thoughtworker) on agile software development and its history. I was aware of most of the tenets of agile software development and its implementations like XP , scrum etc; But chai gave me a different perspective. He was explaining me about the timing when agile software development was triggered. Though the pain it addresses was not new, still the the movement or change took place at certain time frame. His explanation was around 4 points , &nbsp;</p>
+            <div>
+  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
+
+  <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
+<ul>
+<li><span style="font-size: small;">Testability of the recipe.</span></li>
+<li><span style="font-size: small;">Ease with which one can spot the environment specific differences</span></li>
+</ul>
+<p><span style="font-size: small;">The techniques:</span></p>
 <ol>
-<li>Moore's law (cheap hardware helped us focus on maintainable code than performant one)</li>
-<li>Why learnings from Large civil engineering prjects are not directly applicable to software projects (Failure in detailed planning or architecture of large softwares, &nbsp;as software is not governed by law of physics, which are well defined)</li>
-<li>OOPSLA&nbsp;</li>
-<li>A graph on `Cost of change` vs time i.e. what will it cost to introduce a code change vs as time progress in a software project. It grows exponentially.</li>
+<li><span style="font-size: small;"><strong>Conditionals:</strong>&nbsp;</span> <span style="font-size: small;">Use raw if else conditions two apply different resources in different environments. If you are sure that the difference will be only limited to certain minute details I start employing raw conditional &nbsp;statements like this:</span>
+<div class="CodeRay">
+  <div class="code"><pre>if node.chef_environment == 'development' do
+  #
+  # do not configure basic auth
+  #
+else
+  #
+  #  configure basic auth
+  #
+end</pre></div>
+</div>
+
+What is important is that we should also writ equivalent unit tests for such scenarios. </li>
+<li><span style="font-size: small;"><strong>Attributes: </strong>Use attributes to model the differences </span> <span style="font-size: small;">&nbsp;In chef attributes can be overridden on per environment basis. This provides an elegant way to implement environment specific changes. In following example version of ruby &nbsp;needs to be different in two environment.</span>
+<div class="CodeRay">
+  <div class="code"><pre># the default attribute looks like
+default[:ruby][:version] = '1.8.7' 
+
+#
+# the resource inside ruby recipe might use it like this
+#
+ruby_version= 'ruby-'+ node[:ruby][:version]
+
+execute &quot;download_ruby&quot; do 
+  cwd &quot;/opt&quot;
+  command &quot;wget -c http://someurl/#{ruby_version}.tgz&quot;
+end
+
+#
+#</pre></div>
+</div>
+
+Then this can be overridden in all servers within staging environment with this
+<div class="CodeRay">
+  <div class="code"><pre>name &quot;staging&quot;
+override_attributes(&quot;ruby&quot;=&gt;{&quot;version&quot;=&gt;'1.9.3'})</pre></div>
+</div>
+
+</li>
+<li><span style="font-size: small;"><strong>Environment specific chef recipes/components: </strong>Use environment specific recipes and other components on the fly </span> <span style="font-size: small;">If the amount of differences is large enough involving multiple resources and significant configuration differences within a single file you can use the environment name itself to dynamically load an environment specific template or &nbsp;environment specific sub recipe. For example the deploy recipe invokes data base backup as well as load balancer rotation (the instance should be out of load balancer during the deployment) tasks only in production not in any other environments. For this we can have a dedicated recipe name deploy::production . On the other hand the main deploy recipe &nbsp;uses something like this</span>
+<div class="CodeRay">
+  <div class="code"><pre>pre_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_pre_deployment&quot;
+include_recipe sub_recipe
+#
+# Perform deployment
+#
+post_deployment_sub_recipe = &quot;deploy::#{node.chef_environment}_post_deployment&quot;</pre></div>
+</div>
+
+You can use similar strategies to include environment specific configurations also. e.g
+<div class="CodeRay">
+  <div class="code"><pre>template &quot;/etc/nginx/nginx.conf&quot; do
+  source &quot;nginx.&quot; + node.chef_environment + &quot;conf.erb&quot;
+end</pre></div>
+</div>
+
+This one will pick up nginx.staging.conf.erb as template in staging environment's nginx configuration while nginx.production.conf.erb in production environments. This does impose a problem that every environment now should have a corresponding sub recipe or template. But again you can further scope this using one of the earlier two technique. In this case also , it is possible to do a file glob and pick up the environment specific differences. </li>
 </ol>
-<p>This discussion made me think why we are talking on continous delivery so much now? Time to retrospect why 2 years early we were not making so much buzz around this?</p>
-<p>&nbsp;</p>
-<p>I have worked on various CI tools, and observed a variety of techniques and strategy that can used to ensure the code quality at any given time. Since a long time it was known that the final bottleneck remained in deployments, and this becomes more evident as the sotware becomes more enterprise class and develops more integration points. But only recently we have been able to extend the CI till deployment. Why ?</p>
-<ol>
-<li>Maturity in infrastructure management tools: Be it monitoring solutions or configration management system, all infrastructure managemenet tool chains have matured significantly to capture the infrastructure context. And to easily integrate with each other.&nbsp;</li>
-<li>Rise of cloud. With the rise of cloud even server provisioning can be trigger programmatically. This helped us join the last dot, i.e. scaling up or down on demand. Having an elastic infrastructure.</li>
-<li>Infrastructure as a code: A matured infrastructure toolchain along with a cloud lets you express your infrastructure as code. Hence you can use standard CI or other tooling to test it in a sandbox environment, just like your application code. These also gives you the ability to recreate your infrastructure at will.</li>
-<li>The devops movement: &nbsp;If you can code, that does not mean you can develop a software solution, &nbsp;you need to understand the functional domain. Similarly you cant really exploit all the infrastructure tooling unless you understand the infrastructure bit itself. DevOps is a movement that encourages breaking the silos of operation and development team, to foster cross collaboration for better software development. There are a lot of debate happening around whether it is a culture or whether it should be used a job title or not etc etc, but at least to me its a movement that helped me connect to like minded people, relevant web contents and &nbsp;awesome tools. &nbsp;</li>
-</ol>
-<p>As far as i can think of, these are few critical points that makes CD or continuous delivery feasible now. Obvisously these observations are totally based on my experiences, and there are cases where complementary factors other than this, &nbsp;helped organizations enable CD.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 
+</div>
 
           </div>
       </div>

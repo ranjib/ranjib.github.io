@@ -4,15 +4,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="author" content="Your Name" />
-    <title>Counting bytes and measuring latencies</title>
+    <title></title>
   <link rel="stylesheet" href="/css/bootstrap.css" />
   </head>
   <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <header>
-      <h1><a href="/">Counting bytes and measuring latencies</a></h1>
-    </header>
+    <div class=row>
+      <div class="span9 offset3"><h1><a href="/">Counting bytes and measuring latencies</a></h1></div>
+     </div>
       <div class="row">
           <div class="span3">
             <ul>
@@ -80,8 +80,9 @@
             </ul>
           </div>
           <div class="span9">
-            <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
-<div>
+            <div>
+  <h3> Chef Pattern 1 :: Modeling environment specific differences </h3>
+
   <p><span style="font-size: small;">At work we have notion of multiple environments. Dev &nbsp;(used by the developers), Staging(used for showcasing stories) , QA/Testing (used by qas) and Production (caters to end user). At time Pre-production environment &nbsp;is also present to simulate production like scenarios. Though we fight hard to minimize the differences between these environments , they do exists and it is necessary to measure them, which in turn can provide us some automated mechanism to easily spot environment specific difference. And in this write up I'll be writing some of the techniques I'm using to model them. There are two generic goal or aim for this techniques:</span></p>
 <ul>
 <li><span style="font-size: small;">Testability of the recipe.</span></li>
