@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Your Name" />
+    <title>Monitoring?</title>
+  <link rel="stylesheet" href="/css/bootstrap.css" />
+  </head>
+  <body>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <header>
+      <h1><a href="/">Monitoring?</a></h1>
+    </header>
+      <div class="row">
+          <div class="span3">
+            <ul>
+              
+              <li>
+                <a href="/2012/09/02/chef-pattern-1-modeling-environment-specific">Chef Pattern 1 :: Modeling environment specific differences</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/16/generic-linux-system-debugging">Generic linux system debugging</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/evolving-enterprise-infrastructure-using-chef">Evolving enterprise infrastructure using Chef</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/aws-vpc-networking-for-beginners">AWS -VPC Networking for beginners</a>
+              </li>
+              
+              <li>
+                <a href="/2012/06/04/units-of-elasticity-thinking-beyond-autoscali">Units of elasticity, thinking beyond autoscaling </a>
+              </li>
+              
+              <li>
+                <a href="/2012/05/23/evolution-in-the-configuration-management-sys">Evolution in the configuration management systems arena and alternate workflows</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/15/chef-maintaining-the-shape">Chef:: Maintaining the shape</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/03/infrastructure-tooling-anti-patterns-accumula">Infrastructure tooling anti-patterns : Accumulator</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/12/infrastructure-elasticity">Infrastructure elasticity</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/06/why-continuous-delivery-is-feasible-now">Why continuous delivery is feasible now?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/04/monitoring">Monitoring?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/learning-from-agile-india-2012-conference">Learning from Agile India 2012 conference</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/infrastructure-tooling-patterns">Infrastructure tooling patterns</a>
+              </li>
+              
+              <li>
+                <a href="/2012/01/09/consuming-chef-api-from-any-script">Consuming chef api from any script  -  part 1</a>
+              </li>
+              
+              <li>
+                <a href="/2011/10/24/have-money-baby-will-farm">Have money? Baby will farm.</a>
+              </li>
+              
+            </ul>
+          </div>
+          <div class="span9">
+            <p>On monitoring:</p>
+<p>when you manage and develop both infrastructure , u'll experience tests or monitoring solution, which ensures the quality of your end product (code or infrastructure). Like for code quality , you can have unit tests, functional tests, integration tests etc, similarly you might have system monitoring, dependancy monnitoring , application monitoring , BAM , CEP etc etc. In this post i'll narrate few of them</p>
+<ol>
+<li>System monitoring : Like cpu load, free memory (RAM), disk space etc. SNMP based hardware monitoring &nbsp;etc</li>
+<li>Dependency monitoring : Like web server process, there states , %cpu consumption, rss etc.</li>
+<li>Integration : all third party or other integration points are available or not.</li>
+<li>BAM: Business activity monitoring. Define, KPI &nbsp;or key performance indicators, which will in turn define the state of your business (quantitatively) . Like sucessful transactions per day or month, etc.&nbsp;</li>
+<li>Process instrumentation or tracing : kprobes, system tap etc &nbsp;or othet tracing like methodologies like dtrace, which lets you monitor at individual method level etc. These are predoominantly use for language or other interpreter optimizations.</li>
+<li>Complex event processing : Though not directly related, some of these monitoring can or should use some form of complex event processing &nbsp;to deduce meaningful information. This is only important (or even significant) if the volume of &nbsp;data is large.</li>
+</ol>
+<p>&nbsp;</p>
+<p>Depending upon your problem you should employ one of more of these solutions. Theres opensource solutions/tooling available for all of them. BAM is kinda tricky, not BAM in itself, but defining the KPI part is bit trippy.</p>
+
+
+          </div>
+      </div>
+  </body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Your Name" />
+    <title>Units of elasticity, thinking beyond autoscaling </title>
+  <link rel="stylesheet" href="/css/bootstrap.css" />
+  </head>
+  <body>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <header>
+      <h1><a href="/">Units of elasticity, thinking beyond autoscaling </a></h1>
+    </header>
+      <div class="row">
+          <div class="span3">
+            <ul>
+              
+              <li>
+                <a href="/2012/09/02/chef-pattern-1-modeling-environment-specific">Chef Pattern 1 :: Modeling environment specific differences</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/16/generic-linux-system-debugging">Generic linux system debugging</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/evolving-enterprise-infrastructure-using-chef">Evolving enterprise infrastructure using Chef</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/aws-vpc-networking-for-beginners">AWS -VPC Networking for beginners</a>
+              </li>
+              
+              <li>
+                <a href="/2012/06/04/units-of-elasticity-thinking-beyond-autoscali">Units of elasticity, thinking beyond autoscaling </a>
+              </li>
+              
+              <li>
+                <a href="/2012/05/23/evolution-in-the-configuration-management-sys">Evolution in the configuration management systems arena and alternate workflows</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/15/chef-maintaining-the-shape">Chef:: Maintaining the shape</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/03/infrastructure-tooling-anti-patterns-accumula">Infrastructure tooling anti-patterns : Accumulator</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/12/infrastructure-elasticity">Infrastructure elasticity</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/06/why-continuous-delivery-is-feasible-now">Why continuous delivery is feasible now?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/04/monitoring">Monitoring?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/learning-from-agile-india-2012-conference">Learning from Agile India 2012 conference</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/infrastructure-tooling-patterns">Infrastructure tooling patterns</a>
+              </li>
+              
+              <li>
+                <a href="/2012/01/09/consuming-chef-api-from-any-script">Consuming chef api from any script  -  part 1</a>
+              </li>
+              
+              <li>
+                <a href="/2011/10/24/have-money-baby-will-farm">Have money? Baby will farm.</a>
+              </li>
+              
+            </ul>
+          </div>
+          <div class="span9">
+            <p>Most of the infrastructure elasticity related resources cite autoscaling as an example. While this is good to begin with, sometime i fin folks think of individual node or server as the basic unit of infrastructure elasticity, which can be increased or decreased to address scaling issues or better resource usage. But this is not true. Depending upon the technology you use, you can actually control resources at even lower level. You can control the memory, cpu usage, number of processes and many other kernel parameter in openvz or lxc. In lxc world its done via cgroups (a recent feature in kernel) while in openvz world you do it using user bean counters. You can change these paramteres without a a system restart. In host machines its done via sysctl.</p>
+<p>What it means that you can actually profile your app &nbsp;in staging environments against certain stress as the CI goes on, without any dedicated performance testing step; and then feedback it in the IaaS solution to determine the apropriate values for those parameters, and use some pessimistic settings as upper limits. Now, any performance bug (spanning across your app, your webserver or any other component thats deployed in the container) will most likely surface as a leak, and you can catch it, alert it , or might even break the build.</p>
+<p>A more detailed example would be, monitoring number of processes via nagios, and feeding it to graphite (with graphios sitting in between), and then applying a moving average function (using graphite) on the values. After first 10 run you invoke system that will set the total allowed processes to the moving average plus some tolerance values. Now, if the process counts goes above the moving average &nbsp;you'll get alert (like in openvz check for failcount), and then another nagios event handler resets the &nbsp;threshold to another suitable value.</p>
+<p>&nbsp;</p>
+<p>Since, you can do this for memory, openfile descriptors , jvm based system(using jmx and mbean counters) you can actually do preemptive performance testing. From what i have seeen, performance testing is always a last to do thing. Though in principle in preaching we say it should go hand in hand, but business demands the features more than performance unless its a show stopper. But now, that need not be the case. Even if we can inhibit a few of the bugs,, its worth it...&nbsp;</p>
+<p>let the systems emerge</p>
+
+
+          </div>
+      </div>
+  </body>
+</html>
+

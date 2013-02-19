@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Your Name" />
+    <title>Chef:: Maintaining the shape</title>
+  <link rel="stylesheet" href="/css/bootstrap.css" />
+  </head>
+  <body>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <header>
+      <h1><a href="/">Chef:: Maintaining the shape</a></h1>
+    </header>
+      <div class="row">
+          <div class="span3">
+            <ul>
+              
+              <li>
+                <a href="/2012/09/02/chef-pattern-1-modeling-environment-specific">Chef Pattern 1 :: Modeling environment specific differences</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/16/generic-linux-system-debugging">Generic linux system debugging</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/evolving-enterprise-infrastructure-using-chef">Evolving enterprise infrastructure using Chef</a>
+              </li>
+              
+              <li>
+                <a href="/2012/08/14/aws-vpc-networking-for-beginners">AWS -VPC Networking for beginners</a>
+              </li>
+              
+              <li>
+                <a href="/2012/06/04/units-of-elasticity-thinking-beyond-autoscali">Units of elasticity, thinking beyond autoscaling </a>
+              </li>
+              
+              <li>
+                <a href="/2012/05/23/evolution-in-the-configuration-management-sys">Evolution in the configuration management systems arena and alternate workflows</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/15/chef-maintaining-the-shape">Chef:: Maintaining the shape</a>
+              </li>
+              
+              <li>
+                <a href="/2012/04/03/infrastructure-tooling-anti-patterns-accumula">Infrastructure tooling anti-patterns : Accumulator</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/12/infrastructure-elasticity">Infrastructure elasticity</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/06/why-continuous-delivery-is-feasible-now">Why continuous delivery is feasible now?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/03/04/monitoring">Monitoring?</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/learning-from-agile-india-2012-conference">Learning from Agile India 2012 conference</a>
+              </li>
+              
+              <li>
+                <a href="/2012/02/24/infrastructure-tooling-patterns">Infrastructure tooling patterns</a>
+              </li>
+              
+              <li>
+                <a href="/2012/01/09/consuming-chef-api-from-any-script">Consuming chef api from any script  -  part 1</a>
+              </li>
+              
+              <li>
+                <a href="/2011/10/24/have-money-baby-will-farm">Have money? Baby will farm.</a>
+              </li>
+              
+            </ul>
+          </div>
+          <div class="span9">
+            <p>Following are the things Im trying out to keep my chef code bases( and the infrastructure they control ) in shape:</p>
+<ol>
+<li>Lint stuffs: Syntax checking (rb,irb, conf files etc), style checks, some best practices check (like chek for chef solo), mostly using foodcritic wrapped in rake running it under Go (this setup was done by nikhil initally)</li>
+<li>Check for cotext level best practices (check for defined environments, nodes with empty runlist, number of updated resources after two consecutive runs [to check idempotency], direct asignment of recipes[always via role] etc) using rspec/chef api and rake. This is more like integration test.</li>
+<li>Infrastructure test: triggering nrpe based tests or minitest report handlers to acknowledge the service provisioning has taken &nbsp;place correctly.</li>
+<li>Versioning cookbooks, version freezing cookbooks per environment and above all enforcing conventions like (app_project_environment) . Rest of the checks does the tooling by exploiting these conventions. Anything which does not adhere to these, bound to becom a work of art.</li>
+<li>Measuring most of the stuff using defined states and quantifiiable metrics (if possible), and then graph it(nagios/nrpe and graphite)</li>
+<li>Having a common understanding of what goes where (definition? library? lwrp? mulitple recipes?) inside a chef code base.</li>
+<li>And now in the process of setting up a CI server to test the whole community+our own cookbooks against ubuntu/centos containers using openvz against our own build pipelines.</li>
+</ol>
+<p>I know loads of folks are doing lot of interesting things in this space. Specially if you are building SaaS / PaaS , you are bound to hit the volume of chef/puppet/cfengine scripts that will need its own CI.</p>
+
+
+          </div>
+      </div>
+  </body>
+</html>
+
