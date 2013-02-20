@@ -4,6 +4,17 @@ auto: true
 server: true
 future: true
 baseurl: /
-markdown: rdiscount
+markdown: kramdown
 permalink: /:year/:month/:day/:title
-rdiscount extensions: [smart]
+rdiscount:
+  extensions: [smart]
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: true
+  
+  coderay:
+    coderay_line_numbers: ''
