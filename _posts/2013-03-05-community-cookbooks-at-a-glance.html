@@ -28,7 +28,7 @@ categories: [chef stats visualization]
 
   document.onLoad =
       $(function() {
-          $.getJSON('/js/summary_05-Mar-18-2013.json', function(data){
+          $.getJSON('/js/summary_06-Mar-15-2013.json', function(data){
           c_data=data;
           $('#total_cookbooks').html(c_data.total_number_of_cookbooks);
           $('#total_number_of_cookbooks').html(c_data.total_number_of_cookbooks);
@@ -99,6 +99,9 @@ categories: [chef stats visualization]
           month_stats=[{label:'created',data: created_12_months},{ label:'updated', data: updated_12_months } ]
           $.plot('#week_stats', week_stats);
           $.plot('#month_stats', month_stats);
+          $.plot('#chef_user_mailing_list',c_data.user_mailing_list_stats);
+          $.plot('#chef_dev_mailing_list',c_data.dev_mailing_list_stats);
+
           })
 
     });
@@ -169,6 +172,17 @@ categories: [chef stats visualization]
     (from 0 to 5 with 5 being best).</p>
   </div>
   <div class='span9'><div id="ratings" style="height:400px;"></div> </div>
+</div>
+<div class="row">
+  <div class='span9'>
+    <h2 class="points">Mailing list activities </h2>
+    <p class="points">Chef has two mailing lists, an user mailing list and a developer mailing list, following is the trend in number of emails over 
+    the years in these two mailing lists on month by month basic</p>
+  </div>
+  <h3 class="points">User mailing list </h3>
+  <div class='span9'><div id="chef_user_mailing_list" style="height:400px;"></div> </div>
+  <h3 class="points">Dev mailing list </h3>
+  <div class='span9'><div id="chef_dev_mailing_list" style="height:400px;"></div> </div>
 </div>
 
 <div class="row">
