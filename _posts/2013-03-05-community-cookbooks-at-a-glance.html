@@ -101,9 +101,8 @@ categories: [chef stats visualization]
           $.plot('#month_stats', month_stats);
           $.plot('#chef_user_mailing_list',c_data.user_mailing_list_stats);
           $.plot('#chef_dev_mailing_list',c_data.dev_mailing_list_stats);
-          $.plot('#irc_60_days',c_data.irc.past_days);
-          $.plot('#irc_top_20',c_data.irc.top_nicks);
-
+          $.plot('#irc_60_days',c_data.irc.past_days, {series: { bars: { show: true }}});
+          $.plot('#irc_top_20',c_data.irc.top_nicks, {series: { bars: { show: true }}});
           })
 
     });
@@ -196,7 +195,7 @@ categories: [chef stats visualization]
   <h3 class="points">Message count in #chef per day (for last 60 days) </h3>
   <div class='span9'><div id="irc_60_days" style="height:400px;"></div> </div>
   <h3 class="points">Top 20 contributors in #chef (since 01-01-2012) </h3>
-  <div class='span9'><div id="irc_top_20" style="height:400px;"></div> </div>
+  <div class='span9'><div id="irc_top_20" style="height:700px;"></div> </div>
 </div>
 
 <div class="row">

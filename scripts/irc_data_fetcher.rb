@@ -37,7 +37,7 @@ class IRCDataFetcher
    last_days.times do |d|
     date = Time.now - d.day
     total_messges = data[date.year][date.month][date.day].inject(0){|m,n|m + n[1]}
-    summary[:past_days].first[:data] << [d, total_messges]
+    summary[:past_days].first[:data] << [ (60 - d), total_messges]
    end
    summary
   end
