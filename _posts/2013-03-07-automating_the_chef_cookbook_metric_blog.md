@@ -1,8 +1,9 @@
 ---
-kind: article
+layout: post
 title: Automating the chef cookbook metric blog
 created_at: 2013-03-07T05:14:51-08:00 #_
 tags: [Chef Automation]
+published: true
 ---
 
 Day before yested day after I published the Chef community cookbook related [metrics](http://ranjib.com/2013/03/05/community-cookbooks-at-a-glance/), I got this
