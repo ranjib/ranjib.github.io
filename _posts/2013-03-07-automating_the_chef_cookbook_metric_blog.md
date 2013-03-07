@@ -6,8 +6,8 @@ tags: [Chef Automation]
 published: true
 ---
 
-Day before yested day after I published the Chef community cookbook related [metrics](http://ranjib.com/2013/03/05/community-cookbooks-at-a-glance/), I got this
-request to share the scripts that i have used to generate those metrics. So, here in this blog I'll try to enumerate the scripts and the workflow I practiced.
+Day before yesterday after I published the Chef community cookbook related [metrics](http://ranjib.com/2013/03/05/community-cookbooks-at-a-glance/), I got this
+request to share the scripts that i have used to generate those metrics. So, here in this blog I'll try to enumerate the scripts and the workflow I used.
 
 Broadly the workflow consist of these steps:
 
@@ -21,11 +21,12 @@ Grabbing the data
 ====
 This is done in two stages. In  the first stage I grab all the [metadata](https://github.com/ranjib/ranjib.github.com/blob/master/scripts/cookbook_data_fetcher.rb#L26)
 (i.e. list of cookbooks) by hitting the /cookbooks end point. 
-In the second stage I use the metadata to grab all the [cookbooks](https://github.com/ranjib/ranjib.github.com/blob/master/scripts/cookbook_data_fetcher.rb#L46) individually. 
+In the second stage I use the metadata to grab all the [cookbooks](https://github.com/ranjib/ranjib.github.com/blob/master/scripts/cookbook_data_fetcher.rb#L46) individually, 
+using the /cookbooks/NAME endpoint. 
 Given each of these tasks are essentially http calls,
 they are time consuming. I have tried to optimize this using classic [Thread Pools](https://github.com/ranjib/ranjib.github.com/blob/master/scripts/thread_pool.rb). 
 Currently these scripts run on MRI. Though MRI does not
-provide native threads, they are pretty effective in such situations (blocking calls are due to netwokrk IO). I used a sligtly different 
+provide native threads, they are pretty effective in such situations (blocking calls are due to network IO). I used a sligtly different 
 [thread pool implementation]( https://github.com/ranjib/ranjib.github.com/blob/master/scripts/mail_stats.rb) for grabbing the mailing list stats. For mailing lists, these
 thread fetches the html pages, and a [nokogir](https://github.com/ranjib/ranjib.github.com/blob/master/scripts/mail_stats.rb#L30) selector along with some regex foo generated the
 metric
@@ -41,7 +42,7 @@ are shown as pie chart, because I was interested in their relative proportion, n
 Chef will blog next time
 ====
 I have also written a [chef-recipe](https://github.com/ranjib/ranjib.github.com/blob/master/shots/chef_metrics.rb) which I am running using 
-chef-apply for now (hope fully via cron in future) . This recipe automatically runs the scripts, does the git add , git commit &  git push. 
+chef-apply for now (hopefully I'll run it using cron in future) . This recipe automatically runs the scripts, does the git add , git commit &  git push. 
 If you are not aware, chef-apply
 is a newly introduced tool in chef 11 that can execute arbitrary recipes. I feel it has profound implication, because now you can get all the portability, error handling,
 power of ruby and other goodness of ruby without adhereing to a specify-converge -idempotency paradigm. As a sysad and developer I perform many task that can be reused but not periodic 
@@ -57,7 +58,8 @@ to change the scripts so that they store pre computed stats for older data, righ
 Still the entire chef-apply takes around a minute. 
 
 Like most of my works, when I started to capture those metrics I had many ideas, but as I started working on it, i got totally diverged in to ruby frameworks for
-distributed systems ... So in case you got bored of this post..here is something more [interesting](http://www.slideshare.net/hungryblank/distributed-and-concurrent-programming-with-rabbitmq-and-eventmachine-rails-underground-2009)
+distributed systems (can't recall exactly why and how) ... So in case you got bored of this post..here 
+is something more [interesting](http://www.slideshare.net/hungryblank/distributed-and-concurrent-programming-with-rabbitmq-and-eventmachine-rails-underground-2009)
 
 
 
