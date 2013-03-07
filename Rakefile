@@ -33,8 +33,8 @@ namespace "post" do
   desc "Given a title as an argument, create a new post file"
   task :new, [:title] do |t, args|
     now = DateTime::now()
-    filename = "#{now.strftime '%Y-%m-%d'}-#{args.title.gsub(/[\s\W]/, '_').downcase}.markdown"
-    path = File.join("content", "blog", filename)
+    filename = "#{now.strftime '%Y-%m-%d'}-#{args.title.gsub(/[\s\W]/, '_').downcase}.md"
+    path = File.join("_posts", filename)
     if File.exist? path; raise RuntimeError.new("Won't clobber #{path}"); end
     File.open(path, 'w') do |file|
       file.write <<-EOS
