@@ -101,6 +101,8 @@ categories: [chef stats visualization]
           $.plot('#month_stats', month_stats);
           $.plot('#chef_user_mailing_list',c_data.user_mailing_list_stats);
           $.plot('#chef_dev_mailing_list',c_data.dev_mailing_list_stats);
+          $.plot('#irc_60_days',c_data.irc.past_days);
+          $.plot('#irc_top_20',c_data.irc.top_nicks);
 
           })
 
@@ -183,6 +185,18 @@ categories: [chef stats visualization]
   <div class='span9'><div id="chef_user_mailing_list" style="height:400px;"></div> </div>
   <h3 class="points">Dev mailing list </h3>
   <div class='span9'><div id="chef_dev_mailing_list" style="height:400px;"></div> </div>
+</div>
+
+<div class="row">
+  <div class='span9'>
+    <h2 class="points">#chef IRC channel stats </h2>
+    <p class="points">Chef has two multiple IRC channel aimed for different type of discussions. #chef is used for generic discussion,
+    while #chef-hacking is used for development related discussions and #learnchef for introductory level discussions.</p>
+  </div>
+  <h3 class="points">Message count in #chef per day (for last 60 days) </h3>
+  <div class='span9'><div id="irc_60_days" style="height:400px;"></div> </div>
+  <h3 class="points">Top 20 contributors in #chef (since 01-01-2012) </h3>
+  <div class='span9'><div id="irc_top_20" style="height:400px;"></div> </div>
 </div>
 
 <div class="row">

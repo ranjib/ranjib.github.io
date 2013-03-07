@@ -7,6 +7,7 @@ $:<< File.expand_path(File.dirname(__FILE__))
 
 require 'mail_stats'
 require 'cookbook_data_fetcher'
+require 'irc_data_fetcher'
 
 class Stats
 
@@ -27,6 +28,9 @@ class Stats
     @summary[:total_number_of_cookbooks_week] = 0
     @summary[:total_number_of_cookbooks_month] = 0
     @summary[:total_number_of_cookbooks_year] = 0
+
+    @summary[:irc] = IRCDataFetcher.summary
+
     cookbook_ratings = []
     updated_dates = []
     created_dates = []
