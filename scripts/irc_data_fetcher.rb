@@ -32,12 +32,12 @@ class IRCDataFetcher
       summary[:top_nicks] << {:label=>top_nicks[t][0], :data=>series}
     end
 
-   last_days = 60
+   last_days = 180
 
    last_days.times do |d|
     date = Time.now - d.day
     total_messges = data[date.year][date.month][date.day].inject(0){|m,n|m + n[1]}
-    summary[:past_days].first[:data] << [ (60 - d), total_messges]
+    summary[:past_days].first[:data] << [ (last_days - d), total_messges]
    end
    summary
   end

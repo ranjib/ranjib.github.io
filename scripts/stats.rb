@@ -83,12 +83,12 @@ class Stats
     @summary[:top_10_maintainers]=@stats[:maintainers].sort{|m,n|  n[1]<=>m[1] }[0..9]
 
     @summary[:cookbook_ratings] = hist(cookbook_ratings,[0,1,2,3,4,5])
-    last_12_months_range = (0..12).collect{|n| Time.now - n.month}.reverse 
-    last_12_weeks_range = (0..12).collect{|n| Time.now - n.week}.reverse 
-    @summary[:last_12_months_updated_cookbooks] = hist(updated_dates, last_12_months_range)
-    @summary[:last_12_months_created_cookbooks]= hist(created_dates, last_12_months_range)
-    @summary[:last_12_weeks_updated_cookbooks]= hist(updated_dates, last_12_weeks_range)
-    @summary[:last_12_weeks_created_cookbooks]= hist(created_dates, last_12_weeks_range)
+    last_30_months_range = (0..30).collect{|n| Time.now - n.month}.reverse 
+    last_60_weeks_range = (0..60).collect{|n| Time.now - n.week}.reverse 
+    @summary[:last_30_months_updated_cookbooks] = hist(updated_dates, last_30_months_range)
+    @summary[:last_30_months_created_cookbooks]= hist(created_dates, last_30_months_range)
+    @summary[:last_60_weeks_updated_cookbooks]= hist(updated_dates, last_60_weeks_range)
+    @summary[:last_60_weeks_created_cookbooks]= hist(created_dates, last_60_weeks_range)
 
     user_mail_stats = MailStats.new('http://lists.opscode.com/sympa/arc/chef').run
     dev_mail_stats = MailStats.new('http://lists.opscode.com/sympa/arc/chef-dev').run

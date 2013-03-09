@@ -39,7 +39,7 @@ namespace "post" do
     File.open(path, 'w') do |file|
       file.write <<-EOS
 ---
-kind: article
+layout: post
 title: #{args.title}
 created_at: #{now.rfc3339} #_
 tags: []

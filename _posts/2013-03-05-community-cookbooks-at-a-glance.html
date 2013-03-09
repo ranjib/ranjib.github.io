@@ -71,37 +71,37 @@ categories: [chef stats visualization]
             series: { pie: { show: true }}
             });
 
-          var updated_12_months= []
-          for(var i in c_data.last_12_months_updated_cookbooks){
-            var value = c_data.last_12_months_updated_cookbooks[i]
-            updated_12_months.push([parseInt(i) + 1,value])
+          var updated_30_months= []
+          for(var i in c_data.last_30_months_updated_cookbooks){
+            var value = c_data.last_30_months_updated_cookbooks[i]
+            updated_30_months.push([parseInt(i) + 1,value])
             }  
 
-          var updated_12_weeks= []
-          for(var i in c_data.last_12_weeks_updated_cookbooks){
-            var value = c_data.last_12_weeks_updated_cookbooks[i]
-            updated_12_weeks.push([parseInt(i)+1,value])
+          var updated_60_weeks= []
+          for(var i in c_data.last_60_weeks_updated_cookbooks){
+            var value = c_data.last_60_weeks_updated_cookbooks[i]
+            updated_60_weeks.push([parseInt(i)+1,value])
             }  
 
-          var created_12_months= []
-          for(var i in c_data.last_12_months_created_cookbooks){
-            var value = c_data.last_12_months_created_cookbooks[i]
-            created_12_months.push([parseInt(i)+1,value])
+          var created_30_months= []
+          for(var i in c_data.last_30_months_created_cookbooks){
+            var value = c_data.last_30_months_created_cookbooks[i]
+            created_30_months.push([parseInt(i)+1,value])
             }  
 
-          var created_12_weeks= []
-          for(var i in c_data.last_12_weeks_created_cookbooks){
-            var value = c_data.last_12_weeks_created_cookbooks[i]
-            created_12_weeks.push([parseInt(i)+1,value])
+          var created_60_weeks= []
+          for(var i in c_data.last_60_weeks_created_cookbooks){
+            var value = c_data.last_60_weeks_created_cookbooks[i]
+            created_60_weeks.push([parseInt(i)+1,value])
             }  
             
-          week_stats=[{label:'created',data:created_12_weeks},{ label:'updated', data:updated_12_weeks} ]
-          month_stats=[{label:'created',data: created_12_months},{ label:'updated', data: updated_12_months } ]
+          week_stats=[{label:'created',data:created_60_weeks},{ label:'updated', data:updated_60_weeks} ]
+          month_stats=[{label:'created',data: created_30_months},{ label:'updated', data: updated_30_months } ]
           $.plot('#week_stats', week_stats);
           $.plot('#month_stats', month_stats);
           $.plot('#chef_user_mailing_list',c_data.user_mailing_list_stats);
           $.plot('#chef_dev_mailing_list',c_data.dev_mailing_list_stats);
-          $.plot('#irc_60_days',c_data.irc.past_days, {series: { bars: { show: true }}});
+          $.plot('#irc_180_days',c_data.irc.past_days, {series: { bars: { show: true }}});
           $.plot('#irc_top_20',c_data.irc.top_nicks, {series: { bars: { show: true }}});
           })
 
@@ -144,9 +144,9 @@ categories: [chef stats visualization]
   <div class='span9'><p class='points'>Next two plots capture the number of new cookbooks uploaded or existing cookbooks updated (i.e. version bumps) over time.
   Note the recent bump in updated cookbooks which is due to chef 11 release, that has introduced some breaking changes, and quite a few cookbooks
   needed changes.</p></div>
-  <div class="span9"><h3 class="points">Last 12 weeks trend</h3></div>
+  <div class="span9"><h3 class="points">Last 60 weeks trend</h3></div>
   <div class="span9"><div id='week_stats' style="height:300px;"></div></div>
-  <div class="span9"><h3 class='points'>Last 12 months trend</h3></div>
+  <div class="span9"><h3 class='points'>Last 30 months trend</h3></div>
   <div class="span9"><div id='month_stats' style="height:300px;"></div></div>
 </div>
 <div class='row'>
@@ -192,8 +192,8 @@ categories: [chef stats visualization]
     <p class="points">Chef has two multiple IRC channel aimed for different type of discussions. #chef is used for generic discussion,
     while #chef-hacking is used for development related discussions and #learnchef for introductory level discussions.</p>
   </div>
-  <h3 class="points">Message count in #chef per day (for last 60 days) </h3>
-  <div class='span9'><div id="irc_60_days" style="height:400px;"></div> </div>
+  <h3 class="points">Message count in #chef per day (for last 180 days) </h3>
+  <div class='span9'><div id="irc_180_days" style="height:400px;"></div> </div>
   <h3 class="points">Top 20 contributors in #chef (since 01-01-2012) </h3>
   <div class='span9'><div id="irc_top_20" style="height:700px;"></div> </div>
 </div>

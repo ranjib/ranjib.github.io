@@ -1,9 +1,9 @@
 {
-  "total_number_of_cookbooks": 833,
+  "total_number_of_cookbooks": 834,
   "total_number_of_cookbooks_with_rating": 237,
-  "total_number_of_cookbooks_week": 4,
+  "total_number_of_cookbooks_week": 5,
   "total_number_of_cookbooks_month": 32,
-  "total_number_of_cookbooks_year": 417,
+  "total_number_of_cookbooks_year": 418,
   "irc": {
     "top_nicks": [
       {
@@ -278,7 +278,7 @@
           ],
           [
             4,
-            6359
+            6368
           ],
           [
             5,
@@ -812,7 +812,7 @@
           ],
           [
             10,
-            2564
+            2565
           ],
           [
             11,
@@ -1079,7 +1079,7 @@
           ],
           [
             13,
-            2233
+            2235
           ],
           [
             14,
@@ -1524,7 +1524,7 @@
           ],
           [
             18,
-            1913
+            1914
           ],
           [
             19,
@@ -1713,7 +1713,7 @@
         "data": [
           [
             60,
-            766
+            988
           ],
           [
             59,
@@ -1955,7 +1955,7 @@
       }
     ]
   },
-  "total_number_of_maintainers": 219,
+  "total_number_of_maintainers": 220,
   "categories": [
     [
       "Process Management",
@@ -1967,7 +1967,7 @@
     ],
     [
       "Package Management",
-      34
+      35
     ],
     [
       "Programming Languages",
@@ -2051,7 +2051,25 @@
     44,
     151
   ],
-  "last_12_months_updated_cookbooks": [
+  "last_30_months_updated_cookbooks": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    4,
+    14,
+    2,
+    13,
+    9,
+    7,
+    12,
+    13,
+    9,
+    10,
+    5,
+    33,
+    7,
     36,
     20,
     32,
@@ -2059,53 +2077,167 @@
     26,
     38,
     37,
-    37,
+    38,
     84,
-    64,
-    152,
-    108
+    77,
+    138,
+    109
   ],
-  "last_12_months_created_cookbooks": [
+  "last_30_months_created_cookbooks": [
+    6,
+    11,
+    11,
+    16,
+    7,
+    13,
+    17,
+    14,
+    11,
+    19,
+    18,
+    19,
+    21,
+    20,
+    33,
+    9,
+    29,
+    13,
     16,
     31,
     41,
-    21,
-    16,
+    22,
+    15,
     42,
     32,
-    32,
-    59,
+    34,
+    57,
     41,
-    54,
+    55,
     32
   ],
-  "last_12_weeks_updated_cookbooks": [
-    21,
+  "last_60_weeks_updated_cookbooks": [
+    0,
+    2,
+    27,
+    3,
+    1,
+    4,
+    1,
+    3,
+    4,
+    27,
+    2,
+    1,
+    1,
+    9,
+    7,
+    1,
+    7,
+    6,
+    8,
+    4,
+    9,
+    2,
+    2,
+    3,
+    9,
+    7,
+    3,
+    4,
+    10,
+    6,
+    4,
+    23,
+    3,
+    5,
+    6,
+    9,
     7,
     10,
-    29,
+    7,
+    4,
+    7,
+    17,
+    12,
+    23,
+    23,
+    18,
+    15,
+    23,
+    21,
+    5,
+    11,
+    28,
     22,
     29,
-    28,
-    49,
-    21,
-    23,
-    45,
-    19
+    29,
+    48,
+    24,
+    31,
+    34,
+    20
   ],
-  "last_12_weeks_created_cookbooks": [
-    9,
+  "last_60_weeks_created_cookbooks": [
+    2,
+    4,
+    15,
+    3,
+    2,
+    3,
+    6,
+    4,
+    5,
+    3,
+    5,
+    1,
+    4,
     11,
+    12,
+    2,
+    6,
+    6,
+    10,
+    14,
+    7,
+    8,
+    3,
+    4,
+    6,
+    3,
+    3,
+    5,
+    5,
+    4,
+    2,
+    26,
+    3,
+    7,
+    6,
+    10,
+    5,
+    8,
+    7,
     9,
     5,
     11,
+    8,
+    15,
+    11,
+    8,
+    20,
+    8,
+    9,
+    12,
+    9,
+    4,
+    11,
     23,
     10,
-    9,
-    6,
     10,
-    12,
-    4
+    8,
+    10,
+    9,
+    5
   ],
   "user_mailing_list_stats": [
     {
@@ -2333,7 +2465,7 @@
         ],
         [
           3,
-          146
+          147
         ]
       ]
     }
@@ -2564,7 +2696,7 @@
         ],
         [
           3,
-          3
+          4
         ]
       ]
     }
