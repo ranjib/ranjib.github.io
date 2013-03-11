@@ -36,6 +36,7 @@ categories: [chef stats visualization]
           $('#cookbook_1_year').html(c_data.total_number_of_cookbooks_year);
           $('#cookbook_1_month').html(c_data.total_number_of_cookbooks_month);
           $('#total_mantainers').html(c_data.total_number_of_maintainers);
+          $('#generated_at').html(c_data.generated_at);
 
 
           for(var i in c_data.categories){
@@ -202,6 +203,6 @@ categories: [chef stats visualization]
   <div class='span9' style='height:30px;'> </div>
 </div>
 <div class="row">
-  <div class="span9"><p class="points"> I am planning to write a follow up post on how I have automated this entire post. Let me know if you have
+  <div class="span9"><p class="points">This data is generated at <span class="metrics big" id='generated_at'></span>. I am planning to write a follow up post on how I have automated this entire post. Let me know if you have
   any suggestions. :-) </p> </div>
 </div>

@@ -94,6 +94,7 @@ class Stats
     dev_mail_stats = MailStats.new('http://lists.opscode.com/sympa/arc/chef-dev').run
     @summary[:user_mailing_list_stats] = user_mail_stats
     @summary[:dev_mailing_list_stats] = dev_mail_stats
+    @summary[:generated_at] = Time.now.to_s
 
     current_dir = File.expand_path(File.dirname(__FILE__))
 
