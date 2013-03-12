@@ -2,17 +2,11 @@ require 'nokogiri'
 require 'restclient'
 
 class IRCInfo
-
-  IRC_LOG_URL = 'http://community.opscode.com/chat/chef'
   
 
-  def initialize(year, month, day)
+  def initialize(url, year, month, day)
     q_string = "#{year}-#{sprintf('%02d',month)}-#{sprintf('%02d',day)}"
-    @url = IRC_LOG_URL + '/' + q_string 
-  end
-
-  def url
-    @url
+    @url = url + '/' + q_string 
   end
 
   def irc_logs
@@ -31,14 +25,11 @@ class IRCInfo
   stats = Hash.new
    nick = nicks.first
    irc_logs.children.each do |c|
-
      t_nick =   c.css('td.nickname').text.strip
      message =  c.css('td.message').text.strip
-
      unless t_nick.empty?
        nick = t_nick
      end
-
      stats[nick] = 0 unless stats.has_key?(nick)
      stats[nick] += 1
    end
@@ -50,6 +41,5 @@ class IRCInfo
     body = RestClient::Request.execute(:method => :get, :url => url, :timeout => 90000000)
     Nokogiri::HTML(body)
   end
-
 end 
 
