@@ -5,9 +5,9 @@ require 'active_support/time'
 
 $:<< File.expand_path(File.dirname(__FILE__))
 
-require 'mail_stats'
 require 'cookbook_data_fetcher'
-require 'irc_data_fetcher'
+require 'irc_stats_service'
+require 'ml_stats_service'
 
 class Stats
 
@@ -28,8 +28,6 @@ class Stats
     @summary[:total_number_of_cookbooks_week] = 0
     @summary[:total_number_of_cookbooks_month] = 0
     @summary[:total_number_of_cookbooks_year] = 0
-
-    @summary[:irc] = IRCDataFetcher.summary
 
     cookbook_ratings = []
     updated_dates = []
@@ -90,13 +88,25 @@ class Stats
     @summary[:last_60_weeks_updated_cookbooks]= hist(updated_dates, last_60_weeks_range)
     @summary[:last_60_weeks_created_cookbooks]= hist(created_dates, last_60_weeks_range)
 
-    user_mail_stats = MailStats.new('http://lists.opscode.com/sympa/arc/chef').run
-    dev_mail_stats = MailStats.new('http://lists.opscode.com/sympa/arc/chef-dev').run
-    @summary[:user_mailing_list_stats] = user_mail_stats
-    @summary[:dev_mailing_list_stats] = dev_mail_stats
-    @summary[:generated_at] = Time.now.to_s
 
     current_dir = File.expand_path(File.dirname(__FILE__))
+
+    is = IRCStatsService.new('user','http://community.opscode.com/chat/chef',"#{current_dir}/../data/irc")
+    is.all_stats
+    is.flush_cache
+    @summary[:irc] = is.summary
+
+    m1 = MLStatsService.new('dev','http://lists.opscode.com/sympa/arc/chef',"#{current_dir}/../data/ml")
+    m1.all_stats
+    m1.flush_cache
+    @summary[:user_mailing_list_stats] = m1.flot_data
+
+    m2 = MLStatsService.new('dev','http://lists.opscode.com/sympa/arc/chef-dev',"#{current_dir}/../data/ml")
+    m2.all_stats
+    m2.flush_cache
+    @summary[:dev_mailing_list_stats] = m2.flot_data
+
+    @summary[:generated_at] = Time.now.to_s
 
     filename = File.expand_path(File.join(current_dir,'..','js',"summary-#{Time.now.strftime("%d-%m-%Y")}.json"))
     File.write(filename, JSON.pretty_generate(@summary))
