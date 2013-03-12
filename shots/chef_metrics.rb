@@ -27,7 +27,7 @@ end
 
 execute "add_files_to_repo" do
   cwd ::File.expand_path(::File.join(current_dir,'..'))
-  command "git add #{filename} #{latest}"
+  command "git add #{filename} #{latest} data/"
   action :nothing
 end
 
