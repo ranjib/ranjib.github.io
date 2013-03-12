@@ -96,7 +96,7 @@ class Stats
     is.flush_cache
     @summary[:irc] = is.summary
 
-    m1 = MLStatsService.new('dev','http://lists.opscode.com/sympa/arc/chef',"#{current_dir}/../data/ml")
+    m1 = MLStatsService.new('user','http://lists.opscode.com/sympa/arc/chef',"#{current_dir}/../data/ml")
     m1.all_stats
     m1.flush_cache
     @summary[:user_mailing_list_stats] = m1.flot_data
