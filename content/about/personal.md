@@ -1,7 +1,6 @@
 ---
 title: "Ranjib Dey"
 date: 2021-08-30T22:58:15-07:00
-draft: true
 ---
 
 ### Hello 👋
