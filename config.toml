@@ -1,0 +1,26 @@
+baseURL = 'http://ranjib.com'
+languageCode = 'en-us'
+theme= 'anatole'
+
+[params]
+profilePicture = 'images/profile.jpeg'
+title = 'Personal Website of Ranjib Dey'
+
+[menu]
+  [[menu.main]]
+  name = "Home"
+  identifier = "home"
+  weight = 100
+  url = "/"
+
+  [[menu.main]]
+  name = "Blogs"
+  weight = 200
+  identifier = "posts"
+  url = "/posts/"
+
+  [[menu.main]]
+  name = "About"
+  weight = 300
+  identifier = "about"
+  url = "/about/"
