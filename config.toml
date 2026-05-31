@@ -1,6 +1,5 @@
 baseURL = 'http://ranjib.com'
 languageCode = 'en-us'
-theme= 'anatole'
 
 [params]
 profilePicture = 'images/profile.jpeg'
