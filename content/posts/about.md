@@ -1,8 +1,12 @@
 ---
 title: "About this website"
-date: 2021-08-30T22:57:50-07:00
+date: 2026-05-31T00:00:00-07:00
 ---
 
-I am in process of rebooting my personal website, from jekyll to hugo. I had not updated it for almost 6 years. Lot has changed since then. My son Ryan has joined my life's journey, I have got involved deeper into physical computing, my tech job profile and related tools, languages have also changed significantly. While the old website had some general musing and mostly chef, system automation related content, this new version will reflect my current experience in similar domain but also my hobbies. I take inspiration from different domains and I hope these posts can articulate those learnings.
+This website is my public professional and project archive. It collects writing, talks, papers, open source work, and selected project notes that are safe to publish outside my private knowledge base.
 
-My other blogs, experience reports and conference talk slides are available [here](/about)
+The site is intentionally simple. The content is the main surface: public engineering themes, open source projects, reliability and operations writing, and posts that connect software systems thinking with physical computing projects such as reef-pi.
+
+The current refresh uses a public-only publishing pack generated from my personal LLM wiki. That pack filters for public wiki pages and public source manifests, then produces source-backed context for website updates. Non-public wiki material stays out of the website workflow.
+
+My other blogs, experience reports, conference talks, and profile links are available on the [about page](/about/personal/).
