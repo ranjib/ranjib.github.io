@@ -1,20 +1,20 @@
-name: deploy
+name: build
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 env:
   HUGO_VERSION: "0.85.0"
 
 jobs:
-  build:
-    name: build and deploy
+  hugo:
+    name: hugo build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,11 +28,5 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
-      - name: Build
+      - name: Build site
         run: hugo --gc --minify
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
