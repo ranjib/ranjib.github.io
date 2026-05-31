@@ -1,0 +1,14 @@
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="{{ .Site.BaseURL }}" class="site-wordmark">{{ .Site.Params.title }}</a>
+    <nav aria-label="Site navigation">
+      <ul class="site-nav">
+        {{ range .Site.Menus.main }}
+        <li>
+          <a href="{{ .URL }}"{{ if $.Page.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</header>
