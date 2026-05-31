@@ -200,6 +200,12 @@ img, svg { max-width: 100%; display: block; }
 .post-body th, .post-body td { padding: var(--s-2) var(--s-3); border: 1px solid var(--hairline); text-align: left; }
 .post-body th { background: var(--surface-alt); font-family: var(--font-sans); font-weight: 600; }
 
+/* ---- Focus ---- */
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
 /* ---- Utilities ---- */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;

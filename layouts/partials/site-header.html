@@ -5,7 +5,7 @@
       <ul class="site-nav">
         {{ range .Site.Menus.main }}
         <li>
-          <a href="{{ .URL }}"{{ if $.Page.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+          <a href="{{ .URL }}"{{ if or ($.Page.IsMenuCurrent "main" .) ($.Page.HasMenuCurrent "main" .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
         </li>
         {{ end }}
       </ul>
