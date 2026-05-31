@@ -1,0 +1,11 @@
+{{ define "main" }}
+<section>
+  <h1 class="page-title">{{ .Site.Params.title }}</h1>
+</section>
+<div class="post-list">
+  {{ $posts := where .Site.RegularPages "Section" "posts" }}
+  {{ range first 5 $posts.ByDate.Reverse }}
+    {{ partial "post-card.html" . }}
+  {{ end }}
+</div>
+{{ end }}
