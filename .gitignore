@@ -2,3 +2,8 @@ _drafts/
 _site/
 .DS_Store
 *.swp
+
+# Hugo generated output
+public/
+resources/
+.hugo_build.lock
