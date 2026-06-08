@@ -1,4 +1,4 @@
-baseURL = 'http://ranjib.com'
+baseURL = 'https://ranjib.github.io'
 defaultContentLanguage = 'en'
 
 [markup]
