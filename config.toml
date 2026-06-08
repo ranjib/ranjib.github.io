@@ -1,6 +1,16 @@
 baseURL = 'http://ranjib.com'
 defaultContentLanguage = 'en'
 
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    lineNos = false
+    tabWidth = 2
+
+  [markup.goldmark.renderer]
+    unsafe = false
+
 [params]
 profilePicture = 'images/profile.jpeg'
 title = 'Personal Website of Ranjib Dey'

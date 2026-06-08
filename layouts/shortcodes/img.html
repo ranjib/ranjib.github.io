@@ -1,0 +1,44 @@
+{{/* Responsive image shortcode
+   Usage: {{< img src="photo.jpg" alt="Description" caption="Optional caption" >}}
+   - src: path relative to the page bundle or /static/
+   - alt: required for accessibility
+   - caption: optional figcaption text
+*/}}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" }}
+
+{{ $img := .Page.Resources.GetMatch $src }}
+{{ if not $img }}
+  {{ $img = resources.Get $src }}
+{{ end }}
+
+{{ if $img }}
+  {{ $w1x := $img.Resize "800x webp" }}
+  {{ $w2x := $img.Resize "1600x webp" }}
+  {{ $fallback := $img.Resize "800x" }}
+  <figure>
+    <picture>
+      <source
+        type="image/webp"
+        srcset="{{ $w1x.RelPermalink }} 800w, {{ $w2x.RelPermalink }} 1600w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+      <img
+        src="{{ $fallback.RelPermalink }}"
+        alt="{{ $alt }}"
+        width="{{ $fallback.Width }}"
+        height="{{ $fallback.Height }}"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+  </figure>
+{{ else }}
+  {{/* Fallback for images in /static/ that aren't page-bundle resources */}}
+  <figure>
+    <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+    {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+  </figure>
+{{ end }}

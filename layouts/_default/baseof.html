@@ -2,6 +2,14 @@
 <html lang="{{ .Site.Language.Lang }}" data-theme="light">
 <head>
   {{ partial "head.html" . }}
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
   {{ partial "site-header.html" . }}
@@ -9,5 +17,16 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "site-footer.html" . }}
+  <script>
+    (function(){
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function(){
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+  </script>
 </body>
 </html>
