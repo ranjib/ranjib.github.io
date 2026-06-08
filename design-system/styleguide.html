@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ranjib.dev — Design System Styleguide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style id="tokens">/* tokens injected below for standalone preview */</style>
+  <script>
+    fetch('tokens.css').then(r => r.text()).then(css => {
+      document.getElementById('tokens').textContent = css;
+    });
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      line-height: var(--lh-prose);
+      color: var(--text);
+      background: var(--bg);
+    }
+    .sg-container { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .sg-section { margin-bottom: 4rem; }
+    .sg-section-title {
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: 600;
+      letter-spacing: var(--tr-wide);
+      text-transform: uppercase;
+      color: var(--text-meta);
+      border-bottom: 1px solid var(--hairline);
+      padding-bottom: var(--s-3);
+      margin-bottom: var(--s-6);
+    }
+
+    /* Swatches */
+    .swatch-grid { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+    .swatch {
+      width: 80px;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      font-family: var(--font-sans);
+      font-size: var(--fs-xs);
+    }
+    .swatch-color { height: 48px; }
+    .swatch-label { background: var(--surface-alt); padding: var(--s-1) var(--s-2); color: var(--text-muted); }
+
+    /* Type scale */
+    .type-row { margin-bottom: var(--s-4); display: flex; align-items: baseline; gap: var(--s-5); }
+    .type-label { font-family: var(--font-sans); font-size: var(--fs-xs); color: var(--text-meta); width: 90px; flex-shrink: 0; }
+
+    /* Components */
+    .site-header { border-bottom: 1px solid var(--hairline); padding-block: var(--s-4); }
+    .site-header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .site-wordmark { font-family: var(--font-sans); font-size: var(--fs-base); font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: var(--tr-tight); }
+    .site-nav { display: flex; gap: var(--s-5); list-style: none; margin: 0; padding: 0; }
+    .site-nav a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: var(--tr-wide); text-transform: uppercase; }
+    .site-nav a.active { color: var(--link); }
+
+    .post-card { padding-block: var(--s-5); border-bottom: 1px solid var(--hairline); }
+    .post-card-title { font-family: var(--font-serif); font-size: var(--fs-xl); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
+    .post-card-title a { color: var(--text); text-decoration: none; }
+    .post-card-meta { font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-meta); margin: 0 0 var(--s-3); }
+    .post-card-summary { font-size: var(--fs-base); color: var(--text-muted); margin: 0; }
+
+    .site-footer { border-top: 1px solid var(--hairline); padding-block: var(--s-6); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-meta); text-align: center; }
+
+    .prose-sample p { line-height: var(--lh-prose); max-width: var(--measure-prose); }
+    .prose-sample code { font-family: var(--font-mono); font-size: var(--fs-sm); background: var(--surface-alt); padding: 0.1em 0.3em; border-radius: var(--r-sm); }
+    .prose-sample pre { background: var(--surface-alt); padding: var(--s-5); border-radius: var(--r-md); overflow-x: auto; }
+    .prose-sample pre code { background: none; padding: 0; }
+    .prose-sample blockquote { margin-inline: 0; padding-inline-start: var(--s-5); border-left: 3px solid var(--hairline); color: var(--text-muted); font-style: italic; }
+
+    /* Dark mode toggle */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-md);
+      padding: var(--s-1) var(--s-3);
+      font-family: var(--font-sans);
+      font-size: var(--fs-xs);
+      color: var(--text-meta);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="sg-container">
+
+  <h1 style="font-family:var(--font-sans);font-size:var(--fs-2xl);margin-bottom:var(--s-2)">ranjib.dev Styleguide</h1>
+  <p style="font-family:var(--font-sans);color:var(--text-meta);margin-bottom:var(--s-8)">Reference for all design tokens and components. Do not build before designing here first.</p>
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">Toggle dark mode</button>
+
+  <!-- COLOR TOKENS -->
+  <section class="sg-section" style="margin-top:var(--s-8)">
+    <div class="sg-section-title">Color — Ink Palette</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-1)"></div><div class="swatch-label">--ink-1</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-2)"></div><div class="swatch-label">--ink-2</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-3)"></div><div class="swatch-label">--ink-3</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-4)"></div><div class="swatch-label">--ink-4</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-5)"></div><div class="swatch-label">--ink-5</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-6)"></div><div class="swatch-label">--ink-6</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-7)"></div><div class="swatch-label">--ink-7</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-8)"></div><div class="swatch-label">--ink-8</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-9)"></div><div class="swatch-label">--ink-9</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-10)"></div><div class="swatch-label">--ink-10</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-11)"></div><div class="swatch-label">--ink-11</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--ink-12)"></div><div class="swatch-label">--ink-12</div></div>
+    </div>
+    <div class="swatch-grid" style="margin-top:var(--s-4)">
+      <div class="swatch"><div class="swatch-color" style="background:var(--accent-terra)"></div><div class="swatch-label">--accent-terra</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--accent-terra-dim)"></div><div class="swatch-label">--accent-terra-dim</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--accent-terra-lit)"></div><div class="swatch-label">--accent-terra-lit</div></div>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <div class="sg-section-title">Color — Semantic Tokens</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:var(--bg);border:1px solid var(--hairline)"></div><div class="swatch-label">--bg</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--surface-alt)"></div><div class="swatch-label">--surface-alt</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--text)"></div><div class="swatch-label">--text</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--text-muted)"></div><div class="swatch-label">--text-muted</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--text-meta)"></div><div class="swatch-label">--text-meta</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--link)"></div><div class="swatch-label">--link</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--link-hover)"></div><div class="swatch-label">--link-hover</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--hairline)"></div><div class="swatch-label">--hairline</div></div>
+    </div>
+  </section>
+
+  <!-- TYPE SCALE -->
+  <section class="sg-section">
+    <div class="sg-section-title">Type Scale — Source Serif 4</div>
+    <div class="type-row"><span class="type-label">--fs-4xl / 2.25rem</span><span style="font-size:var(--fs-4xl);font-family:var(--font-serif);line-height:1.1;letter-spacing:var(--tr-tight)">Platform Engineering</span></div>
+    <div class="type-row"><span class="type-label">--fs-3xl / 1.875rem</span><span style="font-size:var(--fs-3xl);font-family:var(--font-serif);line-height:1.15;letter-spacing:var(--tr-tight)">Platform Engineering</span></div>
+    <div class="type-row"><span class="type-label">--fs-2xl / 1.5rem</span><span style="font-size:var(--fs-2xl);font-family:var(--font-serif);line-height:1.25;letter-spacing:var(--tr-tight)">Platform Engineering</span></div>
+    <div class="type-row"><span class="type-label">--fs-xl / 1.25rem</span><span style="font-size:var(--fs-xl);font-family:var(--font-serif)">Platform Engineering</span></div>
+    <div class="type-row"><span class="type-label">--fs-md / 1.0625rem</span><span style="font-size:var(--fs-md);font-family:var(--font-serif)">Platform Engineering — body copy at 17px</span></div>
+    <div class="type-row"><span class="type-label">--fs-base / 1rem</span><span style="font-size:var(--fs-base);font-family:var(--font-sans)">Inter for UI / nav — 16px</span></div>
+    <div class="type-row"><span class="type-label">--fs-sm / 0.875rem</span><span style="font-size:var(--fs-sm);font-family:var(--font-sans);color:var(--text-meta)">Meta: Jan 1, 2026 · 4 min read</span></div>
+    <div class="type-row"><span class="type-label">--font-mono</span><span style="font-size:var(--fs-sm);font-family:var(--font-mono)">const answer = 42; // JetBrains Mono</span></div>
+  </section>
+
+  <!-- SITE HEADER -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Site Header</div>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="#" class="site-wordmark">Personal Website of Ranjib Dey</a>
+        <nav>
+          <ul class="site-nav">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">About</a></li>
+            <li><button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">◑</button></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </section>
+
+  <!-- POST CARD -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Post Card</div>
+    <article class="post-card">
+      <h2 class="post-card-title"><a href="#">Platform Engineering Through Automation</a></h2>
+      <p class="post-card-meta"><time>January 15, 2026</time> · 6 min read</p>
+      <p class="post-card-summary">Lessons learned building self-service infrastructure platforms and the hidden costs of over-automation.</p>
+    </article>
+    <article class="post-card">
+      <h2 class="post-card-title"><a href="#">Reef-Pi: Public Engineering Lessons</a></h2>
+      <p class="post-card-meta"><time>October 3, 2025</time> · 4 min read</p>
+      <p class="post-card-summary">What open-source reef controller development taught me about community, hardware, and software reliability.</p>
+    </article>
+  </section>
+
+  <!-- PROSE -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Prose / Post Body</div>
+    <div class="prose-sample">
+      <p>Body text at <code>--fs-md</code> (17px) with <code>--lh-prose</code> (1.72). The measure is constrained to <code>--measure-prose</code> (68ch) for optimal reading comfort. Links are <a href="#" style="color:var(--link)">terra-accented and underlined</a>.</p>
+      <blockquote><p>A blockquote with a terra-hairline left border and muted, italicised text. Good for callouts and references.</p></blockquote>
+      <p>Inline <code>code</code> uses <code>--surface-alt</code> background and JetBrains Mono.</p>
+      <pre><code>// Fenced code block
+func main() {
+    fmt.Println("hello, ranjib.dev")
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Site Footer</div>
+    <footer class="site-footer">
+      <p>© 2026 Ranjib Dey</p>
+    </footer>
+  </section>
+
+</div>
+</body>
+</html>

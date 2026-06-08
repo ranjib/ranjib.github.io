@@ -200,6 +200,61 @@ img, svg { max-width: 100%; display: block; }
 .post-body th, .post-body td { padding: var(--s-2) var(--s-3); border: 1px solid var(--hairline); text-align: left; }
 .post-body th { background: var(--surface-alt); font-family: var(--font-sans); font-weight: 600; }
 
+/* ---- Dark mode toggle ---- */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--s-1) var(--s-2);
+  color: var(--text-meta);
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  line-height: 1;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.theme-toggle:hover { color: var(--link); border-color: var(--link); }
+
+/* ---- Responsive images ---- */
+.post-body figure { margin-inline: 0; margin-block: var(--s-6); }
+.post-body figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-md);
+  display: block;
+}
+.post-body figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  color: var(--text-meta);
+  margin-top: var(--s-2);
+  text-align: center;
+}
+
+/* ---- Syntax highlighting (Chroma, noClasses=false) ---- */
+.chroma { background: var(--syn-bg); border-radius: var(--r-md); padding: var(--s-5); overflow-x: auto; }
+.chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+.chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: 100%; overflow: auto; display: block; }
+.chroma .lnt { color: var(--text-meta); margin-inline-end: var(--s-4); user-select: none; }
+
+/* Comments */
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf { color: var(--syn-comment); font-style: italic; }
+/* Keywords */
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .kt { color: var(--syn-keyword); font-weight: 500; }
+/* Strings */
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s2, .chroma .se,
+.chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss { color: var(--syn-string); }
+/* Numbers */
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo { color: var(--syn-number); }
+/* Operators */
+.chroma .o, .chroma .ow { color: var(--syn-operator); }
+/* Names: functions, builtins */
+.chroma .nf, .chroma .nc, .chroma .nd, .chroma .ni, .chroma .ne, .chroma .nv { color: var(--syn-name); }
+.chroma .nb, .chroma .bp { color: var(--syn-builtin); }
+/* Default text */
+.chroma .nt, .chroma .nn, .chroma .n { color: var(--text); }
+/* Error */
+.chroma .err { color: #c0392b; }
+
 /* ---- Utilities ---- */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;

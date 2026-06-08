@@ -1,0 +1,140 @@
+/* ============================================================
+   ranjib.dev — Design Tokens
+   Single source of truth for all visual values.
+   Inlined into every page <head> via os.ReadFile in head.html.
+   ============================================================ */
+
+/* ---- Primitive palette ---- */
+:root {
+  /* Ink scale — warm dark neutrals */
+  --ink-1:  #f8f4f0;
+  --ink-2:  #ede5dd;
+  --ink-3:  #e0d5cc;
+  --ink-4:  #c9bbaf;
+  --ink-5:  #b09f91;
+  --ink-6:  #958274;
+  --ink-7:  #7b6759;
+  --ink-8:  #624e41;
+  --ink-9:  #4c3a2f;
+  --ink-10: #382a21;
+  --ink-11: #251b14;
+  --ink-12: #150d07;
+
+  /* Terra accent — earthy burnt orange */
+  --accent-terra:     #9e4a22;
+  --accent-terra-dim: #7a3518;
+  --accent-terra-lit: #c0622f;
+}
+
+/* ---- Semantic tokens — light mode (default) ---- */
+:root,
+[data-theme="light"] {
+  --bg:           var(--ink-1);
+  --text:         var(--ink-12);
+  --text-muted:   var(--ink-9);
+  --text-meta:    var(--ink-7);
+  --link:         var(--accent-terra);
+  --link-hover:   var(--accent-terra-dim);
+  --hairline:     var(--ink-3);
+  --surface-alt:  var(--ink-2);
+  --selection:    #f2d3c2;
+
+  /* Syntax highlighting */
+  --syn-bg:       var(--ink-2);
+  --syn-comment:  var(--ink-7);
+  --syn-keyword:  var(--accent-terra);
+  --syn-string:   #3d7a43;
+  --syn-number:   #1a5fa8;
+  --syn-operator: var(--ink-8);
+  --syn-name:     var(--ink-11);
+  --syn-builtin:  #6b3fa0;
+}
+
+/* ---- Semantic tokens — dark mode ---- */
+[data-theme="dark"] {
+  --bg:           var(--ink-12);
+  --text:         var(--ink-1);
+  --text-muted:   var(--ink-5);
+  --text-meta:    var(--ink-6);
+  --link:         #d4733e;
+  --link-hover:   #e8915a;
+  --hairline:     var(--ink-10);
+  --surface-alt:  var(--ink-11);
+  --selection:    #5a2e18;
+
+  /* Syntax highlighting */
+  --syn-bg:       var(--ink-11);
+  --syn-comment:  var(--ink-6);
+  --syn-keyword:  #e07a45;
+  --syn-string:   #6dbf73;
+  --syn-number:   #6ab0f5;
+  --syn-operator: var(--ink-4);
+  --syn-name:     var(--ink-2);
+  --syn-builtin:  #b48ae8;
+}
+
+/* ---- Typography ---- */
+:root {
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Font sizes — fluid-ish but simple */
+  --fs-xs:   0.75rem;    /* 12px */
+  --fs-sm:   0.875rem;   /* 14px */
+  --fs-base: 1rem;       /* 16px */
+  --fs-md:   1.0625rem;  /* 17px — body */
+  --fs-lg:   1.125rem;   /* 18px */
+  --fs-xl:   1.25rem;    /* 20px */
+  --fs-2xl:  1.5rem;     /* 24px */
+  --fs-3xl:  1.875rem;   /* 30px */
+  --fs-4xl:  2.25rem;    /* 36px */
+
+  /* Line heights */
+  --lh-tight:  1.15;
+  --lh-snug:   1.35;
+  --lh-normal: 1.55;
+  --lh-prose:  1.72;
+
+  /* Letter spacing */
+  --tr-tight: -0.022em;
+  --tr-wide:   0.06em;
+  --tr-mono:   0;
+}
+
+/* ---- Spacing (4-point base scale) ---- */
+:root {
+  --s-1:  0.25rem;   /* 4px */
+  --s-2:  0.5rem;    /* 8px */
+  --s-3:  0.75rem;   /* 12px */
+  --s-4:  1rem;      /* 16px */
+  --s-5:  1.25rem;   /* 20px */
+  --s-6:  1.5rem;    /* 24px */
+  --s-7:  2rem;      /* 32px */
+  --s-8:  3rem;      /* 48px */
+  --s-9:  4rem;      /* 64px */
+  --s-10: 6rem;      /* 96px */
+}
+
+/* ---- Layout ---- */
+:root {
+  --content-max:   1080px;
+  --gutter:        1.5rem;
+  --measure-prose: 68ch;
+}
+
+/* ---- Border radius ---- */
+:root {
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+}
+
+/* ---- Transitions ---- */
+:root {
+  --dur-fast:   150ms;
+  --dur-normal: 250ms;
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:    cubic-bezier(0.7, 0, 0.84, 0);
+}
