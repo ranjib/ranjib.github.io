@@ -1,6 +1,6 @@
 ---
 title: "The Through-Line From Chef to Agentic AI"
-date: 2026-07-12T00:00:00-07:00
+date: 2026-07-05T00:00:00-07:00
 draft: false
 ---
 
