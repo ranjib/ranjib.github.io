@@ -1,6 +1,6 @@
 ---
 title: "My Personal LLM Wiki Operating Model"
-date: 2026-08-02T00:00:00-07:00
+date: 2026-07-26T00:00:00-07:00
 draft: false
 ---
 
