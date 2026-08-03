@@ -12,6 +12,8 @@ I am still relatively new to overlanding, so this is not written from the postur
 
 One of the people who helped me get started is Lee from [Overland Out and About](https://www.youtube.com/@OverlandOutAndAbout). Lee has mentored me in overlanding, and his videos are a useful public reference for readers who want to see real trips, trail decisions, gear choices, and Northern California / Western U.S. overlanding in practice.
 
+{{< img src="images/posts/overlanding-reliability/tacoma-high-sierra.jpg" alt="White Toyota Tacoma stopped on a mountain trail with rocky high country terrain and snow patches in the background" caption="A high-country overlanding stop: the kind of trip where route conditions, weather, group judgment, and conservative decisions matter." >}}
+
 That shape feels familiar from reliability work.
 
 A reliability review is not supposed to remove all risk. It is supposed to make the risk legible enough that a team can decide whether the system is ready, which failure modes matter, what mitigations are in place, and when launch should wait. A good overlanding plan does the same thing. It turns an appealing route into an explicit operating model for a few days away from pavement.
