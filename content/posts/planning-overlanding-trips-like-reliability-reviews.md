@@ -8,6 +8,10 @@ The more I plan overlanding trips, the less I think of trip planning as itinerar
 
 An itinerary is only one output. The more important artifact is the review behind it: route risk, weather, legal access, vehicle limits, water and fuel margins, fire restrictions, communications, recovery options, and the decision points where the right answer is to turn around.
 
+I am still relatively new to overlanding, so this is not written from the posture of a solo expert. My default is to go with a group, especially family-oriented groups like the Facebook community "Overlanding with Kids." That changes the way I think about the hobby. The community is not an accessory to the trip. It is part of the safety model and the learning system.
+
+One of the people who helped me get started is Lee from [Overland Out and About](https://www.youtube.com/@OverlandOutAndAbout). Lee has mentored me in overlanding, and his videos are a useful public reference for readers who want to see real trips, trail decisions, gear choices, and Northern California / Western U.S. overlanding in practice.
+
 That shape feels familiar from reliability work.
 
 A reliability review is not supposed to remove all risk. It is supposed to make the risk legible enough that a team can decide whether the system is ready, which failure modes matter, what mitigations are in place, and when launch should wait. A good overlanding plan does the same thing. It turns an appealing route into an explicit operating model for a few days away from pavement.
@@ -32,6 +36,7 @@ For a trip, I want the same kind of inventory:
 - What conditions would make the route a no-go?
 - What supplies are sized to the actual trip, not the best-case plan?
 - What information must be refreshed the day before departure?
+- Who in the group has done similar terrain before, and what did they learn?
 
 The map is not the source of truth by itself. It is a working view assembled from official land-management rules, current alerts, weather, route reports, and local constraints. The distinction matters because a line on a map can be tempting long after the underlying condition has changed.
 
@@ -73,11 +78,23 @@ A solo trip has a different risk budget than a group trip. A family trip has a d
 
 The mistake is treating all of those as the same trip because the map distance is similar.
 
-For my own planning, the conservative defaults are usually the right ones: easy to moderate routes, current official sources, developed or semi-developed camping when that makes the overall system simpler, extra water, offline maps, known bailouts, and a willingness to drop the interesting section if the risk picture changes.
+For my own planning, the conservative defaults are usually the right ones: go with a group, listen to people with more trail experience, choose easy to moderate routes, use current official sources, prefer developed or semi-developed camping when that makes the overall system simpler, carry extra water, prepare offline maps, identify known bailouts, and be willing to drop the interesting section if the risk picture changes.
+
+That community layer matters because prior art is a real safety input. Someone who has driven similar terrain can tell you which part of the map is misleading, where a full-size vehicle will be awkward, which camp access road gets worse after weather, and which recovery or communication assumption is too optimistic. That kind of judgment is hard to infer from a route line alone.
 
 That does not make the trip less real. It makes the trip more repeatable.
 
 The reliability lesson is that constraints are not an insult to ambition. They are how a system keeps operating long enough to improve.
+
+## Community is part of the system
+
+There is a particular humility required when entering a physical domain as a beginner.
+
+Software people are used to learning from source code, docs, incident reports, mailing lists, design docs, and senior engineers. Overlanding has its own version of that. It lives in trip reports, local groups, trail etiquette, convoy habits, recovery classes, YouTube channels, maps with context, and the quiet advice from people who have already made the mistake you are about to make.
+
+That is why group travel is not only social for me. It is a way to learn safely. A group gives a newer driver more eyes on route choice, weather, terrain, radio practice, camp setup, mechanical issues, and turnaround decisions. It also creates a better feedback loop after the trip, because people compare what they expected with what actually happened.
+
+Lee's mentorship has been valuable in exactly that sense. It is easier to build judgment when someone experienced can explain not only what to do, but why a decision is conservative, what failure it avoids, and when the same rule might change in different terrain. Readers who want a public window into that style of learning can check out [Overland Out and About](https://www.youtube.com/@OverlandOutAndAbout).
 
 ## Responsible access is part of reliability
 
@@ -120,5 +137,6 @@ The destination is not the product. The behavior is.
 - [Forest Service Motor Vehicle Use Maps](https://www.fs.usda.gov/r06/giffordpinchot/maps-guides/motor-vehicle-use-map-mvum)
 - [Tread Lightly T.R.E.A.D. principles](https://treadlightly.org/education/tread-principles/)
 - [National Park Service Leave No Trace Seven Principles](https://www.nps.gov/articles/leave-no-trace-seven-principles.htm)
+- [Overland Out and About on YouTube](https://www.youtube.com/@OverlandOutAndAbout)
 - [Google SRE: Embracing Risk](https://sre.google/sre-book/embracing-risk/)
 - [Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/)
