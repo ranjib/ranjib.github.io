@@ -75,14 +75,28 @@ Those systems need regression tests because their behavior is shaped by more tha
 
 ## Context needs a test pyramid too
 
-The state of the art in agent evals is not one magic judge. It is a portfolio: deterministic tests for JSON, tool calls, required fields, and allowed sources; model judgment for groundedness, instruction following, overclaiming, coverage, and tone; human review where domain judgment, taste, risk, or user trust matters.
+The state of the art in agent evals is not one magic judge. It is a portfolio: deterministic tests for JSON, tool calls, required fields, and allowed sources; model judgment for groundedness, instruction following, overclaiming, coverage, and tone; human review where domain judgment, taste, risk, or user trust matters. Anthropic's agent-eval guidance, OpenAI's graders and tracing, LangSmith's offline and online evaluator split, Promptfoo's repo-friendly assertions, and Phoenix/Braintrust-style trace-to-dataset workflows all point in the same direction: evaluate the agent at the layer where the behavior can fail.
 
-That maps cleanly onto a context-engineering test pyramid:
+That maps cleanly onto a context-engineering test pyramid, with parallel examples from infrastructure and agents.
 
-- Fast checks for schema, required sections, stale dates, and source boundaries
-- Scenario tests for workflows, tool selection, retrieval quality, and instruction following
-- LLM-as-judge evals for groundedness, coverage, usefulness, and tone
-- Human calibration and production monitoring where offline tests are not enough
+At the unit layer, infrastructure tests ask whether one small artifact expresses the right intent: does this recipe render the expected config, set the right owner, or call the right resource? Agent unit tests should be just as narrow. Does the prompt template include the privacy boundary? Does the tool schema reject missing required fields? Does the router choose the retrieval tool for a source-backed question? Does the output parser reject invalid JSON? These should be fast, deterministic, and cheap enough to run in CI on every prompt, policy, or context-pack change.
+
+At the smoke layer, infrastructure teams ask whether the system starts at all after a change: can the service converge, boot, answer a health check, and expose the expected port? Agent smoke tests should ask whether the workflow can complete a small golden path without falling apart. Can the coding agent inspect a tiny repo and produce a patch? Can the support agent answer one known policy question with a citation? Can the research agent call search, select an allowed source, and produce a grounded summary? The goal is not deep quality measurement. It is catching broken credentials, missing tools, invalid model names, bad prompt wiring, and obvious regressions before users see them.
+
+At the integration layer, infrastructure tests verify behavior across real dependencies: converge a node, start the service, hit the API, and confirm that the database, network, secrets, and runtime assumptions line up. Agent integration tests need the same realism. Run multi-turn tasks with retrieval, memory, tool calls, handoffs, guardrails, and representative documents. Score the full trajectory, not only the final answer. Did the agent retrieve the right document, call the right tool, avoid forbidden actions, recover from a tool error, cite sources, and stop when the task was complete? This is where LLM-as-judge, pairwise comparison, trajectory checks, and human labels become useful.
+
+The top of the pyramid is production observability. It is not a replacement for testing; it is the higher-priority must-have once agents are doing real work. Offline evals only cover the cases we thought to write down. Production traces show the cases users actually create.
+
+For agent systems, useful observability means nested traces for the agent run, model calls, retrieval, memory reads and writes, tool calls, guardrails, handoffs, retries, errors, token usage, latency, cost, and model version. OpenTelemetry's GenAI semantic conventions are becoming the vendor-neutral shape for that data, and tools such as OpenAI Agents tracing, Arize Phoenix/OpenInference, LangSmith, Braintrust, Promptfoo tracing, and OpenSearch agent traces are all converging on span trees as the debugging primitive.
+
+The must-haves are practical:
+
+- Every production agent run gets a trace ID and a workflow name.
+- Every tool call records inputs, outputs, latency, errors, and redacted sensitive fields.
+- Retrieval spans record query, selected documents, scores, and source identifiers.
+- Model spans record model name, parameters, token counts, finish reason, latency, and cost signals.
+- Quality signals from users, humans, or model graders can attach back to the trace.
+- Failed or surprising traces can be promoted into regression datasets.
 
 The mistake would be treating LLM-as-judge as the whole system. Infrastructure teams learned the same lesson with mocks: they are valuable when they isolate the unit under test, and dangerous when they become a comforting simulation of the world you forgot to verify.
 
@@ -110,6 +124,14 @@ It is also the lesson of context engineering.
 - [Google SRE: Testing for Reliability](https://sre.google/sre-book/testing-reliability/)
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [OpenTelemetry: GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)
+- [OpenTelemetry: AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/)
+- [OpenTelemetry GenAI agent span conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-agent-spans.md)
 - [OpenAI Evals](https://github.com/openai/evals)
 - [OpenAI: How evals drive the next chapter in AI](https://openai.com/index/evals-drive-next-chapter-of-ai/)
+- [OpenAI Agents SDK tracing](https://openai.github.io/openai-agents-python/tracing/)
 - [LangSmith evaluation concepts](https://docs.langchain.com/langsmith/evaluation-concepts)
+- [LangSmith evaluation types](https://docs.langchain.com/langsmith/evaluation-types)
+- [Arize Phoenix: AI observability and evaluation](https://arize.com/docs/phoenix)
+- [Promptfoo tracing](https://www.promptfoo.dev/docs/tracing/)
+- [Braintrust Eval Manifesto](https://www.braintrust.dev/manifesto)
