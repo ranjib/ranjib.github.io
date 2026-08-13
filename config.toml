@@ -3,6 +3,7 @@ title = 'Ranjib Dey'
 locale = 'en_US'
 defaultContentLanguage = 'en'
 copyright = 'Copyright © Ranjib Dey'
+enableRobotsTXT = true
 
 [taxonomies]
   tag = 'tags'
@@ -48,6 +49,9 @@ newsletterName = 'Field Notes on Reliable Systems'
 
   [params.social]
   default_image = 'images/social/default-card.png'
+
+  [params.search]
+  googleSiteVerification = ''
 
 [menu]
   [[menu.main]]
