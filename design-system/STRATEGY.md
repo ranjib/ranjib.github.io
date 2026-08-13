@@ -1,8 +1,8 @@
-# Design System Strategy — ranjib.dev
+# Design System Strategy — ranjib.github.io
 
 ## §1 Purpose
 
-This document governs the design system for ranjib.dev. It defines the workflow, constraints, and decision-making authority for all visual changes.
+This document governs the design system for the Ranjib Dey personal site. It defines the workflow, constraints, and decision-making authority for all visual changes.
 
 ## §2 Design token hierarchy
 

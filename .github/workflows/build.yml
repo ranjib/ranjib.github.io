@@ -46,3 +46,6 @@ jobs:
 
       - name: Validate brand kit
         run: node scripts/validate-brand.mjs
+
+      - name: Validate canonical domain
+        run: node scripts/validate-domain.mjs
