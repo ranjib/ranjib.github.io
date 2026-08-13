@@ -76,6 +76,31 @@
     .prose-sample pre code { background: none; padding: 0; }
     .prose-sample blockquote { margin-inline: 0; padding-inline-start: var(--s-5); border-left: 3px solid var(--hairline); color: var(--text-muted); font-style: italic; }
 
+    .home-hero { max-width: var(--measure-prose); padding-block: var(--s-7) var(--s-8); }
+    .home-eyebrow { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tr-wide); text-transform: uppercase; color: var(--text-meta); margin: 0 0 var(--s-3); }
+    .home-title { font-family: var(--font-serif); font-size: var(--fs-4xl); font-weight: 500; line-height: var(--lh-tight); letter-spacing: var(--tr-tight); margin: 0; }
+    .home-summary { font-size: var(--fs-xl); line-height: var(--lh-snug); color: var(--text-muted); margin: var(--s-5) 0 0; }
+    .home-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+    .button-primary, .button-secondary { display: inline-flex; align-items: center; min-height: var(--s-8); border-radius: var(--r-md); border: 1px solid var(--link); padding-inline: var(--s-5); font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; line-height: var(--lh-normal); text-decoration: none; }
+    .button-primary { color: var(--bg); background: var(--link); }
+    .button-secondary { color: var(--link); background: transparent; }
+    .home-note { font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-meta); margin: var(--s-4) 0 0; }
+    .home-section { padding-block: var(--s-7); border-top: 1px solid var(--hairline); }
+    .section-heading { margin-bottom: var(--s-5); }
+    .section-heading h2 { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tr-wide); text-transform: uppercase; color: var(--text-meta); margin: 0; }
+    .section-heading-split { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); }
+    .lane-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+    .lane-card { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: var(--s-5); background: var(--bg); }
+    .lane-card h3 { font-size: var(--fs-xl); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
+    .lane-card p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0 0 var(--s-4); }
+    .lane-card a, .section-heading-split a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; }
+    @media (max-width: 48rem) {
+      .home-title { font-size: var(--fs-3xl); }
+      .home-summary { font-size: var(--fs-lg); }
+      .lane-grid { grid-template-columns: 1fr; }
+      .section-heading-split { align-items: flex-start; flex-direction: column; gap: var(--s-2); }
+    }
+
     /* Dark mode toggle */
     .theme-toggle {
       background: none;
@@ -163,6 +188,49 @@
         </nav>
       </div>
     </header>
+  </section>
+
+  <!-- HOMEPAGE HERO AND LANES -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Homepage Hero and Lanes</div>
+    <section class="home-hero" aria-labelledby="sg-home-title">
+      <p class="home-eyebrow">Ranjib Dey</p>
+      <h2 class="home-title" id="sg-home-title">Ranjib Dey - Systems in Practice</h2>
+      <p class="home-summary">Engineering reliable systems, from production infrastructure and AI agents to open-source hardware, gardens, and field adventures.</p>
+      <div class="home-actions" aria-label="Homepage actions">
+        <a class="button-primary" href="#">Start here</a>
+        <a class="button-secondary" href="#">Latest writing</a>
+      </div>
+      <p class="home-note">Personal writing and public work. Views are my own.</p>
+    </section>
+
+    <section class="home-section" aria-labelledby="sg-lanes-title">
+      <div class="section-heading">
+        <h2 id="sg-lanes-title">Where to Start</h2>
+      </div>
+      <div class="lane-grid">
+        <article class="lane-card">
+          <h3>Engineering &amp; AI</h3>
+          <p>SRE, production engineering, incidents, infrastructure, agent evals, context engineering, and observability.</p>
+          <a href="#">Read the evaluation thread</a>
+        </article>
+        <article class="lane-card">
+          <h3>Open Source &amp; Making</h3>
+          <p>reef-pi, physical computing, electronics, maintainable platforms, and documentation.</p>
+          <a href="#">Read the reef-pi platform note</a>
+        </article>
+        <article class="lane-card">
+          <h3>Field Notes</h3>
+          <p>Gardening, overlanding, aviation, astronomy, and other real-world systems.</p>
+          <a href="#">Read the field systems note</a>
+        </article>
+        <article class="lane-card">
+          <h3>Learning &amp; Life</h3>
+          <p>Personal knowledge systems, GenAI workflows, teaching, and reflective learning.</p>
+          <a href="#">Read the learning systems note</a>
+        </article>
+      </div>
+    </section>
   </section>
 
   <!-- POST CARD -->

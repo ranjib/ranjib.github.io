@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Website of Ranjib Dey</title>
+  <title>Ranjib Dey - Systems in Practice</title>
   <!-- In Hugo: tokens inlined via os.ReadFile, main.css via resources.Get|fingerprint -->
   <style>/* tokens.css + main.css would be here */</style>
 </head>
@@ -11,10 +11,11 @@
   <!-- SITE HEADER -->
   <header class="site-header">
     <div class="site-header-inner">
-      <a href="/" class="site-wordmark">Personal Website of Ranjib Dey</a>
+      <a href="/" class="site-wordmark">Ranjib Dey</a>
       <nav aria-label="Site navigation">
         <ul class="site-nav">
           <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/start-here/">Start Here</a></li>
           <li><a href="/posts/">Blogs</a></li>
           <li><a href="/about/">About</a></li>
           <li>
@@ -27,12 +28,51 @@
 
   <!-- MAIN -->
   <main class="site-main site-container">
-    <section class="home-intro">
-      <h1 class="page-title">Personal Website of Ranjib Dey</h1>
-      <p class="home-lead">Platform engineer, open-source author, reef keeper. Writing about infrastructure, reliability, and building things in public.</p>
+    <section class="home-hero" aria-labelledby="home-title">
+      <p class="home-eyebrow">Ranjib Dey</p>
+      <h1 class="home-title" id="home-title">Ranjib Dey - Systems in Practice</h1>
+      <p class="home-summary">Engineering reliable systems, from production infrastructure and AI agents to open-source hardware, gardens, and field adventures.</p>
+      <div class="home-actions" aria-label="Homepage actions">
+        <a class="button-primary" href="/start-here/">Start here</a>
+        <a class="button-secondary" href="/posts/">Latest writing</a>
+      </div>
+      <p class="home-note">Personal writing and public work. Views are my own.</p>
     </section>
 
-    <div class="post-list">
+    <section class="home-section" aria-labelledby="home-lanes-title">
+      <div class="section-heading">
+        <h2 id="home-lanes-title">Where to Start</h2>
+      </div>
+      <div class="lane-grid">
+        <article class="lane-card">
+          <h3>Engineering &amp; AI</h3>
+          <p>SRE, production engineering, incidents, infrastructure, agent evals, context engineering, and observability.</p>
+          <a href="/posts/context-engineering-evaluation-and-infrastructure-testing-lessons/">Read the evaluation thread</a>
+        </article>
+        <article class="lane-card">
+          <h3>Open Source &amp; Making</h3>
+          <p>reef-pi, physical computing, electronics, maintainable platforms, and documentation.</p>
+          <a href="/posts/reef-pi-as-a-small-open-source-platform/">Read the reef-pi platform note</a>
+        </article>
+        <article class="lane-card">
+          <h3>Field Notes</h3>
+          <p>Gardening, overlanding, aviation, astronomy, and other real-world systems.</p>
+          <a href="/posts/planning-overlanding-trips-like-reliability-reviews/">Read the field systems note</a>
+        </article>
+        <article class="lane-card">
+          <h3>Learning &amp; Life</h3>
+          <p>Personal knowledge systems, GenAI workflows, teaching, and reflective learning.</p>
+          <a href="/posts/my-personal-llm-wiki-operating-model/">Read the learning systems note</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-section" aria-labelledby="latest-writing-title">
+      <div class="section-heading section-heading-split">
+        <h2 id="latest-writing-title">Latest Writing</h2>
+        <a href="/posts/">Browse the full archive</a>
+      </div>
+      <div class="post-list">
       <!-- post-card repeated for each of the 5 most recent posts -->
       <article class="post-card">
         <h2 class="post-card-title"><a href="/posts/platform-engineering/">Platform Engineering Through Automation</a></h2>
@@ -44,7 +84,8 @@
         <p class="post-card-meta"><time datetime="2025-10-03">October 3, 2025</time> · 4 min read</p>
         <p class="post-card-summary">What open-source reef controller development taught me.</p>
       </article>
-    </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->

@@ -1,11 +1,41 @@
 {{ define "main" }}
-<section>
-  <h1 class="page-title">{{ .Site.Params.title }}</h1>
+{{ $home := hugo.Data.home }}
+<section class="home-hero" aria-labelledby="home-title">
+  <p class="home-eyebrow">{{ $home.hero.eyebrow }}</p>
+  <h1 class="home-title" id="home-title">{{ $home.hero.heading }}</h1>
+  <p class="home-summary">{{ $home.hero.summary }}</p>
+  <div class="home-actions" aria-label="Homepage actions">
+    <a class="button-primary" href="{{ $home.hero.primary_url }}">{{ $home.hero.primary_label }}</a>
+    <a class="button-secondary" href="{{ $home.hero.secondary_url }}">{{ $home.hero.secondary_label }}</a>
+  </div>
+  <p class="home-note">{{ $home.hero.note }}</p>
 </section>
-<div class="post-list">
+
+<section class="home-section" aria-labelledby="home-lanes-title">
+  <div class="section-heading">
+    <h2 id="home-lanes-title">Where to Start</h2>
+  </div>
+  <div class="lane-grid">
+    {{ range $home.lanes }}
+    <article class="lane-card">
+      <h3>{{ .title }}</h3>
+      <p>{{ .summary }}</p>
+      <a href="{{ .url }}">{{ .label }}</a>
+    </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="home-section" aria-labelledby="latest-writing-title">
+  <div class="section-heading section-heading-split">
+    <h2 id="latest-writing-title">{{ $home.latest.heading }}</h2>
+    <a href="{{ $home.latest.archive_url }}">{{ $home.latest.archive_label }}</a>
+  </div>
+  <div class="post-list">
   {{ $posts := where .Site.RegularPages "Section" "posts" }}
   {{ range first 5 $posts.ByDate.Reverse }}
     {{ partial "post-card.html" . }}
   {{ end }}
-</div>
+  </div>
+</section>
 {{ end }}
