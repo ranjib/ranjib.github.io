@@ -6,6 +6,11 @@ Custom-domain planning lives in `docs/domain/`. Do not add a GitHub Pages
 `CNAME` file or change Hugo `baseURL` until the canonical-domain ADR is
 approved by Ranjib.
 
+The Systems in Practice hub completion map lives in
+[`docs/systems-in-practice-hub.md`](docs/systems-in-practice-hub.md). Use it as
+the operating index for homepage, metadata, content model, subscription,
+measurement, distribution, brand, and domain work.
+
 ## Source Of Truth
 
 The maintained website source is intentionally small:
