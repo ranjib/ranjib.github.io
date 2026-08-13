@@ -24,6 +24,7 @@
 
 <meta name="description" content="{{ $description }}" />
 <meta name="author" content="{{ $authorName }}" />
+{{ with .Site.Params.search.googleSiteVerification }}<meta name="google-site-verification" content="{{ . }}" />{{ end }}
 <link rel="canonical" href="{{ $canonical }}" />
 
 <meta property="og:type" content="{{ $ogType }}" />
