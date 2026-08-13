@@ -9,6 +9,8 @@ I am Ranjib Dey, a software engineer focused on production engineering, infrastr
 
 I currently work on production engineering at Uber. Public artifacts from this era include Uber Engineering Blog work on ML-driven capacity safety and capacity recommendation, talks on incident taxonomy and incident management, and a co-authored USENIX NSDI 2026 paper on Uber's failover architecture.
 
+This site is personal writing and public project context. The views here are my own.
+
 Earlier public work includes Chef and DevOps infrastructure automation at ThoughtWorks and PagerDuty. I was an open source maintainer of Chef, received the Chef Awesome Community Member / MVP award, authored chef-lxc, and wrote and spoke about testing infrastructure code, TDD in operations, CI/CD for Chef, LXC, and Consul.
 
 Outside work, I build and maintain [reef-pi](https://reef-pi.github.io/), an open source Raspberry Pi based reef tank controller. reef-pi has grown from a hobby automation project into a public ecosystem with official guides, community support, hardware integrations, Maker Faire recognition, and coverage from Make:, Adafruit, and the Raspberry Pi Foundation.

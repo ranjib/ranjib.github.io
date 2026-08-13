@@ -13,7 +13,9 @@ defaultContentLanguage = 'en'
 
 [params]
 profilePicture = 'images/profile.jpeg'
-title = 'Personal Website of Ranjib Dey'
+title = 'Ranjib Dey'
+description = 'Systems in Practice: engineering reliable systems across production infrastructure, AI agents, open-source hardware, gardens, and field adventures.'
+positioning = 'Systems in Practice'
 
 [menu]
   [[menu.main]]
@@ -21,6 +23,12 @@ title = 'Personal Website of Ranjib Dey'
   identifier = "home"
   weight = 100
   url = "/"
+
+  [[menu.main]]
+  name = "Start Here"
+  weight = 150
+  identifier = "start-here"
+  url = "/start-here/"
 
   [[menu.main]]
   name = "Blogs"
