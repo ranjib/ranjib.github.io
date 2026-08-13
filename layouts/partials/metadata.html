@@ -16,7 +16,7 @@
 {{- $imageURL := urls.Parse $image -}}
 {{- $absoluteImage := cond $imageURL.IsAbs $image ($image | absURL) -}}
 {{- $ogType := "website" -}}
-{{- if eq .Section "posts" -}}
+{{- if and (eq .Section "posts") (eq .Kind "page") -}}
   {{- $ogType = "article" -}}
 {{- else if eq .RelPermalink "/about/personal/" -}}
   {{- $ogType = "profile" -}}
@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="{{ $description }}" />
 <meta name="twitter:image" content="{{ $absoluteImage }}" />
 
-{{- if eq .Section "posts" }}
+{{- if and (eq .Section "posts") (eq .Kind "page") }}
   {{- $json := dict
     "@context" "https://schema.org"
     "@type" "BlogPosting"

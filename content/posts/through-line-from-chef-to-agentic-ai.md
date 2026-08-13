@@ -4,6 +4,12 @@ date: 2026-07-05T00:00:00-07:00
 draft: false
 description: "From Chef and infrastructure-as-code to agentic AI, the recurring lesson is to make operational intent explicit and testable."
 summary: "A systems-through-line from Chef, infrastructure automation, and TDD in operations to context engineering for agentic AI."
+lane: "engineering-ai"
+tags:
+  - "Chef"
+  - "agentic AI"
+  - "infrastructure as code"
+  - "context engineering"
 ---
 
 The first time I cared deeply about infrastructure as code, the argument was not really about Chef.

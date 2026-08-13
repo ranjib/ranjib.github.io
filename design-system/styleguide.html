@@ -67,6 +67,9 @@
     .post-card-title a { color: var(--text); text-decoration: none; }
     .post-card-meta { font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-meta); margin: 0 0 var(--s-3); }
     .post-card-summary { font-size: var(--fs-base); color: var(--text-muted); margin: 0; }
+    .tax-list { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0 0 var(--s-3); }
+    .tax-pill { border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text-meta); font-family: var(--font-sans); font-size: var(--fs-xs); font-weight: 600; line-height: var(--lh-normal); padding: var(--s-1) var(--s-2); text-decoration: none; }
+    .tax-pill-lane { color: var(--link); }
 
     .site-footer { border-top: 1px solid var(--hairline); padding-block: var(--s-6); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-meta); text-align: center; }
 
@@ -92,12 +95,24 @@
     .lane-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
     .lane-card { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: var(--s-5); background: var(--bg); }
     .lane-card h3 { font-size: var(--fs-xl); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
+    .lane-card h2 { font-size: var(--fs-xl); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
+    .lane-card h2 a { color: var(--text); text-decoration: none; }
     .lane-card p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0 0 var(--s-4); }
     .lane-card a, .section-heading-split a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; }
+    .post-followup, .author-block, .article-cta { border-top: 1px solid var(--hairline); margin-top: var(--s-8); padding-top: var(--s-6); }
+    .post-followup h2, .author-block h2, .article-cta h2 { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tr-wide); margin: 0 0 var(--s-4); text-transform: uppercase; color: var(--text-meta); }
+    .related-grid { display: grid; gap: var(--s-4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .related-card { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: var(--s-4); }
+    .related-card h3 { font-size: var(--fs-lg); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
+    .related-card h3 a { color: var(--text); text-decoration: none; }
+    .related-card p, .author-block p, .article-cta p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0; }
+    .inline-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-4); }
+    .inline-actions a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; }
     @media (max-width: 48rem) {
       .home-title { font-size: var(--fs-3xl); }
       .home-summary { font-size: var(--fs-lg); }
       .lane-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
       .section-heading-split { align-items: flex-start; flex-direction: column; gap: var(--s-2); }
     }
 
@@ -177,10 +192,12 @@
     <div class="sg-section-title">Component — Site Header</div>
     <header class="site-header">
       <div class="site-header-inner">
-        <a href="#" class="site-wordmark">Personal Website of Ranjib Dey</a>
+        <a href="#" class="site-wordmark">Ranjib Dey</a>
         <nav>
           <ul class="site-nav">
             <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Start Here</a></li>
+            <li><a href="#">Lanes</a></li>
             <li><a href="#">Blogs</a></li>
             <li><a href="#">About</a></li>
             <li><button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">◑</button></li>
@@ -238,14 +255,58 @@
     <div class="sg-section-title">Component — Post Card</div>
     <article class="post-card">
       <h2 class="post-card-title"><a href="#">Platform Engineering Through Automation</a></h2>
+      <div class="tax-list" aria-label="Post taxonomy">
+        <a class="tax-pill tax-pill-lane" href="#">Engineering &amp; AI</a>
+        <a class="tax-pill" href="#">platform engineering</a>
+        <a class="tax-pill" href="#">automation</a>
+      </div>
       <p class="post-card-meta"><time>January 15, 2026</time> · 6 min read</p>
       <p class="post-card-summary">Lessons learned building self-service infrastructure platforms and the hidden costs of over-automation.</p>
     </article>
     <article class="post-card">
       <h2 class="post-card-title"><a href="#">Reef-Pi: Public Engineering Lessons</a></h2>
+      <div class="tax-list" aria-label="Post taxonomy">
+        <a class="tax-pill tax-pill-lane" href="#">Open Source &amp; Making</a>
+        <a class="tax-pill" href="#">reef-pi</a>
+        <a class="tax-pill" href="#">hardware</a>
+      </div>
       <p class="post-card-meta"><time>October 3, 2025</time> · 4 min read</p>
       <p class="post-card-summary">What open-source reef controller development taught me about community, hardware, and software reliability.</p>
     </article>
+  </section>
+
+  <!-- ARTICLE FOLLOW-UP -->
+  <section class="sg-section">
+    <div class="sg-section-title">Component — Article Follow-Up</div>
+    <section class="post-followup" aria-labelledby="sg-related-title">
+      <h2 id="sg-related-title">Related Reading</h2>
+      <div class="related-grid">
+        <article class="related-card">
+          <h3><a href="#">Treating Context Like Code</a></h3>
+          <p>Why reusable prompts and context packs deserve versioning, review, privacy boundaries, failure modes, and evaluation loops.</p>
+        </article>
+        <article class="related-card">
+          <h3><a href="#">The Through-Line From Chef to Agentic AI</a></h3>
+          <p>A systems-through-line from Chef, infrastructure automation, and TDD in operations to context engineering for agentic AI.</p>
+        </article>
+      </div>
+    </section>
+    <aside class="author-block" aria-labelledby="sg-author-title">
+      <h2 id="sg-author-title">About Ranjib Dey</h2>
+      <p>Ranjib Dey writes in a personal capacity about production engineering, reliability, infrastructure automation, agentic AI, open-source hardware, and field systems.</p>
+      <div class="inline-actions">
+        <a href="#">About</a>
+        <a href="#">Start Here</a>
+      </div>
+    </aside>
+    <aside class="article-cta" aria-labelledby="sg-cta-title">
+      <h2 id="sg-cta-title">Keep Reading</h2>
+      <p>Follow the curated Systems in Practice path, or subscribe with RSS until a provider-neutral subscription option lands.</p>
+      <div class="inline-actions">
+        <a href="#">Start Here</a>
+        <a href="#">RSS</a>
+      </div>
+    </aside>
   </section>
 
   <!-- PROSE -->

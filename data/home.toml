@@ -11,26 +11,26 @@ note = "Personal writing and public work. Views are my own."
 [[lanes]]
 title = "Engineering & AI"
 summary = "SRE, production engineering, incidents, infrastructure, agent evals, context engineering, and observability."
-url = "/posts/context-engineering-evaluation-and-infrastructure-testing-lessons/"
-label = "Read the evaluation thread"
+url = "/lanes/engineering-ai/"
+label = "Browse Engineering & AI"
 
 [[lanes]]
 title = "Open Source & Making"
 summary = "reef-pi, physical computing, electronics, maintainable platforms, and documentation."
-url = "/posts/reef-pi-as-a-small-open-source-platform/"
-label = "Read the reef-pi platform note"
+url = "/lanes/open-source-making/"
+label = "Browse Open Source & Making"
 
 [[lanes]]
 title = "Field Notes"
 summary = "Gardening, overlanding, aviation, astronomy, and other real-world systems."
-url = "/posts/planning-overlanding-trips-like-reliability-reviews/"
-label = "Read the field systems note"
+url = "/lanes/field-notes/"
+label = "Browse Field Notes"
 
 [[lanes]]
 title = "Learning & Life"
 summary = "Personal knowledge systems, GenAI workflows, teaching, and reflective learning."
-url = "/posts/my-personal-llm-wiki-operating-model/"
-label = "Read the learning systems note"
+url = "/lanes/learning-life/"
+label = "Browse Learning & Life"
 
 [latest]
 heading = "Latest Writing"

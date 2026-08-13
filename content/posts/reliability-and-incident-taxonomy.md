@@ -4,6 +4,12 @@ date: 2026-07-18T00:00:00-07:00
 draft: false
 description: "Incident taxonomies turn production stories into engineering signal, shared vocabulary, and better reliability investment decisions."
 summary: "A reliability note on why incident categories matter only when they change prioritization, learning, and operational follow-through."
+lane: "engineering-ai"
+tags:
+  - "incident management"
+  - "reliability"
+  - "taxonomy"
+  - "production engineering"
 ---
 
 Reliability engineering often starts with tooling, but the durable work starts earlier: naming what actually fails.

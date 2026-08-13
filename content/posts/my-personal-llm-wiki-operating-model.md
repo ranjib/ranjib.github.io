@@ -4,6 +4,12 @@ date: 2026-07-26T00:00:00-07:00
 draft: false
 description: "A practical operating model for turning raw notes into reviewed wiki pages, context packs, and evaluated agent memory."
 summary: "How a personal LLM wiki can separate raw evidence, curated memory, context packs, privacy boundaries, and evaluation loops."
+lane: "learning-life"
+tags:
+  - "knowledge systems"
+  - "context engineering"
+  - "GenAI workflows"
+  - "privacy boundaries"
 ---
 
 The useful part of a personal LLM wiki is not that it stores a lot of text.
