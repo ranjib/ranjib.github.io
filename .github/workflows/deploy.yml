@@ -29,6 +29,9 @@ jobs:
       - name: Build
         run: hugo --gc --minify
 
+      - name: Validate metadata
+        run: node scripts/validate-metadata.mjs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:

@@ -1,6 +1,8 @@
 ---
 title: "About this website"
 date: 2026-05-31T00:00:00-07:00
+description: "A short explanation of this site's public-safe publishing workflow, professional archive, and systems-oriented writing surface."
+summary: "What this website collects, how public material is selected, and where to find broader profile and project links."
 ---
 
 This website is my public professional and project archive. It collects writing, talks, papers, open source work, and selected project notes that are safe to publish outside my private knowledge base.

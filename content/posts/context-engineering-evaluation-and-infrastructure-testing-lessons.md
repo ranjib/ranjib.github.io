@@ -2,6 +2,11 @@
 title: "Context Engineering Evals Remind Me of Infrastructure Testing"
 date: 2026-08-11T00:00:00-07:00
 draft: false
+description: "Why agent evals echo infrastructure testing: make hidden assumptions explicit, test behavior by layer, and keep context from drifting."
+summary: "A comparison between infrastructure testing and agent evaluation, focused on hidden state, behavioral contracts, and feedback loops."
+images:
+  - "images/social/context-engineering-evals-card.png"
+image_alt: "Context Engineering Evals Remind Me of Infrastructure Testing social preview card"
 ---
 
 Context engineering is real engineering work in its own right.
