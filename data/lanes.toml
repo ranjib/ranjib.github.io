@@ -1,0 +1,19 @@
+[[lanes]]
+key = "engineering-ai"
+name = "Engineering & AI"
+summary = "Production engineering, infrastructure automation, incident learning, context engineering, agent evaluation, and observability."
+
+[[lanes]]
+key = "open-source-making"
+name = "Open Source & Making"
+summary = "reef-pi, Raspberry Pi automation, physical computing, documentation, and maintainable public platforms."
+
+[[lanes]]
+key = "field-notes"
+name = "Field Notes"
+summary = "Outdoor planning, gardening, overlanding, aviation, astronomy, and practical systems in changing physical conditions."
+
+[[lanes]]
+key = "learning-life"
+name = "Learning & Life"
+summary = "Knowledge systems, GenAI workflows, teaching, reflection, and public-safe lifelong learning."

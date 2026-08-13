@@ -2,11 +2,14 @@
   <h2 class="post-card-title">
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h2>
+  <div class="tax-list" aria-label="Post taxonomy">
+    {{ partial "taxonomy-links.html" . }}
+  </div>
   <p class="post-card-meta">
     <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
     {{ if .ReadingTime }}· {{ .ReadingTime }} min read{{ end }}
   </p>
-  {{ with .Summary }}
+  {{ with (.Params.summary | default (.Summary | plainify)) }}
   <p class="post-card-summary">{{ . }}</p>
   {{ end }}
 </article>

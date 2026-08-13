@@ -32,6 +32,9 @@ jobs:
       - name: Validate metadata
         run: node scripts/validate-metadata.mjs
 
+      - name: Validate content model
+        run: node scripts/validate-content-model.mjs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:

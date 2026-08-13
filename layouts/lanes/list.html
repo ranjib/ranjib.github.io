@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{ if eq .RelPermalink "/lanes/" }}
+<div class="page-header">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Description }}<p class="page-description">{{ . }}</p>{{ end }}
+</div>
+<div class="lane-index-grid">
+  {{ range hugo.Data.lanes.lanes }}
+  <article class="lane-card">
+    <h2><a href="{{ printf "/lanes/%s/" .key | relURL }}">{{ .name }}</a></h2>
+    <p>{{ .summary }}</p>
+  </article>
+  {{ end }}
+</div>
+{{ else }}
+<div class="page-header">
+  <p class="home-eyebrow">Content Lane</p>
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Description }}<p class="page-description">{{ . }}</p>{{ end }}
+</div>
+{{ $lane := .Params.lane }}
+{{ $posts := where (where site.RegularPages "Section" "posts") "Params.lane" $lane }}
+<div class="post-list">
+  {{ range $posts.ByDate.Reverse }}
+    {{ partial "post-card.html" . }}
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

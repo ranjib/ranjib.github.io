@@ -1,0 +1,7 @@
+{{- $page := . -}}
+{{- with $page.Params.lane -}}
+<a class="tax-pill tax-pill-lane" href="{{ printf "/lanes/%s/" . | relURL }}">{{ partial "lane-name.html" . }}</a>
+{{- end -}}
+{{- range $page.GetTerms "tags" -}}
+<a class="tax-pill" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+{{- end -}}

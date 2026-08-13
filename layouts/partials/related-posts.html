@@ -1,0 +1,14 @@
+{{- $related := where (.Site.RegularPages.Related .) "Section" "posts" | first 4 -}}
+{{- with $related -}}
+<section class="post-followup" aria-labelledby="related-posts-title">
+  <h2 id="related-posts-title">Related Reading</h2>
+  <div class="related-grid">
+    {{- range . -}}
+    <article class="related-card">
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ with (.Params.summary | default (.Summary | plainify)) }}<p>{{ . }}</p>{{ end }}
+    </article>
+    {{- end -}}
+  </div>
+</section>
+{{- end -}}

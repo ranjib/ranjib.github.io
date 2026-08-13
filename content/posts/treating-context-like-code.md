@@ -4,6 +4,12 @@ date: 2026-06-28T00:00:00-07:00
 draft: false
 description: "Prompts, project instructions, context packs, and memory can change agent behavior, so durable context needs engineering discipline."
 summary: "Why reusable prompts and context packs deserve versioning, review, privacy boundaries, failure modes, and evaluation loops."
+lane: "engineering-ai"
+tags:
+  - "context engineering"
+  - "agentic AI"
+  - "prompting"
+  - "privacy boundaries"
 ---
 
 The more I use coding agents and LLMs for real work, the less I think of prompts as throwaway text.

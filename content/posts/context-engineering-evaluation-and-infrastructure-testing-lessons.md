@@ -7,6 +7,13 @@ summary: "A comparison between infrastructure testing and agent evaluation, focu
 images:
   - "images/social/context-engineering-evals-card.png"
 image_alt: "Context Engineering Evals Remind Me of Infrastructure Testing social preview card"
+lane: "engineering-ai"
+tags:
+  - "context engineering"
+  - "agent evals"
+  - "infrastructure testing"
+  - "reliability"
+featured: true
 ---
 
 Context engineering is real engineering work in its own right.

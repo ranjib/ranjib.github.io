@@ -1,0 +1,6 @@
+{{- $key := . -}}
+{{- $name := $key -}}
+{{- range where hugo.Data.lanes.lanes "key" $key -}}
+  {{- $name = .name -}}
+{{- end -}}
+{{- $name -}}
