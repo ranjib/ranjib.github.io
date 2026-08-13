@@ -2,6 +2,8 @@
 title: "reef-pi and Public Engineering Lessons"
 date: 2026-05-31T00:00:00-07:00
 draft: false
+description: "What reef-pi shows about public engineering systems: modules, hardware abstraction, documentation, community, and long maintenance."
+summary: "Lessons from reef-pi as a public engineering artifact that must survive real users, hardware variation, and community support."
 ---
 
 reef-pi started as an open source Raspberry Pi reef tank controller. The public record now shows something larger: a hobby controller that grew into a small ecosystem of software, documentation, community support, and compatible hardware.

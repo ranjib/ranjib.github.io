@@ -17,6 +17,13 @@ title = 'Ranjib Dey'
 description = 'Systems in Practice: engineering reliable systems across production infrastructure, AI agents, open-source hardware, gardens, and field adventures.'
 positioning = 'Systems in Practice'
 
+  [params.author]
+  name = 'Ranjib Dey'
+  url = 'https://ranjib.github.io/about/personal/'
+
+  [params.social]
+  default_image = 'images/social/default-card.png'
+
 [menu]
   [[menu.main]]
   name = "Home"

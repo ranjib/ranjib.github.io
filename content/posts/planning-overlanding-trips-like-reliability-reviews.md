@@ -2,6 +2,8 @@
 title: "Planning Overlanding Trips Like Reliability Reviews"
 date: 2026-08-02T00:00:00-07:00
 draft: false
+description: "Applying reliability review habits to overlanding: route risk, changing conditions, margins, bailout plans, and final go/no-go checks."
+summary: "A field note on treating overlanding plans as operational reviews with explicit assumptions, risk budgets, and verification timing."
 ---
 
 The more I plan overlanding trips, the less I think of trip planning as itinerary writing.

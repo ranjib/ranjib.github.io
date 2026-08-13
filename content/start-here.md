@@ -2,6 +2,8 @@
 title: "Start Here"
 date: 2026-08-12T00:00:00-07:00
 draft: false
+description: "A first reading path through Ranjib Dey's Systems in Practice writing across engineering, AI, open source, and field notes."
+summary: "A guided entry point for new readers, with representative essays across the site's main public lanes."
 ---
 
 This site is the public home for my writing and project notes. The through-line is systems in practice: making intent explicit, instrumenting reality, and using feedback loops across software, infrastructure, AI work, open-source hardware, and field projects.

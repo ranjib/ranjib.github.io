@@ -28,3 +28,6 @@ jobs:
 
       - name: Build site
         run: hugo --gc --minify
+
+      - name: Validate metadata
+        run: node scripts/validate-metadata.mjs

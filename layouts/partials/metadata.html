@@ -1,0 +1,93 @@
+{{- $siteTitle := .Site.Params.title -}}
+{{- $siteDescription := .Site.Params.description -}}
+{{- $authorName := .Site.Params.author.name | default $siteTitle -}}
+{{- $authorURL := .Site.Params.author.url | default .Site.BaseURL -}}
+{{- $defaultImage := .Site.Params.social.default_image | default "images/social/default-card.png" -}}
+{{- $title := cond .IsHome $siteTitle (printf "%s - %s" .Title $siteTitle) -}}
+{{- $descriptionSource := or .Description .Params.summary $siteDescription -}}
+{{- $description := $descriptionSource | plainify | htmlUnescape | chomp | truncate 160 -}}
+{{- $canonical := .Permalink -}}
+{{- $image := $defaultImage -}}
+{{- with .Params.images -}}
+  {{- with index . 0 -}}
+    {{- $image = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $imageURL := urls.Parse $image -}}
+{{- $absoluteImage := cond $imageURL.IsAbs $image ($image | absURL) -}}
+{{- $ogType := "website" -}}
+{{- if eq .Section "posts" -}}
+  {{- $ogType = "article" -}}
+{{- else if eq .RelPermalink "/about/personal/" -}}
+  {{- $ogType = "profile" -}}
+{{- end -}}
+
+<meta name="description" content="{{ $description }}" />
+<meta name="author" content="{{ $authorName }}" />
+<link rel="canonical" href="{{ $canonical }}" />
+
+<meta property="og:type" content="{{ $ogType }}" />
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:url" content="{{ $canonical }}" />
+<meta property="og:site_name" content="{{ $siteTitle }}" />
+<meta property="og:image" content="{{ $absoluteImage }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{{ .Params.image_alt | default (printf "%s social preview" $siteTitle) }}" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+<meta name="twitter:image" content="{{ $absoluteImage }}" />
+
+{{- if eq .Section "posts" }}
+  {{- $json := dict
+    "@context" "https://schema.org"
+    "@type" "BlogPosting"
+    "headline" .Title
+    "description" $description
+    "url" $canonical
+    "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "image" (slice $absoluteImage)
+    "author" (dict "@type" "Person" "name" $authorName "url" $authorURL)
+    "publisher" (dict "@type" "Person" "name" $authorName "url" $authorURL)
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" $canonical)
+  -}}
+<script type="application/ld+json">{{ $json | jsonify | safeJS }}</script>
+{{- else if eq .RelPermalink "/about/personal/" }}
+  {{- $person := dict
+    "@type" "Person"
+    "@id" (printf "%s#person" $authorURL)
+    "name" $authorName
+    "url" $authorURL
+    "image" (absURL (.Site.Params.profilePicture | default "images/profile.jpeg"))
+    "jobTitle" "Software engineer"
+    "sameAs" (slice
+      "https://github.com/ranjib"
+      "https://www.linkedin.com/in/ranjib-dey-a20b40123"
+      "https://reef-pi.github.io/"
+      "https://sessionize.com/ranjib-dey/"
+    )
+  -}}
+  {{- $json := dict
+    "@context" "https://schema.org"
+    "@type" "ProfilePage"
+    "name" .Title
+    "description" $description
+    "url" $canonical
+    "mainEntity" $person
+  -}}
+<script type="application/ld+json">{{ $json | jsonify | safeJS }}</script>
+{{- else if .IsHome }}
+  {{- $json := dict
+    "@context" "https://schema.org"
+    "@type" "WebSite"
+    "name" $siteTitle
+    "description" $description
+    "url" .Site.BaseURL
+    "publisher" (dict "@type" "Person" "name" $authorName "url" $authorURL)
+  -}}
+<script type="application/ld+json">{{ $json | jsonify | safeJS }}</script>
+{{- end }}

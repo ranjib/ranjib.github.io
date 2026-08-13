@@ -2,6 +2,8 @@
 title: "Platform Engineering Through Automation"
 date: 2026-05-31T00:00:00-07:00
 draft: false
+description: "A public-career thread through Chef, infrastructure testing, service discovery, production engineering, and ML-assisted operations."
+summary: "How automation, testing, and platform thinking connect infrastructure-as-code work with later production engineering practice."
 ---
 
 Looking back across my public talks and writing, the same idea keeps returning in different forms: operational work should become software.

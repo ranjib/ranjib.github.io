@@ -1,6 +1,8 @@
 ---
 title: "Public profile blurbs"
 date: 2026-05-31T00:00:00-07:00
+description: "Reusable public-safe profile blurbs for Ranjib Dey, covering engineering, reliability, infrastructure automation, and reef-pi."
+summary: "Short, medium, and long public profile blurbs plus project blurbs for talks, bios, outreach, and profile surfaces."
 ---
 
 These public profile blurbs are reusable for talk proposals, bios, project pages, and outreach. They are derived from public sources only.

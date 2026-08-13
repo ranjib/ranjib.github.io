@@ -1,6 +1,8 @@
 ---
 title: "About myself"
 date: 2026-05-31T00:00:00-07:00
+description: "Public profile for Ranjib Dey across production engineering, reliability, infrastructure automation, open source, and reef-pi."
+summary: "A public biography covering Ranjib Dey's engineering work, talks, papers, open-source projects, and profile links."
 ---
 
 ### Hello

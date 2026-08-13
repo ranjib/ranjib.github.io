@@ -2,6 +2,8 @@
 title: "reef-pi as a Small Open Source Platform"
 date: 2026-07-10T00:00:00-07:00
 draft: false
+description: "How reef-pi grew a durable hardware abstraction boundary from real bug reports, hardware pressure, and long-lived maintenance needs."
+summary: "A close look at reef-pi's hardware abstraction layer as the line that turned a controller project into a small open-source platform."
 ---
 
 I have [written before](/posts/reef-pi-public-engineering-lessons/) about reef-pi as a public engineering artifact: modules, documentation, community, hardware. That post surveyed the shape of the project. This one is about a single line inside it.
