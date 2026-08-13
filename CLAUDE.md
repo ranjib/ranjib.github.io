@@ -1,6 +1,9 @@
 # CLAUDE.md
 
-This is a Hugo static site for ranjib.dev. Design artifacts are in `/design-system/`.
+This is a Hugo static site currently published at `https://ranjib.github.io/`.
+Design artifacts are in `/design-system/`. Custom-domain planning lives in
+`docs/domain/`; do not add a GitHub Pages `CNAME` file or change Hugo `baseURL`
+until the canonical-domain ADR is approved by Ranjib.
 
 ## Before making any visual change:
 1. Read `design-system/STRATEGY.md`

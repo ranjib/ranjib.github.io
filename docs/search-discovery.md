@@ -33,7 +33,7 @@ Post-release checks:
 
 ## Canonical Domain Coordination
 
-Issue #61 owns the final canonical-domain decision. Until that lands, Search Console should use `https://ranjib.github.io/`, and campaign tooling should generate URLs on the same origin. If #61 changes the canonical host, update:
+`docs/domain/adr-canonical-domain.md` owns the final canonical-domain decision. Until that ADR is approved and migrated, Search Console should use `https://ranjib.github.io/`, and campaign tooling should generate URLs on the same origin. If the canonical host changes, update:
 
 - `baseURL` in `config.toml`;
 - Search Console property and sitemap submission;

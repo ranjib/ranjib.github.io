@@ -1,6 +1,10 @@
 # Personal Website
 
-This repository contains the Hugo source for `ranjib.com` / `ranjib.github.io`.
+This repository contains the Hugo source for `ranjib.github.io`.
+
+Custom-domain planning lives in `docs/domain/`. Do not add a GitHub Pages
+`CNAME` file or change Hugo `baseURL` until the canonical-domain ADR is
+approved by Ranjib.
 
 ## Source Of Truth
 
