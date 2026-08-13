@@ -1,20 +1,20 @@
 ---
-title: "Testing Infrastructure Was the Original Context Engineering"
+title: "Context Engineering Evals Remind Me of Infrastructure Testing"
 date: 2026-08-11T00:00:00-07:00
 draft: false
 ---
 
-Current AI language makes context engineering sound new.
+Context engineering is real engineering work in its own right.
 
-In one sense, it is. LLM agents have their own mechanics: context windows, retrieval, tool calls, system prompts, memories, model routing, and evals. The operating surface is different from a fleet of servers.
+LLM agents have their own mechanics: context windows, retrieval, tool calls, system prompts, memories, model routing, and evals. The operating surface is different from a fleet of servers, and it deserves its own vocabulary.
 
-But the engineering problem feels familiar.
+Still, the evaluation challenges feel familiar.
 
 When I worked on test-driven development for operations, the hard part was getting teams to treat infrastructure code as behavior. A cookbook was not documentation about a server. It was an executable artifact that could change production. It encoded assumptions about packages, users, files, templates, secrets, service dependencies, and runtime state.
 
-Context for agents has the same property. A prompt, project instruction file, retrieval result, tool schema, rubric, or memory pack is not just prose. It can make an agent choose the right file, preserve a privacy boundary, run the right check, or avoid a stale assumption. It can also make the agent confidently do the wrong thing.
+Context for agents has a related property. A prompt, project instruction file, retrieval result, tool schema, rubric, or memory pack is not just prose. It can make an agent choose the right file, preserve a privacy boundary, run the right check, or avoid a stale assumption. It can also make the agent confidently do the wrong thing.
 
-Testing infrastructure was an early version of the same discipline: make hidden assumptions explicit, version them, and use feedback loops to keep behavior from drifting away from intent.
+That does not make context engineering a renamed version of infrastructure testing. It makes the comparison useful. Both domains ask how to make hidden assumptions explicit, version the artifacts that steer behavior, and build feedback loops that catch drift before it becomes user-visible.
 
 ## Infrastructure testing was about intent
 
@@ -24,9 +24,9 @@ Chef let us describe desired state: install this package, render this config, st
 
 Fast unit tests with ChefSpec checked cookbook logic without building a whole machine. Test Kitchen converged real instances or containers. Serverspec and later InSpec verified system state. Linters caught obvious mistakes. CI made the feedback loop routine.
 
-The specific tools have aged. The important idea has not: operational intent should be executable, inspectable, and testable.
+The specific tools have aged. The useful lesson has not: operational intent should be executable, inspectable, and testable.
 
-That is also the core of context engineering.
+That lesson maps well to context engineering evaluation.
 
 An agent instruction might say, "prefer existing project patterns." A context pack might say, "this source is public, this source is private, and this claim is stale." A retrieval system decides which notes enter the model's context window. Those decisions are runtime behavior.
 
@@ -44,13 +44,13 @@ The hidden state is now conversation history, retrieved documents, tool descript
 
 That is why modern agent evaluation work keeps returning to multiple graders and layers: code checks, model judges, human review, groundedness checks, trajectory checks, regression suites, and production monitoring. A single final-answer score is not enough when the system can fail during retrieval, planning, tool use, formatting, safety, or source attribution.
 
-This is the same lesson as infrastructure testing: match the test to the layer where the failure can happen.
+This is the infrastructure-testing lesson I keep reaching for in context engineering: match the test to the layer where the failure can happen.
 
 ## Evals are tests for behavioral contracts
 
 The strongest current writing on agent evals has converged on a practical point: evals force teams to define what good behavior means before production users discover the ambiguity.
 
-That sounds very close to TDD.
+That reminds me of TDD.
 
 In operations, the red-green-refactor loop forced intent into the open. What should this cookbook do? What should happen after convergence? Which behavior is a unit concern, and which belongs in production monitoring?
 
@@ -65,7 +65,7 @@ intended behavior
   -> regression check
 ```
 
-The artifact under test is different: a prompt, retrieval policy, tool interface, context pack, workflow instruction, or model-routing rule. The discipline is the same: write down the behavior, run representative cases, and improve the artifact when reality exposes a gap.
+The artifact under test is different: a prompt, retrieval policy, tool interface, context pack, workflow instruction, or model-routing rule. The habit is similar: write down the behavior, run representative cases, and improve the artifact when reality exposes a gap.
 
 This matters more as agents become less single-turn and more operational.
 
@@ -77,7 +77,7 @@ Those systems need regression tests because their behavior is shaped by more tha
 
 The state of the art in agent evals is not one magic judge. It is a portfolio: deterministic tests for JSON, tool calls, required fields, and allowed sources; model judgment for groundedness, instruction following, overclaiming, coverage, and tone; human review where domain judgment, taste, risk, or user trust matters. Anthropic's agent-eval guidance, OpenAI's graders and tracing, LangSmith's offline and online evaluator split, Promptfoo's repo-friendly assertions, and Phoenix/Braintrust-style trace-to-dataset workflows all point in the same direction: evaluate the agent at the layer where the behavior can fail.
 
-That maps cleanly onto a context-engineering test pyramid, with parallel examples from infrastructure and agents.
+That suggests a context-engineering test pyramid, with parallel examples from infrastructure and agents.
 
 At the unit layer, infrastructure tests ask whether one small artifact expresses the right intent: does this recipe render the expected config, set the right owner, or call the right resource? Agent unit tests should be just as narrow. Does the prompt template include the privacy boundary? Does the tool schema reject missing required fields? Does the router choose the retrieval tool for a source-backed question? Does the output parser reject invalid JSON? These should be fast, deterministic, and cheap enough to run in CI on every prompt, policy, or context-pack change.
 
@@ -100,21 +100,21 @@ The must-haves are practical:
 
 The mistake would be treating LLM-as-judge as the whole system. Infrastructure teams learned the same lesson with mocks: they are valuable when they isolate the unit under test, and dangerous when they become a comforting simulation of the world you forgot to verify.
 
-## The old lesson is still the useful one
+## The comparison is useful, not complete
 
-Testing infrastructure was never really about ChefSpec or Test Kitchen. It was about taking operational behavior seriously once it moved into artifacts.
+Context engineering is not infrastructure testing with a new name. It has new materials: probabilistic models, natural-language instructions, retrieval, memory, tool use, trajectory scoring, and human preference. The work is genuine because those materials create new failure modes.
+
+But infrastructure testing still offers a useful memory. ChefSpec and Test Kitchen were not the point. The point was taking operational behavior seriously once it moved into artifacts.
 
 Prompts, memories, retrieval policies, tool manifests, and workflow instructions are becoming part of production systems. They change outcomes, encode judgment, carry stale assumptions, and create privacy boundaries. They need review, versioning, tests, and post-failure improvement.
 
-The industry has better vocabulary now: agent trajectories, context curation, online and offline evals, groundedness, model graders, and regression suites. That vocabulary is useful. But the engineering taste underneath is older.
+The industry has better vocabulary now: agent trajectories, context curation, online and offline evals, groundedness, model graders, and regression suites. That vocabulary is useful because the domain is different. The engineering taste underneath is still recognizable.
 
 When behavior matters, make it explicit.
 
 Write down the intent. Version it. Test it at the right layer. Keep the feedback loop fast. Add integration checks where the real world matters. Calibrate with humans where judgment matters. Fix the artifact when the system fails.
 
-That was the lesson of TDD in operations.
-
-It is also the lesson of context engineering.
+That is the lesson from TDD in operations that I want to carry into context engineering without flattening the new field into the old one.
 
 ## Public sources
 
