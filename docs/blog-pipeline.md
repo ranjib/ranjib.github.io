@@ -65,6 +65,19 @@ Assumptions:
 6. Saturday: run the knowledge-graph public leak checks if content was exported from the wiki.
 7. Sunday: publish.
 
+After publication, create the distribution package described in
+[`docs/distribution/strategy.md`](distribution/strategy.md). The sustainable
+default cadence is now:
+
+- one substantial canonical essay every two weeks;
+- two LinkedIn posts per week;
+- five to ten substantive comments per week on relevant practitioner discussions;
+- one monthly digest after the subscription foundation exists.
+
+Calendar reconciliation: keep existing issue dates #34-#42 unchanged. Use this
+distribution workflow to add launch, follow-up, outreach, and measurement tasks
+around those dates instead of silently moving the canonical publishing schedule.
+
 ## Draft Checklist
 
 - The post has one clear thesis.
@@ -73,3 +86,4 @@ Assumptions:
 - No family logistics, finance details, exact home operations, active flight-training details, or sensitive personal records are included.
 - Public claims link to public artifacts when available.
 - The title fits the existing site tone: direct, reflective, and engineering-oriented.
+- Distribution derivatives receive the same privacy review as the canonical article.
