@@ -8,4 +8,4 @@
 <style>{{ os.ReadFile "design-system/tokens.css" | safeCSS }}</style>
 {{ $css := resources.Get "css/main.css" | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
-<link rel="alternate" type="application/rss+xml" title="{{ .Site.Params.title }}" href="{{ .Site.BaseURL }}index.xml" />
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Params.rssTitle | default .Site.Params.title }}" href="{{ absURL "index.xml" }}" />

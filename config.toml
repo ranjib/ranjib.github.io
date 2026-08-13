@@ -1,5 +1,8 @@
 baseURL = 'https://ranjib.github.io'
+title = 'Ranjib Dey'
+locale = 'en_US'
 defaultContentLanguage = 'en'
+copyright = 'Copyright © Ranjib Dey'
 
 [taxonomies]
   tag = 'tags'
@@ -34,9 +37,13 @@ profilePicture = 'images/profile.jpeg'
 title = 'Ranjib Dey'
 description = 'Systems in Practice: engineering reliable systems across production infrastructure, AI agents, open-source hardware, gardens, and field adventures.'
 positioning = 'Systems in Practice'
+rssTitle = 'Ranjib Dey - Systems in Practice'
+rssDescription = 'Recent writing from Ranjib Dey on reliable systems, production infrastructure, agentic AI, open-source making, field systems, and learning.'
+newsletterName = 'Field Notes on Reliable Systems'
 
   [params.author]
   name = 'Ranjib Dey'
+  email = 'ranjib@linux.com'
   url = 'https://ranjib.github.io/about/personal/'
 
   [params.social]
@@ -60,6 +67,12 @@ positioning = 'Systems in Practice'
   weight = 175
   identifier = "lanes"
   url = "/lanes/"
+
+  [[menu.main]]
+  name = "Subscribe"
+  weight = 190
+  identifier = "subscribe"
+  url = "/subscribe/"
 
   [[menu.main]]
   name = "Blogs"

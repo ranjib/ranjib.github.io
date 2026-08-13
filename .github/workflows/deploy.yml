@@ -35,6 +35,9 @@ jobs:
       - name: Validate content model
         run: node scripts/validate-content-model.mjs
 
+      - name: Validate RSS
+        run: node scripts/validate-rss.mjs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:

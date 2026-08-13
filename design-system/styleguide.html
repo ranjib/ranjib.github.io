@@ -99,13 +99,13 @@
     .lane-card h2 a { color: var(--text); text-decoration: none; }
     .lane-card p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0 0 var(--s-4); }
     .lane-card a, .section-heading-split a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; }
-    .post-followup, .author-block, .article-cta { border-top: 1px solid var(--hairline); margin-top: var(--s-8); padding-top: var(--s-6); }
-    .post-followup h2, .author-block h2, .article-cta h2 { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tr-wide); margin: 0 0 var(--s-4); text-transform: uppercase; color: var(--text-meta); }
+    .post-followup, .author-block, .subscribe-cta, .article-cta { border-top: 1px solid var(--hairline); margin-top: var(--s-8); padding-top: var(--s-6); }
+    .post-followup h2, .author-block h2, .subscribe-cta h2, .article-cta h2 { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tr-wide); margin: 0 0 var(--s-4); text-transform: uppercase; color: var(--text-meta); }
     .related-grid { display: grid; gap: var(--s-4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .related-card { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: var(--s-4); }
     .related-card h3 { font-size: var(--fs-lg); font-weight: 500; line-height: var(--lh-snug); letter-spacing: var(--tr-tight); margin: 0 0 var(--s-2); }
     .related-card h3 a { color: var(--text); text-decoration: none; }
-    .related-card p, .author-block p, .article-cta p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0; }
+    .related-card p, .author-block p, .subscribe-cta p, .article-cta p { color: var(--text-muted); font-size: var(--fs-base); line-height: var(--lh-normal); margin: 0; }
     .inline-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-4); }
     .inline-actions a { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; }
     @media (max-width: 48rem) {
@@ -198,6 +198,7 @@
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#">Start Here</a></li>
             <li><a href="#">Lanes</a></li>
+            <li><a href="#">Subscribe</a></li>
             <li><a href="#">Blogs</a></li>
             <li><a href="#">About</a></li>
             <li><button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">◑</button></li>
@@ -299,12 +300,20 @@
         <a href="#">Start Here</a>
       </div>
     </aside>
+    <aside class="subscribe-cta" aria-labelledby="sg-subscribe-title">
+      <h2 id="sg-subscribe-title">Subscribe</h2>
+      <p>Follow new Systems in Practice writing through RSS now. The monthly email digest, Field Notes on Reliable Systems, will wait until the provider, consent, export, and privacy model are real.</p>
+      <div class="inline-actions">
+        <a href="#">Subscribe Options</a>
+        <a href="#">RSS Feed</a>
+      </div>
+    </aside>
     <aside class="article-cta" aria-labelledby="sg-cta-title">
       <h2 id="sg-cta-title">Keep Reading</h2>
-      <p>Follow the curated Systems in Practice path, or subscribe with RSS until a provider-neutral subscription option lands.</p>
+      <p>Follow the curated Systems in Practice path, or subscribe through the provider-neutral options page.</p>
       <div class="inline-actions">
         <a href="#">Start Here</a>
-        <a href="#">RSS</a>
+        <a href="#">Subscribe</a>
       </div>
     </aside>
   </section>
@@ -327,7 +336,7 @@ func main() {
   <section class="sg-section">
     <div class="sg-section-title">Component — Site Footer</div>
     <footer class="site-footer">
-      <p>© 2026 Ranjib Dey</p>
+      <p>© 2026 Ranjib Dey · <a href="#">Subscribe</a> · <a href="#">RSS</a></p>
     </footer>
   </section>
 

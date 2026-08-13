@@ -365,6 +365,7 @@ img, svg { max-width: 100%; display: block; }
 .post-header { margin-bottom: var(--s-7); padding-bottom: var(--s-5); border-bottom: 1px solid var(--hairline); }
 .post-followup,
 .author-block,
+.subscribe-cta,
 .article-cta {
   border-top: 1px solid var(--hairline);
   margin-top: var(--s-8);
@@ -372,6 +373,7 @@ img, svg { max-width: 100%; display: block; }
 }
 .post-followup h2,
 .author-block h2,
+.subscribe-cta h2,
 .article-cta h2 {
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
@@ -407,6 +409,7 @@ img, svg { max-width: 100%; display: block; }
 }
 .related-card p,
 .author-block p,
+.subscribe-cta p,
 .article-cta p {
   color: var(--text-muted);
   font-size: var(--fs-base);
