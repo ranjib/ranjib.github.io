@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396" role="img" aria-labelledby="title desc">
+  <title id="title">Ranjib Dey - Systems in Practice LinkedIn banner</title>
+  <desc id="desc">Warm neutral banner with Systems in Practice text and abstract lines connecting code, reliability, open-source hardware, field systems, and learning.</desc>
+  <rect width="1584" height="396" fill="#f8f4f0"/>
+  <rect x="0" y="0" width="1584" height="396" fill="none" stroke="#e0d5cc" stroke-width="2"/>
+  <g opacity="0.55" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M178 292 C312 154 462 186 594 112 S876 64 1018 174 1322 264 1468 106" stroke="#c9bbaf" stroke-width="4"/>
+    <path d="M226 330 C384 260 468 302 632 224 S924 150 1086 230 1356 312 1484 212" stroke="#ede5dd" stroke-width="8"/>
+    <path d="M742 285 C834 190 936 185 1022 246 S1222 322 1368 276" stroke="#9e4a22" stroke-width="3"/>
+  </g>
+  <g fill="#9e4a22">
+    <circle cx="594" cy="112" r="10"/>
+    <circle cx="1018" cy="174" r="10"/>
+    <circle cx="1368" cy="276" r="10"/>
+    <circle cx="742" cy="285" r="7"/>
+  </g>
+  <g transform="translate(606 82)">
+    <text x="0" y="0" fill="#7b6759" font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="2">RANJIB DEY</text>
+    <text x="0" y="74" fill="#150d07" font-family="Georgia, 'Source Serif 4', serif" font-size="66" font-weight="500">Systems in Practice</text>
+    <text x="0" y="128" fill="#4c3a2f" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28">Production engineering · Reliable AI · Open-source making</text>
+    <text x="0" y="176" fill="#7b6759" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22">ranjib.github.io</text>
+  </g>
+  <g transform="translate(84 74)" opacity="0.85">
+    <rect x="0" y="0" width="320" height="230" rx="6" fill="#ede5dd" stroke="#e0d5cc" stroke-width="2"/>
+    <path d="M40 68 H148 M40 104 H228 M40 140 H188" stroke="#624e41" stroke-width="10" stroke-linecap="round"/>
+    <path d="M228 70 l42 42 -42 42" fill="none" stroke="#9e4a22" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="238" cy="162" r="18" fill="#9e4a22"/>
+  </g>
+</svg>

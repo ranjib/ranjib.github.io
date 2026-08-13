@@ -44,6 +44,9 @@ jobs:
       - name: Validate distribution workflow
         run: node scripts/validate-distribution.mjs
 
+      - name: Validate brand kit
+        run: node scripts/validate-brand.mjs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
