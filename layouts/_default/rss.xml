@@ -1,0 +1,27 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- $pages := where (where .Site.RegularPages "Section" "posts") "Params.private" "ne" true }}
+{{- $language := lower (replace (.Site.Language.Locale | default .Site.Language.Lang) "_" "-") }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Site.Params.rssTitle | default .Site.Title }}</title>
+    <link>{{ .Site.BaseURL }}</link>
+    <description>{{ .Site.Params.rssDescription | default .Site.Params.description }}</description>
+    <generator>Hugo</generator>
+    <language>{{ $language }}</language>
+    <copyright>{{ .Site.Copyright }}</copyright>
+    {{ with .Site.Params.author.email }}<managingEditor>{{ . }} ({{ $.Site.Params.author.name }})</managingEditor>{{ end }}
+    {{ with .Site.Params.author.email }}<webMaster>{{ . }} ({{ $.Site.Params.author.name }})</webMaster>{{ end }}
+    {{ with .OutputFormats.Get "RSS" }}<atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />{{ end }}
+    {{ with index $pages.ByDate.Reverse 0 }}<lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>{{ end }}
+    {{- range first 20 $pages.ByDate.Reverse }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      {{ with (.Params.description | default .Summary | plainify) }}<description>{{ . }}</description>{{ end }}
+      {{ with .Site.Params.author.email }}<author>{{ . }} ({{ $.Site.Params.author.name }})</author>{{ end }}
+    </item>
+    {{- end }}
+  </channel>
+</rss>

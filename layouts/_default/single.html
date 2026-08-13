@@ -2,6 +2,7 @@
 <article>
   <header class="post-header">
     <h1 class="post-title">{{ .Title }}</h1>
+    {{ if eq .Section "posts" }}
     <div class="tax-list" aria-label="Post taxonomy">
       {{ partial "taxonomy-links.html" . }}
     </div>
@@ -9,6 +10,11 @@
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
       {{ if .ReadingTime }}<span>·</span><span>{{ .ReadingTime }} min read</span>{{ end }}
     </p>
+    {{ else }}
+      {{ with .Description }}
+      <p class="page-description">{{ . }}</p>
+      {{ end }}
+    {{ end }}
   </header>
   <div class="post-body">
     {{ .Content }}
@@ -16,6 +22,7 @@
   {{ if eq .Section "posts" }}
     {{ partial "related-posts.html" . }}
     {{ partial "author-block.html" . }}
+    {{ partial "subscribe-cta.html" . }}
     {{ partial "article-cta.html" . }}
   {{ end }}
 </article>
