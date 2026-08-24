@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { basename, join, relative } from "node:path";
+import { basename, dirname, join, relative } from "node:path";
 
 const root = process.argv[2] || "public";
 const contentRoot = "content/posts";
+const photoSuggestionsRoot = "data/photo-suggestions";
 const validLanes = new Set([
   "engineering-ai",
   "open-source-making",
@@ -40,6 +41,21 @@ function collectHtml(dir) {
     if (stat.isDirectory()) {
       found.push(...collectHtml(fullPath));
     } else if (entry.endsWith(".html")) {
+      found.push(fullPath);
+    }
+  }
+  return found.sort();
+}
+
+function collectJson(dir) {
+  if (!existsSync(dir)) return [];
+  const found = [];
+  for (const entry of readdirSync(dir)) {
+    const fullPath = join(dir, entry);
+    const stat = statSync(fullPath);
+    if (stat.isDirectory()) {
+      found.push(...collectJson(fullPath));
+    } else if (entry.endsWith(".json")) {
       found.push(fullPath);
     }
   }
@@ -88,6 +104,59 @@ for (const file of collectMarkdown(contentRoot)) {
   }
   if (!Array.isArray(frontmatter.tags) || frontmatter.tags.length === 0) {
     fail(target, "published post needs at least one focused tag");
+  }
+}
+
+for (const file of collectJson(photoSuggestionsRoot)) {
+  const target = relative(".", file);
+  let manifest;
+  try {
+    manifest = JSON.parse(readFileSync(file, "utf8"));
+  } catch (error) {
+    fail(target, `invalid JSON: ${error.message}`);
+    continue;
+  }
+
+  const slug = basename(file, ".json");
+  if (manifest.post_slug !== slug) {
+    fail(target, `post_slug '${manifest.post_slug || ""}' must match filename slug '${slug}'`);
+  }
+  if (!existsSync(join(contentRoot, `${slug}.md`))) {
+    fail(target, `target post '${slug}' does not exist`);
+  }
+  if (manifest.generator_version !== "photo-blog-publishing-v1") {
+    fail(target, "generator_version must be photo-blog-publishing-v1");
+  }
+  if (!Array.isArray(manifest.photos) || manifest.photos.length === 0) {
+    fail(target, "photos must be a non-empty array");
+    continue;
+  }
+
+  for (const [index, photo] of manifest.photos.entries()) {
+    const item = `${target} photos[${index}]`;
+    if (!photo.public_photo_id) {
+      fail(item, "missing public_photo_id");
+    }
+    if (!photo.alt) {
+      fail(item, "missing alt text");
+    }
+    if (!photo.caption) {
+      fail(item, "missing caption");
+    }
+    if (!photo.kg_source?.startsWith("llm-wiki-ranjib:")) {
+      fail(item, "kg_source must start with llm-wiki-ranjib:");
+    }
+    if (!photo.image_path?.startsWith(`images/posts/${slug}/`)) {
+      fail(item, `image_path must start with images/posts/${slug}/`);
+      continue;
+    }
+    const assetPath = join("assets", photo.image_path);
+    if (dirname(assetPath) !== join("assets", "images", "posts", slug)) {
+      fail(item, "image_path must stay directly under the post image directory");
+    }
+    if (!existsSync(assetPath)) {
+      fail(item, `referenced image does not exist: ${assetPath}`);
+    }
   }
 }
 
