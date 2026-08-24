@@ -35,6 +35,12 @@ jobs:
       - name: Validate content model
         run: node scripts/validate-content-model.mjs
 
+      - name: Check approved photo insertions
+        run: node scripts/apply-approved-photos.mjs --check
+
+      - name: Validate approved photos
+        run: node scripts/validate-approved-photos.mjs
+
       - name: Validate RSS
         run: node scripts/validate-rss.mjs
 
