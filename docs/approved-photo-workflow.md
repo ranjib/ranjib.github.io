@@ -19,19 +19,34 @@ metadata into public-safe website artifacts.
 1. Read `content/posts/<post-slug>.md`.
 2. Read `data/photo-suggestions/<post-slug>.json` when it exists.
 3. Use only photos already present in that approved suggestion manifest.
-4. Insert the existing Hugo shortcode near relevant prose:
+4. Apply approved photos automatically:
+
+   ```bash
+   node scripts/apply-approved-photos.mjs --dry-run
+   node scripts/apply-approved-photos.mjs
+   ```
+
+   To apply one post only:
+
+   ```bash
+   node scripts/apply-approved-photos.mjs --post <post-slug>
+   ```
+
+5. The script inserts the existing Hugo shortcode near the beginning of the
+   article when an approved image is not already present:
 
    ```go-html-template
    {{< img src="images/posts/<post-slug>/<public-photo-id>.jpg" alt="Approved alt text" caption="Approved caption." >}}
    ```
 
-5. Use the approved `alt` and `caption` values exactly unless Ranjib explicitly
+6. Use the approved `alt` and `caption` values exactly unless Ranjib explicitly
    asks for a new KG approval pass.
-6. Preserve the post's editorial voice. The photo should support existing prose;
+7. Preserve the post's editorial voice. The photo should support existing prose;
    do not add private context to justify it.
-7. Run:
+8. Run:
 
    ```bash
+   node scripts/apply-approved-photos.mjs --check
    node scripts/validate-approved-photos.mjs
    hugo --minify
    node scripts/validate-content-model.mjs public
@@ -52,3 +67,6 @@ metadata into public-safe website artifacts.
 
 Existing non-KG images are not forced into this workflow. The strict matching
 rules apply to KG-approved `photo-*` assets.
+
+`scripts/apply-approved-photos.mjs --check` fails when approved manifest entries
+exist but their matching shortcodes have not been inserted yet.
