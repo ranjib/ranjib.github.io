@@ -101,3 +101,16 @@ Keep public website copy public-safe:
 - Remove unresolved wiki links from website copy.
 - Avoid raw local filesystem paths in public pages and PR descriptions, except documented workflow paths like the public pack location.
 - Preserve the current Hugo theme and visual design unless a tracking issue explicitly scopes design work.
+
+## Approved Photo Suggestions
+
+KG-exported personal photos may be inserted only through the approved workflow in
+[`docs/approved-photo-workflow.md`](docs/approved-photo-workflow.md). Agents
+should use only approved `data/photo-suggestions/<post-slug>.json` entries and
+matching files under `assets/images/posts/<post-slug>/`.
+
+Validate approved photo usage with:
+
+```bash
+node scripts/validate-approved-photos.mjs
+```
