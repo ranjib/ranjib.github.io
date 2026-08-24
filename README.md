@@ -112,5 +112,6 @@ matching files under `assets/images/posts/<post-slug>/`.
 Validate approved photo usage with:
 
 ```bash
+node scripts/apply-approved-photos.mjs --check
 node scripts/validate-approved-photos.mjs
 ```
