@@ -16,6 +16,9 @@ until the canonical-domain ADR is approved by Ranjib.
 - Hugo partials use the same class names as the design system styleguide.
 - Run `hugo server -D` after changes; verify against `design-system/styleguide.html`.
 - Keep markup semantic.
+- For KG-exported photos, follow `docs/approved-photo-workflow.md`. Use only
+  approved `data/photo-suggestions/<post-slug>.json` entries and matching
+  `assets/images/posts/<post-slug>/photo-*.jpg` files.
 
 ## Project structure
 - Layouts are ROOT-LEVEL (`layouts/`, `assets/`, `static/`) — there is NO `themes/` folder and no theme submodule. Do not reintroduce one.
