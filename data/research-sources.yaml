@@ -1,0 +1,123 @@
+schema_version: editorial-research-sources-v1
+updated_at: 2026-08-27
+authority_levels:
+  primary: Official project, vendor, standards, research, or source-owner material.
+  ecosystem: High-context ecosystem sources, maintainers, foundations, or major engineering teams.
+  practitioner: Detailed practitioner reports with enough evidence to verify.
+  secondary: Aggregators, social posts, newsletters, and SEO summaries.
+domains:
+  sre:
+    primary:
+      - name: Google SRE
+        url: https://sre.google/
+        topics: [sre, reliability, production-safety]
+      - name: AWS Builders Library
+        url: https://aws.amazon.com/builders-library/
+        topics: [distributed-systems, operations, resilience]
+      - name: Cloudflare Blog
+        url: https://blog.cloudflare.com/
+        topics: [edge, incidents, reliability]
+      - name: Uber Engineering
+        url: https://www.uber.com/blog/engineering/
+        topics: [platform-engineering, capacity, reliability]
+    ecosystem:
+      - name: CNCF Blog
+        url: https://www.cncf.io/blog/
+        topics: [cloud-native, kubernetes, observability]
+      - name: Kubernetes Blog
+        url: https://kubernetes.io/blog/
+        topics: [kubernetes, platform-engineering]
+      - name: OpenTelemetry Blog
+        url: https://opentelemetry.io/blog/
+        topics: [observability, instrumentation]
+      - name: Grafana Blog
+        url: https://grafana.com/blog/
+        topics: [observability, operations]
+  genai:
+    primary:
+      - name: OpenAI News
+        url: https://openai.com/news/
+        topics: [models, agents, evals, tool-use]
+      - name: OpenAI Docs
+        url: https://platform.openai.com/docs/
+        topics: [api, agents, evals]
+      - name: Anthropic News
+        url: https://www.anthropic.com/news
+        topics: [models, agents, safety]
+      - name: Google DeepMind Blog
+        url: https://deepmind.google/discover/blog/
+        topics: [research, models, agents]
+      - name: GitHub Blog
+        url: https://github.blog/
+        topics: [copilot, developer-tools, agentic-workflows]
+    engineering:
+      - name: Hugging Face Blog
+        url: https://huggingface.co/blog
+        topics: [models, inference, open-source-ai]
+      - name: LangChain Blog
+        url: https://blog.langchain.com/
+        topics: [agents, evals, retrieval]
+      - name: Promptfoo
+        url: https://www.promptfoo.dev/blog/
+        topics: [evals, testing, prompts]
+      - name: Arize Phoenix
+        url: https://arize.com/blog/
+        topics: [observability, evals, tracing]
+    research:
+      - name: arXiv Computation and Language
+        url: https://arxiv.org/list/cs.CL/recent
+        topics: [language-models, agents, evaluation]
+      - name: arXiv Artificial Intelligence
+        url: https://arxiv.org/list/cs.AI/recent
+        topics: [agents, planning, evaluation]
+  open_source_physical_computing:
+    primary:
+      - name: Raspberry Pi News
+        url: https://www.raspberrypi.com/news/
+        topics: [single-board-computing, education, hardware]
+      - name: Adafruit Blog
+        url: https://blog.adafruit.com/
+        topics: [maker, electronics, physical-computing]
+      - name: Arduino Blog
+        url: https://blog.arduino.cc/
+        topics: [microcontrollers, maker, education]
+    ecosystem:
+      - name: Hackaday
+        url: https://hackaday.com/
+        topics: [hardware, reverse-engineering, maker-projects]
+  hobbies:
+    gardening:
+      - name: UC Agriculture and Natural Resources
+        url: https://ucanr.edu/
+        topics: [gardening, climate, extension]
+      - name: UC IPM
+        url: https://ipm.ucanr.edu/
+        topics: [integrated-pest-management, gardening]
+      - name: EPA WaterSense
+        url: https://www.epa.gov/watersense
+        topics: [water-use, irrigation]
+    overlanding:
+      - name: Tread Lightly
+        url: https://treadlightly.org/
+        topics: [land-use, field-safety, stewardship]
+      - name: National Weather Service
+        url: https://www.weather.gov/
+        topics: [weather, field-risk]
+    reef_keeping:
+      - name: reef-pi
+        url: https://reef-pi.github.io/
+        topics: [reef-automation, open-source-hardware]
+      - name: Reef2Reef
+        url: https://www.reef2reef.com/
+        topics: [reef-keeping, community-practice]
+    astronomy:
+      - name: NASA Science
+        url: https://science.nasa.gov/
+        topics: [astronomy, observation, instrumentation]
+      - name: American Association of Variable Star Observers
+        url: https://www.aavso.org/
+        topics: [field-science, observation-workflows]
+review_policy:
+  prefer_primary_sources: true
+  secondary_sources_require_corroboration: true
+  explain_lower_authority_influence: true
