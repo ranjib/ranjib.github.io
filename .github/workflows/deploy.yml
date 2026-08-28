@@ -11,6 +11,7 @@ permissions:
 
 env:
   HUGO_VERSION: "0.162.1"
+  GO_VERSION: "1.23.x"
 
 jobs:
   build:
@@ -25,6 +26,11 @@ jobs:
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
       - name: Build
         run: hugo --gc --minify
@@ -56,8 +62,11 @@ jobs:
       - name: Validate canonical domain
         run: node scripts/validate-domain.mjs
 
+      - name: Test Go tools
+        run: go test ./...
+
       - name: Validate editorial radar
-        run: node scripts/validate-editorial-radar.mjs
+        run: go run ./cmd/validate-editorial-radar
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
