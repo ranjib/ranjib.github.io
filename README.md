@@ -15,14 +15,16 @@ measurement, distribution, brand, and domain work.
 
 The maintained website source is intentionally small:
 
-- `config.toml` configures Hugo, the Anatole theme, menus, and site parameters.
+- `config.toml` configures Hugo, menus, and site parameters.
 - `content/` contains public website copy and posts.
-- `static/` contains static assets such as the profile image.
-- `layouts/` is the place for local Hugo template overrides when needed.
+- `layouts/`, `assets/`, and `static/` contain the first-party Hugo layout,
+  CSS pipeline, approved images, and static assets.
 - `archetypes/` defines defaults for new content.
 - `.github/workflows/deploy.yml` builds and publishes the site from `master`.
 
-The Anatole theme lives in `themes/anatole` as a git submodule. Prefer local Hugo overrides in `layouts/` or site-level assets before editing the theme submodule.
+There is no Hugo theme submodule. Do not reintroduce a `themes/` directory or
+add a `theme =` line to `config.toml`; root-level layouts and assets are the
+source of truth.
 
 ## Generated Output
 
@@ -35,12 +37,6 @@ Do not treat generated Hugo output as primary source:
 These paths are ignored by Git. Keep PRs focused on source files and do not commit generated output unless a future publishing change intentionally changes this policy.
 
 ## Local Setup
-
-Initialize the theme submodule after cloning or when working in a fresh git worktree:
-
-```bash
-git submodule update --init --recursive
-```
 
 Build the site locally with:
 

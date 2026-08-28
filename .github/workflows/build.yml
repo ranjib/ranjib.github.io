@@ -55,3 +55,6 @@ jobs:
 
       - name: Validate canonical domain
         run: node scripts/validate-domain.mjs
+
+      - name: Validate editorial radar
+        run: node scripts/validate-editorial-radar.mjs

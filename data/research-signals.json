@@ -1,0 +1,23 @@
+{
+  "schema_version": "editorial-research-signals-v1",
+  "updated_at": "2026-08-27T00:00:00Z",
+  "signals": [
+    {
+      "topic": "agent context lifecycle management",
+      "first_seen": "2026-08-27",
+      "last_seen": "2026-08-27",
+      "occurrences": 0,
+      "sources": [],
+      "velocity": "seed",
+      "editorial_lane": "GenAI practice",
+      "related_posts": [
+        "content/posts/treating-context-like-code.md",
+        "content/posts/context-engineering-evaluation-and-infrastructure-testing-lessons.md"
+      ],
+      "related_issues": [
+        78
+      ],
+      "status": "watch"
+    }
+  ]
+}
