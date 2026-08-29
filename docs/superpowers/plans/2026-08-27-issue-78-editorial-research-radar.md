@@ -12,8 +12,8 @@ pull request.
 use Agentic Workflows only for synthesis, materiality judgment, and issue
 creation. Research must create issues, never articles.
 
-**Tech Stack:** Hugo, Node.js validation scripts, GitHub Actions, GitHub
-Agentic Workflows, Codex or Claude Code.
+**Tech Stack:** Hugo, Go validation tooling, GitHub Actions, GitHub Agentic
+Workflows, Codex or Claude Code.
 
 ---
 
@@ -60,7 +60,10 @@ Agentic Workflows, Codex or Claude Code.
 
 **Files:**
 
-- Create: `scripts/validate-editorial-radar.mjs`
+- Create: `go.mod`
+- Create: `cmd/validate-editorial-radar/main.go`
+- Create: `internal/editorialradar/validate.go`
+- Create: `internal/editorialradar/validate_test.go`
 - Update: `.github/workflows/build.yml`
 - Update: `.github/workflows/deploy.yml`
 
@@ -68,6 +71,7 @@ Agentic Workflows, Codex or Claude Code.
 - [x] Validate source URLs and registry breadth.
 - [x] Validate signal-state JSON shape.
 - [x] Validate workflow source boundaries.
+- [x] Add Go package tests for accepted and rejected fixtures.
 - [x] Wire the validator into CI.
 
 ### Task 5: Add Manual Agentic Workflow MVP
@@ -87,10 +91,11 @@ Agentic Workflows, Codex or Claude Code.
 
 ### Task 6: Validate and Ship
 
-- [ ] Run `hugo --gc --minify`.
-- [ ] Run all existing validators.
-- [ ] Run `node scripts/validate-editorial-radar.mjs`.
-- [ ] Run `git diff --check`.
-- [ ] Commit changes.
-- [ ] Push branch.
-- [ ] Open a draft PR linked to #78.
+- [x] Run `hugo --gc --minify`.
+- [x] Run all existing validators.
+- [x] Run `go test ./...`.
+- [x] Run `go run ./cmd/validate-editorial-radar`.
+- [x] Run `git diff --check`.
+- [x] Commit changes.
+- [x] Push branch.
+- [x] Open a draft PR linked to #78.

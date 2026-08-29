@@ -20,7 +20,7 @@ This PR implements the MVP foundation for #78:
 - add `data/research-sources.yaml` as the curated source registry;
 - add `data/research-signals.json` as the weak-signal state seed;
 - add deterministic validation for radar contract, source, state, and workflow
-  files;
+  files as first-class Go code with package tests;
 - wire validation into existing build and deploy checks;
 - add a manual GitHub Agentic Workflow source file for weekly research radar;
 - document the spec and plan in the existing superpowers-style docs tree.
@@ -51,8 +51,8 @@ data/research-sources.yaml
 data/research-signals.json
   -> persistent weak-signal state seed
 
-scripts/validate-editorial-radar.mjs
-  -> deterministic contract and schema checks
+cmd/validate-editorial-radar + internal/editorialradar
+  -> deterministic contract and schema checks with unit tests
 
 .github/workflows/editorial-radar.md
   -> manual Agentic Workflow that reads repo state, researches recent changes,
@@ -82,5 +82,6 @@ until manual runs produce useful research issues with acceptable noise and cost.
 - The source registry contains primary and ecosystem sources across all lanes.
 - The signal state is valid JSON with explicit required fields.
 - The workflow creates one research issue and does not modify content.
+- Radar validation is implemented as Go package code with tests.
 - CI validates the radar files alongside the existing Hugo and metadata checks.
 - The known README/CLAUDE drift fixture is resolved.
