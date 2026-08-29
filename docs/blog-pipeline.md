@@ -32,7 +32,7 @@ Assumptions:
 | 7 | 2026-08-16 | Testing Infrastructure Was the Original Context Engineering | Systems and GenAI | `Career Tech Themes`, Agile 2015/TDD ops pages | Compare TDD in operations with evaluation-driven context engineering. |
 | 8 | 2026-08-23 | Gardening With an Operations Mindset | Hobbies as systems | `Gardening`, `Garden Seasonal Calendar`, `Garden Irrigation Zones` | Generalize zone-based planning, recurring tasks, source hierarchy, and feedback loops. |
 | 9 | 2026-08-30 | Why Documentation Is Part of the Product | Open source and physical computing | `reef-pi-publications`, Adafruit guide references, existing reef-pi post | Use reef-pi guides and community support as the example. |
-| 10 | 2026-09-06 | Model Routing Is an Engineering Decision | GenAI practice | `Model Routing Matrix`, `Coding Agent Lab`, `Local LLM Workstation` | Discuss quality/cost/speed/privacy tradeoffs without making time-sensitive model claims. |
+| 10 | 2026-09-06 | Model Routing Is an Engineering Decision | GenAI practice | `Model Routing Matrix`, `Coding Agent Lab`, `Local LLM Workstation`, context-rot research (Chroma, 18 frontier models) | Discuss quality/cost/speed/privacy tradeoffs without making time-sensitive model claims. Frame the quality axis around context rot: effective answer quality falls as input length grows regardless of advertised window size, so routing and context-budgeting decisions are coupled rather than independent. |
 | 11 | 2026-09-13 | From Service Discovery to Safer Defaults | Systems and reliability | `Career Tech Themes`, Consul at PagerDuty, Platform Engineering | A career-retrospective essay on platforms making safe paths easier. |
 | 12 | 2026-09-20 | Building Hobby Systems That Survive Real Life | Hobbies as systems | `reef-pi`, `Gardening`, `Overlanding`, `3D Printing and Electronics` | Cross-hobby essay: maintenance, observability, constraints, and repairability. |
 | 13 | 2026-09-27 | The Weekly GenAI Review | GenAI practice | `GenAI Weekly Reviews`, `GenAI Skill Matrix` | Turn the review schema into a public template and personal learning method. |
@@ -54,6 +54,7 @@ Assumptions:
 | Trip Retrospectives for Overlanding | Hobbies as systems | Public-safe format: route, constraints, surprises, next changes. |
 | A Personal Website as a Long-Term Memory Interface | GenAI practice | Site as public projection of private knowledge graph. |
 | How to Write Publicly From Private Notes | GenAI practice | Sanitization, source maps, privacy gates, public-safe summaries. |
+| Observability for Agentic Systems | Systems and GenAI | Combine agent observability with incident-taxonomy practice into one essay: OpenTelemetry `gen_ai.*` agent/tool/model spans treat an agent's decision graph as structured logs, and incident taxonomies are the semantic substrate that makes AI incident response usable. Grounds in `reliability-and-incident-taxonomy.md` and `context-engineering-evaluation-and-infrastructure-testing-lessons.md`. Public sources: OpenTelemetry GenAI semantic conventions, IBM ITBench SRE evaluation, Google SRE AI operations guidance. Surfaced by editorial radar 2026-W35. |
 
 ## Weekly Workflow
 

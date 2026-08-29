@@ -1,6 +1,6 @@
 {
   "schema_version": "editorial-research-signals-v1",
-  "updated_at": "2026-08-27T00:00:00Z",
+  "updated_at": "2026-08-28T00:00:00Z",
   "signals": [
     {
       "topic": "agent context lifecycle management",
@@ -16,6 +16,71 @@
       ],
       "related_issues": [
         78
+      ],
+      "status": "watch"
+    },
+    {
+      "topic": "AI as execution layer, humans as judgment layer",
+      "first_seen": "2026-08-28",
+      "last_seen": "2026-08-28",
+      "occurrences": 4,
+      "sources": [
+        "https://www.infoq.com/news/2026/05/dora-roi-ai-assisted-dev-report/",
+        "https://www.traversal.com/blog/ai-in-incident-response-state-of-the-field-2026-sre",
+        "https://github.blog/changelog/2026-08-21-shared-agentic-work-with-github-copilot-in-microsoft-teams/",
+        "https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/"
+      ],
+      "velocity": "rising",
+      "editorial_lane": "Systems and reliability",
+      "related_posts": [
+        "content/posts/reliability-and-incident-taxonomy.md",
+        "content/posts/platform-engineering-through-automation.md"
+      ],
+      "related_issues": [
+        37,
+        40
+      ],
+      "status": "watch"
+    },
+    {
+      "topic": "context budgeting and compaction as a reliability constraint",
+      "first_seen": "2026-08-28",
+      "last_seen": "2026-08-28",
+      "occurrences": 3,
+      "sources": [
+        "https://research.trychroma.com/context-rot",
+        "https://arxiv.org/abs/2605.12366",
+        "https://www.anthropic.com/news"
+      ],
+      "velocity": "rising",
+      "editorial_lane": "GenAI practice",
+      "related_posts": [
+        "content/posts/treating-context-like-code.md",
+        "content/posts/my-personal-llm-wiki-operating-model.md",
+        "content/posts/context-engineering-evaluation-and-infrastructure-testing-lessons.md"
+      ],
+      "related_issues": [
+        36
+      ],
+      "status": "write"
+    },
+    {
+      "topic": "DORA throughput metrics lose meaning under heavy AI code generation",
+      "first_seen": "2026-08-28",
+      "last_seen": "2026-08-28",
+      "occurrences": 2,
+      "sources": [
+        "https://www.infoq.com/news/2026/05/dora-roi-ai-assisted-dev-report/",
+        "https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025"
+      ],
+      "velocity": "emerging",
+      "editorial_lane": "Systems and reliability",
+      "related_posts": [
+        "content/posts/reliability-and-incident-taxonomy.md",
+        "content/posts/platform-engineering-through-automation.md"
+      ],
+      "related_issues": [
+        40
       ],
       "status": "watch"
     }
