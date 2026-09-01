@@ -66,6 +66,19 @@ Assumptions:
 6. Saturday: run the knowledge-graph public leak checks if content was exported from the wiki.
 7. Sunday: publish.
 
+## Future-Date Policy
+
+Build and deploy jobs intentionally run Hugo without `--buildFuture`. A
+non-draft post whose `date` is later than today's `America/Los_Angeles`
+calendar date is invalid: Hugo will skip it, so the post would not appear in
+the generated page, RSS feed, or sitemap. Keep ahead-of-schedule posts as
+`draft: true` until their publish day, then flip `draft` to `false`.
+
+`scripts/validate-rendered-posts.mjs` enforces this policy after Hugo builds by
+checking every non-draft `content/posts/` entry for a rendered page under
+`public/posts/`, a matching RSS entry in `public/index.xml`, and a matching
+sitemap entry in `public/sitemap.xml`.
+
 After publication, create the distribution package described in
 [`docs/distribution/strategy.md`](distribution/strategy.md). The sustainable
 default cadence is now:
