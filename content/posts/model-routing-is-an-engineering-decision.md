@@ -41,6 +41,14 @@ The part I got wrong the first few times was benchmarking the model in isolation
 
 So the sample workloads I benchmark against are never bare prompts. They are the full pipeline — harness, tool definitions, retrieval, and output parsing — run end to end, on hardware that matches what will actually run the job. A model that wins a public leaderboard and loses inside my harness is, for routing purposes, the losing model.
 
+## The sample workloads are a portfolio, not a benchmark suite
+
+HELM and HEIM prove the general case at industrial scale: run enough models across enough scenarios and no single model wins everywhere. That does not tell me which few workloads are worth spending my own benchmarking time on, because that answer is not a property of the field — it is a property of what I actually spend hours doing.
+
+So the sample workloads stay bounded to four shapes of work I actually run, not a canonical benchmark category list: deep research (building the sourcing for a post like this one), multi-file coding (this site's own Hugo and Go pipeline, or reef-pi's controller code), long-form writing (drafting the post itself, start to citation-checked finish), and image or multimodal work (a social card, a diagram, a photo pass). Each gets its own harness, because a research harness and a coding harness disagree about what counts as a good answer.
+
+The scope stays bounded further, to the actual portfolio behind this site: career-adjacent production and reliability writing, the hobby systems that are already public here — reef-pi, the garden, overlanding trips — and the home-operations backlog that never makes it into a post at all. A firmware change, a seasonal irrigation adjustment, a trip risk review, and a chore-tracking automation are as legitimate a benchmark workload as anything on a public leaderboard, because they are the work the routing table actually has to serve. A table sized to the universe of possible tasks is a research program. One sized to an actual personal portfolio — career, hobbies, and home responsibilities — is something one person can keep current on a cadence.
+
 ## Quality is not a property of the model
 
 The axis everyone argues about is quality, and it is the one that behaves least like a constant.
@@ -97,6 +105,12 @@ Treating the routing table as something computed once and then trusted is the sa
 
 What I have converged on is periodic re-benchmarking on the same sample workloads, on a cadence, rather than a one-time calibration. That alone is not enough, because periodic benchmarking without new candidates just re-confirms an aging table more often. The other half is deliberately feeding that cycle with outside signal: a standing research pass — the same discipline I use to keep this blog's own editorial backlog current — that surfaces new model releases, harness changes, and evaluation methodology worth trying before the next re-benchmarking round, instead of waiting to notice a route is stale by watching it lose. Evidence-based medicine has a name for this discipline applied to literature review: a living systematic review, continuously updated as new evidence appears rather than republished from scratch every few years. A routing table kept current by periodic benchmarking plus a standing research feed is the same idea, applied to infrastructure that ages exactly as fast as its inputs do.
 
+## The standing research feed is a radar, not a metaphor
+
+The "standing research pass" above is not a turn of phrase. It is the same editorial research radar this site runs to keep its own backlog current: a bounded, on-demand pass — not a cron job left unattended — that reads primary sources first (model-vendor release notes and docs, engineering blogs, arXiv preprints) over a configurable lookback window, scores each finding for impact, relevance, novelty, and evidence quality, and turns anything that clears the bar into one reviewable issue rather than an autonomous edit. It fails closed the same way the routing host does: no finding gets promoted to a published change without a human decision in between.
+
+That radar already tags a finding as version-sensitive when it touches current models, tools, or APIs — the exact content this routing table depends on. Wiring re-benchmarking to consume that same radar output, instead of running a second, separate watch on model and harness news, means one pipeline does both jobs: it keeps the editorial backlog honest, and it is why the next benchmarking round can start from something more current than whatever I happened to notice had gone stale. Model, harness, context-engineering practice, and the workload itself all move on their own schedules; one standing intake, scored the same way regardless of which of those four moved, is cheaper to keep running than four separate watch lists.
+
 ## The practical shape
 
 What I have converged on is unremarkable, which I take as a good sign.
@@ -131,3 +145,6 @@ Pick the constraint before you pick the model.
 
 - [Treating Context Like Code](/posts/treating-context-like-code/)
 - [My Personal LLM Wiki Operating Model](/posts/my-personal-llm-wiki-operating-model/)
+- [reef-pi as a Small Open Source Platform](/posts/reef-pi-as-a-small-open-source-platform/)
+- [Gardening With an Operations Mindset](/posts/gardening-with-an-operations-mindset/)
+- [Planning Overlanding Trips Like Reliability Reviews](/posts/planning-overlanding-trips-like-reliability-reviews/)
