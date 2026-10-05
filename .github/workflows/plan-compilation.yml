@@ -1,0 +1,25 @@
+name: plan-compilation
+
+on:
+  pull_request:
+    paths:
+      - "docs/superpowers/**"
+      - "scripts/plan_check_standalone.py"
+      - ".github/workflows/plan-compilation.yml"
+  push:
+    branches: [master]
+    paths:
+      - "docs/superpowers/**"
+      - "scripts/plan_check_standalone.py"
+      - ".github/workflows/plan-compilation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  plan-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require compiled implementation plans
+        run: python3 scripts/plan_check_standalone.py --mode required

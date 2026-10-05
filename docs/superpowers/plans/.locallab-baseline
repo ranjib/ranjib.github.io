@@ -1,0 +1,7 @@
+# Historical plans exempt from compilation (sha256  filename).
+# Editing a pinned plan changes its hash and requires compilation.
+14cc62e81d05b10231c1d4b8c0f4d3f2e3831c55044033655447b2d8f5c69591  2026-05-31-hugo-theme-migration.md
+9d9b83d21cff2793745c4452686ccc9972c13b3979cb20e4b6c7c23d50ff6b32  2026-05-31-issue-13-workflow-docs.md
+ae311e8bb77cd83838a9dc3312aed8015f28bcc07ce6d3fc18076ce321685739  2026-05-31-issue-14-generated-artifacts.md
+3b969b0608706bba9ffa5c5a8360c3b741b528a4cdfd2696569bf0bb15bfb877  2026-05-31-issue-15-hugo-pr-validation.md
+b77fccc6be9acf56bbf13afd851e834f5a4a28593ade5087011819858e5af9da  2026-08-27-issue-78-editorial-research-radar.md
