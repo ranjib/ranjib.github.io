@@ -2,6 +2,7 @@
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, join, relative } from "node:path";
+import { findPublicBoundaryViolations } from "./public-boundary-patterns.mjs";
 
 const publicRoot = process.argv[2] || "public";
 const contentRoot = process.argv[3] || "content/posts";
@@ -63,6 +64,20 @@ function hasUrl(filePath, url) {
   return existsSync(filePath) && readFileSync(filePath, "utf8").includes(url);
 }
 
+function validateRenderedPost(target, renderedPath) {
+  if (!existsSync(renderedPath)) {
+    fail(target, `rendered page is missing: ${relative(".", renderedPath)}`);
+    return;
+  }
+  
+  const html = readFileSync(renderedPath, "utf8");
+  const violations = findPublicBoundaryViolations(html);
+  
+  for (const { rule, line } of violations) {
+    fail(target, `public boundary violation: ${rule} at line ${line}`);
+  }
+}
+
 const today = currentPublishDate();
 const rssPath = join(publicRoot, "index.xml");
 const sitemapPath = join(publicRoot, "sitemap.xml");
@@ -90,9 +105,7 @@ if (!existsSync(contentRoot)) {
     const canonicalUrl = `${siteOrigin}/posts/${slug}/`;
     const renderedPath = join(publicRoot, "posts", slug, "index.html");
 
-    if (!existsSync(renderedPath)) {
-      fail(target, `rendered page is missing: ${relative(".", renderedPath)}`);
-    }
+    validateRenderedPost(target, renderedPath);
     if (!hasUrl(rssPath, canonicalUrl)) {
       fail(target, `canonical URL is missing from public/index.xml: ${canonicalUrl}`);
     }
