@@ -1,0 +1,23 @@
+# Repository-side declaration for LocalLab plan compilation (#100).
+# The operator's LocalLab configuration remains the runtime trust boundary.
+plan_compilation: required
+baseline_date: "2026-10-14"
+baseline_file: docs/superpowers/plans/.locallab-baseline
+validators:
+  manifest: .locallab/validators.json
+  plan_check: scripts/plan_check_standalone.py
+routing:
+  local_first:
+    - Hugo and layout mechanics
+    - metadata, RSS, crawl, distribution, brand, domain, and photo validation
+    - editorial-radar implementation and deterministic data transforms
+    - bounded content transformations with authoritative validators
+  frontier_only:
+    - novel thesis selection
+    - external research and source synthesis
+    - weak-oracle editorial judgment
+    - unresolved brand or domain decisions
+boundaries:
+  - no automatic publication or merge
+  - public content uses only approved public-safe sources
+  - research content reuses LocalLab WorkOrder enrichment and source verification
