@@ -64,15 +64,16 @@ function hasUrl(filePath, url) {
   return existsSync(filePath) && readFileSync(filePath, "utf8").includes(url);
 }
 
-function validateRenderedPost(target, renderedPath) {
+function validateRenderedPost(renderedPath) {
+  const target = relative(".", renderedPath);
   if (!existsSync(renderedPath)) {
-    fail(target, `rendered page is missing: ${relative(".", renderedPath)}`);
+    fail(target, "rendered page is missing");
     return;
   }
-  
+
   const html = readFileSync(renderedPath, "utf8");
   const violations = findPublicBoundaryViolations(html);
-  
+
   for (const { rule, line } of violations) {
     fail(target, `public boundary violation: ${rule} at line ${line}`);
   }
@@ -105,7 +106,7 @@ if (!existsSync(contentRoot)) {
     const canonicalUrl = `${siteOrigin}/posts/${slug}/`;
     const renderedPath = join(publicRoot, "posts", slug, "index.html");
 
-    validateRenderedPost(target, renderedPath);
+    validateRenderedPost(renderedPath);
     if (!hasUrl(rssPath, canonicalUrl)) {
       fail(target, `canonical URL is missing from public/index.xml: ${canonicalUrl}`);
     }
