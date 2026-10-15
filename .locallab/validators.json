@@ -1,0 +1,5 @@
+{
+  "build": "./scripts/validate.sh build",
+  "lint": "./scripts/validate.sh lint",
+  "test": "./scripts/validate.sh test"
+}
