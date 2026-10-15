@@ -1,0 +1,222 @@
+{
+  "schema_version": "1.0",
+  "graph_id": "graph-b7841828f0910d588e1fa808",
+  "spec_hash": "4c6c25531e3796f50e01af3848c2faa2d6f8a76eca2bbb761b05a0196211c015",
+  "plan_hash": "85a8d30716f00d9a067f2b7858d3efa70cd34ddd4450f03c21e48ad83d304dbd",
+  "capability_snapshot_id": "caps-8634458288f4d8619b79a302",
+  "compiler_policy_revision": "plan-compiler-policy-2-f8b285229258",
+  "slices": [
+    {
+      "schema_version": "1.0",
+      "slice_id": "slice-42fec29c8d2cf8ca40690550",
+      "plan_slice_key": "boundary-contract",
+      "repository": "ranjib.github.io",
+      "base_sha": "c9faa913bae2c4185af1802e766868f0294f5eb1",
+      "spec_hash": "4c6c25531e3796f50e01af3848c2faa2d6f8a76eca2bbb761b05a0196211c015",
+      "plan_hash": "85a8d30716f00d9a067f2b7858d3efa70cd34ddd4450f03c21e48ad83d304dbd",
+      "capability_snapshot_id": "caps-8634458288f4d8619b79a302",
+      "compiler_policy_revision": "plan-compiler-policy-2-f8b285229258",
+      "execution_class": "local_grind",
+      "routing": {
+        "reasons": [
+          "strong_deterministic_validation",
+          "local_capability_supported"
+        ],
+        "evidence_ids": [
+          "caps-8634458288f4d8619b79a302"
+        ],
+        "explanation": "local-first: validators ['test'] available; multi-file/criteria scope routed to local_grind"
+      },
+      "dependency_slice_ids": [],
+      "allowed_paths": [
+        "scripts/public-boundary-patterns.mjs",
+        "scripts/test-public-boundary-patterns.mjs",
+        "scripts/validate.sh"
+      ],
+      "validation_plan": {
+        "schema_version": "1.5",
+        "build_cmd": "./scripts/validate.sh build",
+        "test_cmd": "./scripts/validate.sh test",
+        "lint_cmd": "./scripts/validate.sh lint",
+        "test_report": null,
+        "extra_commands": [],
+        "generated_artifacts": [],
+        "output_impact": null,
+        "scope_policy": {
+          "schema_version": "1.0",
+          "forbidden_paths": [],
+          "allowed_paths": [
+            "scripts/public-boundary-patterns.mjs",
+            "scripts/test-public-boundary-patterns.mjs",
+            "scripts/validate.sh"
+          ],
+          "max_changed_files": null,
+          "max_changed_lines": null,
+          "required_text": [],
+          "forbidden_text": [],
+          "forbid_lockfile_changes": false,
+          "forbid_binary_changes": false,
+          "forbid_deletions_of": [],
+          "secret_scan_enabled": true,
+          "placeholder_scan_enabled": true
+        },
+        "external_links": {
+          "schema_version": "1.0",
+          "enabled": false,
+          "allowed_first_party_origins": []
+        },
+        "timeout_seconds": 1800,
+        "required": [
+          "test"
+        ]
+      },
+      "local_budget": {
+        "max_attempts": 4,
+        "max_wall_clock_seconds": 7200,
+        "critique_revise": true,
+        "challenger_allowed": true
+      },
+      "frontier_requirements": []
+    },
+    {
+      "schema_version": "1.0",
+      "slice_id": "slice-7f814637174bba4284c567be",
+      "plan_slice_key": "rendered-boundary",
+      "repository": "ranjib.github.io",
+      "base_sha": "c9faa913bae2c4185af1802e766868f0294f5eb1",
+      "spec_hash": "4c6c25531e3796f50e01af3848c2faa2d6f8a76eca2bbb761b05a0196211c015",
+      "plan_hash": "85a8d30716f00d9a067f2b7858d3efa70cd34ddd4450f03c21e48ad83d304dbd",
+      "capability_snapshot_id": "caps-8634458288f4d8619b79a302",
+      "compiler_policy_revision": "plan-compiler-policy-2-f8b285229258",
+      "execution_class": "local",
+      "routing": {
+        "reasons": [
+          "strong_deterministic_validation",
+          "local_capability_supported"
+        ],
+        "evidence_ids": [
+          "caps-8634458288f4d8619b79a302"
+        ],
+        "explanation": "local-first: validators ['lint'] available; bounded scope"
+      },
+      "dependency_slice_ids": [
+        "slice-42fec29c8d2cf8ca40690550"
+      ],
+      "allowed_paths": [
+        "scripts/validate-rendered-posts.mjs"
+      ],
+      "validation_plan": {
+        "schema_version": "1.5",
+        "build_cmd": "./scripts/validate.sh build",
+        "test_cmd": "./scripts/validate.sh test",
+        "lint_cmd": "./scripts/validate.sh lint",
+        "test_report": null,
+        "extra_commands": [],
+        "generated_artifacts": [],
+        "output_impact": null,
+        "scope_policy": {
+          "schema_version": "1.0",
+          "forbidden_paths": [],
+          "allowed_paths": [
+            "scripts/validate-rendered-posts.mjs"
+          ],
+          "max_changed_files": null,
+          "max_changed_lines": null,
+          "required_text": [],
+          "forbidden_text": [],
+          "forbid_lockfile_changes": false,
+          "forbid_binary_changes": false,
+          "forbid_deletions_of": [],
+          "secret_scan_enabled": true,
+          "placeholder_scan_enabled": true
+        },
+        "external_links": {
+          "schema_version": "1.0",
+          "enabled": false,
+          "allowed_first_party_origins": []
+        },
+        "timeout_seconds": 1800,
+        "required": [
+          "lint"
+        ]
+      },
+      "local_budget": {
+        "max_attempts": 2,
+        "max_wall_clock_seconds": 3600,
+        "critique_revise": false,
+        "challenger_allowed": false
+      },
+      "frontier_requirements": []
+    },
+    {
+      "schema_version": "1.0",
+      "slice_id": "slice-dd4157f576c463c22bc84247",
+      "plan_slice_key": "source-boundary",
+      "repository": "ranjib.github.io",
+      "base_sha": "c9faa913bae2c4185af1802e766868f0294f5eb1",
+      "spec_hash": "4c6c25531e3796f50e01af3848c2faa2d6f8a76eca2bbb761b05a0196211c015",
+      "plan_hash": "85a8d30716f00d9a067f2b7858d3efa70cd34ddd4450f03c21e48ad83d304dbd",
+      "capability_snapshot_id": "caps-8634458288f4d8619b79a302",
+      "compiler_policy_revision": "plan-compiler-policy-2-f8b285229258",
+      "execution_class": "local",
+      "routing": {
+        "reasons": [
+          "strong_deterministic_validation",
+          "local_capability_supported"
+        ],
+        "evidence_ids": [
+          "caps-8634458288f4d8619b79a302"
+        ],
+        "explanation": "local-first: validators ['lint'] available; bounded scope"
+      },
+      "dependency_slice_ids": [
+        "slice-42fec29c8d2cf8ca40690550"
+      ],
+      "allowed_paths": [
+        "scripts/validate-content-model.mjs"
+      ],
+      "validation_plan": {
+        "schema_version": "1.5",
+        "build_cmd": "./scripts/validate.sh build",
+        "test_cmd": "./scripts/validate.sh test",
+        "lint_cmd": "./scripts/validate.sh lint",
+        "test_report": null,
+        "extra_commands": [],
+        "generated_artifacts": [],
+        "output_impact": null,
+        "scope_policy": {
+          "schema_version": "1.0",
+          "forbidden_paths": [],
+          "allowed_paths": [
+            "scripts/validate-content-model.mjs"
+          ],
+          "max_changed_files": null,
+          "max_changed_lines": null,
+          "required_text": [],
+          "forbidden_text": [],
+          "forbid_lockfile_changes": false,
+          "forbid_binary_changes": false,
+          "forbid_deletions_of": [],
+          "secret_scan_enabled": true,
+          "placeholder_scan_enabled": true
+        },
+        "external_links": {
+          "schema_version": "1.0",
+          "enabled": false,
+          "allowed_first_party_origins": []
+        },
+        "timeout_seconds": 1800,
+        "required": [
+          "lint"
+        ]
+      },
+      "local_budget": {
+        "max_attempts": 2,
+        "max_wall_clock_seconds": 3600,
+        "critique_revise": false,
+        "challenger_allowed": false
+      },
+      "frontier_requirements": []
+    }
+  ]
+}

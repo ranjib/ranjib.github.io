@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "title": "Enforce public-safe boundaries in blog source and rendered output",
+  "goal": "Add deterministic, repository-owned checks that reject high-confidence local-path, private-source, and credential-shaped material before blog content can pass the existing source and rendered-site validation layers.",
+  "non_goals": [
+    "Replace human privacy or editorial review",
+    "Read the private knowledge graph or any private source repository",
+    "Attempt probabilistic personal-data classification",
+    "Publish content or merge pull requests automatically"
+  ],
+  "invariants": [
+    "Validation is offline and deterministic",
+    "Failure output identifies the file, line, and rule but never echoes the matched secret or private value",
+    "Only high-confidence patterns are enforced to avoid blocking ordinary technical prose",
+    "Draft source content is checked before it can later become publishable",
+    "Existing Hugo, metadata, content, rendered-post, RSS, crawl, distribution, brand, domain, and photo checks remain authoritative"
+  ],
+  "acceptance_criteria": [
+    "A shared detector recognizes file URIs, absolute user-home paths on macOS/Linux/Windows, the private-source marker llm-wiki-ranjib:, and credential-shaped GitHub, OpenAI, and AWS tokens",
+    "Detector regression probes include rejected examples and safe near-misses, and failure reports do not contain the matched material",
+    "The source content-model validator checks every Markdown post, including drafts, with the shared detector",
+    "The rendered-post validator checks generated post HTML with the shared detector",
+    "The full repository build, lint, and test validator routes pass on the current public corpus",
+    "No automatic publication or merge is introduced"
+  ],
+  "target_repositories": [
+    "ranjib.github.io"
+  ],
+  "security_constraints": [
+    "Do not inspect or copy any private knowledge-graph content",
+    "Do not print matched credentials or private paths in validation output",
+    "Do not add network access or third-party dependencies",
+    "Do not weaken existing public-source, approved-photo, brand, or domain controls"
+  ],
+  "evidence_refs": [
+    "ranjib/ranjib.github.io#100",
+    "docs/blog-pipeline.md",
+    "docs/content-model.md",
+    "scripts/validate-content-model.mjs",
+    "scripts/validate-rendered-posts.mjs",
+    "scripts/validate.sh"
+  ],
+  "uncertainties": [
+    "The initial high-confidence pattern set may need reviewed expansion as new export formats appear",
+    "A deterministic leak check reduces accidental exposure but cannot establish that prose is contextually safe to publish"
+  ]
+}

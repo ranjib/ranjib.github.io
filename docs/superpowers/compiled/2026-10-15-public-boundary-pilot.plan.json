@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "spec_hash": "4c6c25531e3796f50e01af3848c2faa2d6f8a76eca2bbb761b05a0196211c015",
+  "produced_by": "Codex frontier planner using the LocalLab planner template",
+  "slices": [
+    {
+      "slice_key": "boundary-contract",
+      "title": "Add a redacting public-boundary detector and regression probes",
+      "goal": "Implement the shared offline detector for high-confidence private paths, private-source markers, and credential-shaped tokens; prove rejected examples, safe near-misses, and redacted diagnostics; and bind the probes into the repository test route.",
+      "repositories": [
+        "ranjib.github.io"
+      ],
+      "depends_on": [],
+      "allowed_paths": [
+        "scripts/public-boundary-patterns.mjs",
+        "scripts/test-public-boundary-patterns.mjs",
+        "scripts/validate.sh"
+      ],
+      "acceptance_criteria": [
+        "The detector reports stable rule identifiers and one-based line numbers without returning or printing matched material",
+        "Rules cover file URIs, macOS/Linux/Windows user-home paths, llm-wiki-ranjib: references, and credential-shaped GitHub, OpenAI, and AWS tokens",
+        "Regression probes reject one example per rule family and accept safe near-misses used in ordinary technical prose",
+        "The repository test route executes the regression probes and passes"
+      ],
+      "validator_names": [
+        "test"
+      ],
+      "frontier_requirements": []
+    },
+    {
+      "slice_key": "source-boundary",
+      "title": "Enforce public boundaries across Markdown post sources",
+      "goal": "Extend the existing content-model validator to run the shared public-boundary detector against every Markdown post, including drafts, and report only file, line, and rule identity on failure.",
+      "repositories": [
+        "ranjib.github.io"
+      ],
+      "depends_on": [
+        "boundary-contract"
+      ],
+      "allowed_paths": [
+        "scripts/validate-content-model.mjs"
+      ],
+      "acceptance_criteria": [
+        "Every Markdown file under content/posts is scanned before draft filtering",
+        "Failures identify the relative source path, line number, and stable rule identifier without echoing matched content",
+        "The repository lint route passes on the current corpus"
+      ],
+      "validator_names": [
+        "lint"
+      ],
+      "frontier_requirements": []
+    },
+    {
+      "slice_key": "rendered-boundary",
+      "title": "Enforce public boundaries across rendered post HTML",
+      "goal": "Extend the existing rendered-post validator to run the shared public-boundary detector against generated post HTML so template or rendering transformations cannot expose private material unnoticed.",
+      "repositories": [
+        "ranjib.github.io"
+      ],
+      "depends_on": [
+        "boundary-contract"
+      ],
+      "allowed_paths": [
+        "scripts/validate-rendered-posts.mjs"
+      ],
+      "acceptance_criteria": [
+        "Every generated post index.html is scanned when the rendered page is verified",
+        "Failures identify the rendered path, line number, and stable rule identifier without echoing matched content",
+        "The repository lint route passes on the current rendered site"
+      ],
+      "validator_names": [
+        "lint"
+      ],
+      "frontier_requirements": []
+    }
+  ]
+}
