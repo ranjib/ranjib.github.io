@@ -30,6 +30,7 @@ case "$mode" in
   test)
     go test ./...
     go run ./cmd/validate-editorial-radar
+    bash scripts/test_plan_provenance.sh
     ;;
   *)
     echo "usage: $0 {build|lint|test}" >&2

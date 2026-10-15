@@ -31,6 +31,19 @@ plans are pinned in `docs/superpowers/plans/.locallab-baseline`; changing a pin
 or a pinned plan requires explicit review and either compilation or deliberate
 re-baselining.
 
+## Issue and PR provenance
+
+Use the compiled-slice issue template for materialized work. A compiled slice
+issue records `Graph-ID`, `Slice-ID`, `Spec-Hash`, and `Plan-Hash` together with
+the compiler-authorized paths and validators.
+
+The `pr-provenance` workflow applies the same identity contract to pull
+requests. A PR that declares `Slice-ID`, or adds a new implementation plan,
+must provide non-empty graph and hash fields in its body. Ordinary editorial
+and maintenance PRs do not need them. A PR also cannot exempt its own plan by
+editing `.locallab-baseline`; a deliberate migration requires a non-empty
+`Baseline-Override: <reason>` line for reviewer attention.
+
 ## Trusted validators
 
 `.locallab/validators.json` exposes the repository-owned commands that the plan

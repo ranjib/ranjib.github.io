@@ -1,0 +1,26 @@
+name: pr-provenance
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  pr-provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require graph/slice provenance in the PR body
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          printf '%s' "$PR_BODY" > "$RUNNER_TEMP/body.md"
+          git show "$BASE_SHA:docs/superpowers/plans/.locallab-baseline" > "$RUNNER_TEMP/base-plans" 2>/dev/null || : > "$RUNNER_TEMP/base-plans"
+          bash scripts/check_baseline_frozen.sh "$RUNNER_TEMP/base-plans" docs/superpowers/plans/.locallab-baseline "$RUNNER_TEMP/body.md"
+          mapfile -t added < <(git diff --name-only --diff-filter=A "$BASE_SHA"...HEAD -- 'docs/superpowers/plans/*.md')
+          PLAN_BASELINE="$RUNNER_TEMP/base-plans" PLAN_HEAD_BASELINE=docs/superpowers/plans/.locallab-baseline bash scripts/check_pr_provenance.sh "$RUNNER_TEMP/body.md" ${added[@]+"${added[@]}"}
