@@ -5,13 +5,21 @@ on:
     paths:
       - "docs/superpowers/**"
       - "scripts/plan_check_standalone.py"
+      - "scripts/check_baseline_frozen.sh"
+      - "scripts/check_pr_provenance.sh"
+      - "scripts/test_plan_provenance.sh"
       - ".github/workflows/plan-compilation.yml"
+      - ".github/workflows/pr-provenance.yml"
   push:
     branches: [master]
     paths:
       - "docs/superpowers/**"
       - "scripts/plan_check_standalone.py"
+      - "scripts/check_baseline_frozen.sh"
+      - "scripts/check_pr_provenance.sh"
+      - "scripts/test_plan_provenance.sh"
       - ".github/workflows/plan-compilation.yml"
+      - ".github/workflows/pr-provenance.yml"
 
 permissions:
   contents: read
@@ -23,3 +31,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Require compiled implementation plans
         run: python3 scripts/plan_check_standalone.py --mode required
+      - name: Exercise PR provenance rules
+        run: bash scripts/test_plan_provenance.sh
