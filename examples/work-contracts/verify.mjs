@@ -48,15 +48,35 @@ function validate(candidate) {
   if (slice.dependsOn.some(id => !candidate.completedSlices?.includes(id))) {
     failures.push('dependency: prerequisite not complete');
   }
-  for (const file of candidate.changes) {
-    if (!slice.allowedPaths.includes(file.path)) {
-      failures.push(`scope: disallowed change to ${file.path}`);
-      continue;
-    }
-    failures.push(...metadataViolations(file.content));
+
+  // These handlers are trusted fixture code, not code or commands supplied by a plan.
+  const gateHandlers = {
+    scope: () => {
+      const errors = candidate.changes
+        .filter(file => !slice.allowedPaths.includes(file.path))
+        .map(file => `scope: disallowed change to ${file.path}`);
+      if (candidate.changes.length === 0 && slice.id === 'write-draft') {
+        errors.push('scope: required edit is absent');
+      }
+      return errors;
+    },
+    'hugo-metadata': () => candidate.changes
+      .filter(file => slice.allowedPaths.includes(file.path))
+      .flatMap(file => metadataViolations(file.content)),
+    'human-review': () => ['human-review: human approval required']
+  };
+  const required = slice.id === 'write-draft'
+    ? ['scope', 'hugo-metadata']
+    : ['scope', 'hugo-metadata', 'human-review'];
+  for (const name of required) {
+    if (!slice.validators.includes(name)) failures.push(`contract: missing required gate ${name}`);
   }
-  if (candidate.changes.length === 0 && slice.id === 'write-draft') {
-    failures.push('scope: required edit is absent');
+  for (const name of slice.validators) {
+    if (!Object.hasOwn(gateHandlers, name)) {
+      failures.push(`contract: unknown gate ${name}`);
+    } else {
+      failures.push(...gateHandlers[name]());
+    }
   }
   return failures;
 }
