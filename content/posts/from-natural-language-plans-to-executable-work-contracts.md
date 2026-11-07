@@ -21,9 +21,9 @@ My instinct was to make the plan more detailed. The better answer was to change 
 
 Consider a perfectly reasonable request: "Add a draft Hugo post, update its metadata, and make sure the site still builds." As a human, I can infer that it does not authorize changing the site's deployment configuration, publishing the article, or weakening a validator to make the build green. An agent may not share those assumptions.
 
-The problem gets worse when planning and execution are separated. The planner may have inspected one repository revision, while the executor receives a newer checkout. The planner may assume a tool supports a feature that the selected runtime cannot provide. A task described as "small" may hide dependencies on earlier changes. A generated checklist can also confuse intent with authority: "I need to edit this file" is not evidence that the file is permitted.
+The problem gets worse when planning and execution are separated. The planner may have inspected one repository revision, while the executor receives a newer checkout. The planner may assume a tool supports a feature that the selected runtime cannot provide. A generated checklist can also confuse intent with authority: "I need to edit this file" is not evidence that the file is permitted.
 
-This is familiar from infrastructure work. A runbook can explain what an operator wants to accomplish without being a credentials system. The production change path still needs an identity, scope, preconditions, and a separate way to detect failure. AI-generated plans do not deserve an exception merely because their prose is convincing.
+This is familiar from infrastructure work. A runbook can explain what an operator wants to accomplish without being a credentials system. The production change path still needs an identity, scope, preconditions, and a separate way to detect failure.
 
 Modern tool interfaces make part of the boundary visible, but do not eliminate it. The [Model Context Protocol tools specification](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) defines discoverable tools and capability declarations; its guidance also calls for human oversight of tool invocation. Declaring that a tool exists is useful negotiation, not authorization to invoke it on every resource. Similarly, [GitHub's workflow security guidance](https://docs.github.com/en/actions/reference/security/secure-use) recommends least-privilege tokens and treating untrusted inputs carefully. Those are execution-system decisions, not sentences for a planner to waive.
 
@@ -37,7 +37,7 @@ I would start with a source specification: the goal, domain invariants, acceptan
 
 Each admitted slice needs a stable identity, explicit predecessors, allowed paths, required capabilities, retry or resource budgets, and named validators owned by the repository or operator. Provenance binds the spec, plan, snapshot, base revision, candidate and final gate results so a reviewer can answer which inputs authorized which change. Hashes are useful for identity and tamper detection, but a hash does not establish that a policy was correct.
 
-For a small synthetic Hugo task, the shape is deliberately boring:
+For a synthetic Hugo task:
 
 ```text
 spec: create a draft article; keep it unpublished
@@ -49,7 +49,7 @@ slice B: review A's result; no file edits
 promotion: never inferred from a green build
 ```
 
-This also clarifies where model routing belongs. The planner can suggest a local or frontier executor, but the trusted compiler determines whether the actual route can satisfy the contract. A missing tool is a typed rejection, not a reason to let an executor invent a substitute. Dependencies must be complete before a downstream slice becomes eligible. Untrusted issue text or repository content may describe the task; it cannot enlarge the runner's permissions.
+The planner can suggest a local or frontier executor, but the trusted compiler determines whether the actual route can satisfy the contract. A missing tool is a typed rejection, not a reason to let an executor invent a substitute. Dependencies must be complete before a downstream slice becomes eligible. Untrusted issue text or repository content may describe the task; it cannot enlarge the runner's permissions.
 
 Validation must have two enforcement moments. At admission, check the revision, graph, tool capabilities and authority ceiling *before any side effect*. After a candidate exists, inspect the actual changed paths and run semantic validators against the candidate, not the model's description of it. The runner must use enforceable filesystem and credential boundaries; an allowlist printed in a prompt is not a sandbox.
 
@@ -66,7 +66,7 @@ Running `node examples/work-contracts/verify.mjs` gives four deterministic outco
 | Valid metadata against a different source revision | Rejected | Stale provenance |
 | Allowed article with valid metadata | Accepted **at the fixture gate** | No fixture rule was violated |
 
-The second case is the one I find most instructive. A file can be in scope, parse correctly, and still be semantically unacceptable. A generic build can remain green when an article is accidentally made publishable. The compiler therefore has to carry *meaningful acceptance rules* through to independently enforced validators. An explicit negative result is more valuable than a reassuring success message that never tested the invariant.
+The second case matters most. A file can be in scope, parse correctly, and still be semantically unacceptable. A generic build can remain green when an article is accidentally made publishable. The compiler therefore has to carry *meaningful acceptance rules* through to independently enforced validators. An explicit negative result is more valuable than a reassuring success message that never tested the invariant.
 
 The fixture's passing reference case is deliberately narrow. It does not demonstrate a working compiler, live model reliability, secure sandboxing, end-to-end repository acceptance, or a reviewed publication decision. A real pilot would pin executable and environment identities, validate real diffs, preserve rejected attempts, test baseline-red and reference-green oracles, record human corrections, and report missing runs instead of dropping them. For subjective editorial quality or scientific claims, passing software checks is not a substitute for domain expertise.
 
