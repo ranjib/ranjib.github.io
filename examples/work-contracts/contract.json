@@ -1,0 +1,31 @@
+{
+  "schema": "synthetic-work-contract/v1",
+  "sourceSpec": {
+    "goal": "Create a draft Hugo article with public-safe metadata",
+    "acceptance": "The article remains a draft and has a useful description and summary"
+  },
+  "pinnedContext": {
+    "revision": "synthetic-base-revision-v1",
+    "capabilitySnapshot": {
+      "tools": ["edit-file"],
+      "network": false,
+      "publish": false
+    }
+  },
+  "slices": [
+    {
+      "id": "write-draft",
+      "dependsOn": [],
+      "allowedPaths": ["content/posts/example-hugo.md"],
+      "requiredTool": "edit-file",
+      "validators": ["scope", "hugo-metadata"]
+    },
+    {
+      "id": "review-candidate",
+      "dependsOn": ["write-draft"],
+      "allowedPaths": [],
+      "requiredTool": null,
+      "validators": ["scope", "hugo-metadata", "human-review"]
+    }
+  ]
+}
