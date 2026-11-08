@@ -1,6 +1,7 @@
 ---
 title: "From Natural-Language Plans to Executable Work Contracts"
-draft: true
+date: 2026-11-07T00:00:00-08:00
+draft: false
 description: "Why an AI implementation plan needs pinned context, bounded permissions, and independent validators before an agent can execute it safely."
 summary: "A practical approach to compiling prose plans into bounded execution contracts, with a reproducible Hugo fixture that rejects out-of-scope and semantically invalid changes."
 lane: "engineering-ai"
