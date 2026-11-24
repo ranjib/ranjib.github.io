@@ -204,15 +204,15 @@ Fix that artifact as well as the implementation. Otherwise the next run will rep
 
 ## Pattern 5: human review and comprehension become the bottleneck
 
-When implementation is largely automated, the cognitive burden does not disappear. It concentrates.
+In workflows where agents perform much of the implementation, the cognitive burden does not disappear. It concentrates.
 
 The developer has to review the design, understand the implementation, judge the verification, and decide whether the system is safe to operate. A ten-line autocomplete suggestion is easy to absorb. A cross-subsystem diff produced in one run may represent days of conventional implementation work. Reading it linearly is not a viable long-term interface.
 
-This is the current review and comprehension bottleneck in agentic software delivery: the rate at which candidate implementations can be generated is beginning to exceed the rate at which people can build an accurate mental model of them and establish trust.
+In my work, this has become the current review and comprehension bottleneck in agentic software delivery: candidate implementations can arrive faster than people can build an accurate mental model of them and establish trust.
 
 Review therefore needs better learning artifacts.
 
-[Archify](https://github.com/tt-a1i/archify) can turn a plan or codebase into interactive architecture, sequence, workflow, data-flow, and lifecycle diagrams. The official [draw.io MCP server and plugins](https://www.drawio.com/docs/manual/generate/drawio-mcp-server/) let agents create editable `.drawio` diagrams inside supported assistants. These are valuable when they expose a design claim that can be checked against the code, not when they merely decorate a pull request.
+[Archify](https://github.com/tt-a1i/archify) can generate candidate architecture, sequence, workflow, data-flow, and lifecycle diagrams from a plan or codebase. The official [draw.io MCP server and plugins](https://www.drawio.com/docs/manual/generate/drawio-mcp-server/) let agents create editable `.drawio` diagrams inside supported assistants. These are valuable when they expose a design claim that can be checked against code and runtime behavior, not when they merely decorate a pull request.
 
 Documentation should expand beyond an API reference. A large change can produce:
 
@@ -224,11 +224,52 @@ Documentation should expand beyond an API reference. A large change can produce:
 - a quiz that tests whether a reviewer understood the failure modes
 - a source-grounded audio overview for learning away from the screen
 
-Tools such as [NotebookLM](https://notebook.google/students) demonstrate the range: source-grounded study guides, audio overviews, slide decks, mind maps, flash cards, and quizzes. The specific product is less important than the principle. If a format helps a developer build an accurate model faster, it is part of the delivery system.
+Tools such as [NotebookLM](https://notebook.google/students) demonstrate the range: study guides, audio overviews, slide decks, mind maps, flash cards, and quizzes derived from supplied sources. Those outputs still require checking. The specific product is less important than the principle. If a format helps a developer build an accurate model faster, it is part of the delivery system.
 
 This changes what “developer tooling” means. A tool that helps people test their understanding can be as valuable as one that helps an agent write code. A tool that converts an implementation into a reviewable visual explanation may remove more delivery latency than another improvement in token generation speed.
 
 The goal is not to produce a pile of ancillary artifacts. It is to identify the smallest set that transfers the important knowledge: what changed, why it is shaped this way, how it behaves, how it fails, and how we know. These formats are options, not a checklist; they earn their place only when they reduce review or learning time.
+
+There is a more sombre side to this shift. Writing and debugging code by hand was also a learning process. Following a stack trace, reading an unfamiliar API, constructing a test fixture, and repairing a failure built a mental model almost as a side effect of implementation. When an agent performs that work, it removes both the mechanical effort and part of the learning path.
+
+The result can be code that passes review and enters production without anyone on the team having deep expertise in how it works. When an assumption eventually breaks—under load, during an incident, or after a dependency upgrade—the missing understanding reappears as longer diagnosis time and greater cognitive burden. Faster implementation can therefore create **learning debt** even when it does not create obvious technical debt.
+
+For high-risk or operationally novel changes, I now treat comprehension as part of the release criteria. Can the people who will own the change explain its architecture, invariants, failure modes, operational signals, and rollback path? Can they diagnose a representative failure without simply asking the implementation agent to try again? Teach-backs, diagrams, quizzes, failure drills, and focused manual experiments are ways to build and test that understanding.
+
+The accountability boundary is unambiguous: developers and teams remain accountable for the end-to-end result. An AI agent cannot own a design decision, accept operational risk, answer for a production incident, or maintain the system after the context window closes. Automation can produce evidence and accelerate learning, but it cannot transfer that responsibility.
+
+## Pattern 6: auto-research keeps the system current
+
+For projects in rapidly changing domains, delivery should not end when the feature ships. At the end of an implementation cycle, I increasingly establish an **auto-research loop**: a recurring radar that looks for developments which could change the project's decisions. The same context system that supports delivery must also notice when its assumptions expire.
+
+The radar may watch domain-specific work in SRE, DevOps, reliability engineering, or agent harness design. It may also watch project-specific dependencies: libraries, frameworks, runtimes, algorithms, models, skills, and security advisories. Cloud research systems make this increasingly practical. [ChatGPT scheduled tasks](https://learn.chatgpt.com/docs/automations) can provide a recurring trigger, while [ChatGPT deep research](https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt) and [Claude Research](https://support.claude.com/en/articles/11088861-use-research-on-claude) can investigate questions across current web sources and connected context. These are separate capabilities; the schedule, permissions, evidence policy, and downstream integration still need to be designed for the project.
+
+My LocalLab—the local-model lab I use for this work—is an example of the questions such a radar can surface. It can look for newer local models, harness techniques, and skills relevant to the hardware and workloads I actually use. Candidate investigations might include:
+
+- Should the next benchmark compare specific Ornith and Qwen3.8 variants for this workload?
+- How do AirLLM and KTransformers compare on runnable model and precision, prefill and decode speed, latency, memory use, compatibility, and operational complexity on this hardware?
+
+Those are examples of research questions, not durable rankings. The useful output is a testable hypothesis with sources, constraints, and a benchmark plan—not a recommendation copied from a model announcement or leaderboard.
+
+The loop I want is:
+
+```text
+recurring research
+  -> screened evidence
+  -> curated knowledge update
+  -> decision candidates
+  -> human decision
+     -> reject, archive, or monitor
+     -> task planning -> software deliverables
+  -> measured outcomes
+  -> updated knowledge
+```
+
+Research results should not flow directly into the backlog. In my workflow, discovery only nominates sources. The system then fetches and records the evidence, checks provenance and freshness, extracts attributable claims, synthesizes them against the project's current context, and applies deterministic gates before human review. Those gates can establish that evidence is traceable, current enough, and structurally complete; they cannot establish that a claim is true or relevant. A persuasive model summary cannot waive missing citations, stale evidence, privacy boundaries, or a failed validation.
+
+Only then do relevant findings enter the project's distilled knowledge system. A named human owner can reject them, archive them, keep monitoring, or authorize task planning. An accepted finding may become a concrete deliverable: a benchmark, design spike, dependency upgrade, new verification skill, documentation change, or implementation issue. The outcome then updates the knowledge system, including the cases where the experiment disproves the initial hypothesis.
+
+This makes auto-research more than an automated news digest. It is a governed learning loop that connects external change to project-specific evidence and action. It is especially valuable where the state of the art moves faster than a team's informal knowledge can keep up—but it also reinforces the previous pattern. The faster new techniques arrive, the more deliberate the team must be about acquiring the understanding needed to own them.
 
 ## Where I would not delegate the whole implementation
 
@@ -246,13 +287,15 @@ The decision is not “Can the agent attempt this?” It is “Do the context, f
 
 I do not know whether these will be the long-term patterns of software development. Models, harnesses, skill formats, benchmarks, and team practices are changing too quickly to mistake the current stack for a settled architecture. Some workflows that feel essential today may become native model behavior. Some large autonomous runs may prove harder to maintain than smaller, incremental changes. New failure modes will appear as delegation grows.
 
-But a few lessons have remained useful across personal and professional projects. The meaningful measure of progress is the unit of intent we can delegate with confidence. Larger delegation requires better context, not only a better model. Specifications and issues are memory and coordination artifacts, not ceremony. Verification must be designed at every layer. Independent challenge is more useful when its findings improve the system, not only the patch. And as code production becomes cheaper, human comprehension becomes the constraint worth optimizing.
+But a few lessons have remained useful across personal and professional projects. The meaningful measure of progress is the unit of intent we can delegate with confidence. Larger delegation requires better context, not only a better model. Specifications and issues are memory and coordination artifacts, not ceremony. Verification must be designed at every layer. Independent challenge is more useful when its findings improve the system, not only the patch. Auto-research can keep the knowledge and backlog responsive to external change. And as code production becomes cheaper, human comprehension becomes the constraint worth optimizing.
 
-I started this year thinking mostly about what an agent could code. I end it asking four questions before delegating a larger unit of work:
+I started this year thinking mostly about what an agent could code. I end it asking six questions before delegating a larger unit of work:
 
 1. Is the intent explicit enough to review before implementation?
 2. Is the context current, distilled, and appropriately bounded?
 3. Can the system exercise the important failure modes and return persuasive evidence?
 4. Can a reviewer understand, challenge, deploy, and reverse the result?
+5. Do the people who will own the result understand it well enough to diagnose its failures?
+6. What recurring research and measured evidence would cause us to revisit the decision?
 
-That is my first year of context engineering for software development: not learning how to ask for more code, but learning how to build the environment in which more consequential delegation can be responsible.
+That is my first year of context engineering for software development: not learning how to ask for more code, but learning how to build the environment in which more consequential delegation can be responsible. The agents may perform more of the work, but the developers remain accountable for all of it.
