@@ -31,6 +31,7 @@ case "$mode" in
     go test ./...
     go run ./cmd/validate-editorial-radar
     bash scripts/test_plan_provenance.sh
+    node scripts/test-public-boundary-patterns.mjs
     ;;
   *)
     echo "usage: $0 {build|lint|test}" >&2
