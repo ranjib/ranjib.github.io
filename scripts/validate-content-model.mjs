@@ -3,6 +3,8 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
 
+import { findPublicBoundaryViolations } from "./public-boundary-patterns.mjs";
+
 const root = process.argv[2] || "public";
 const contentRoot = "content/posts";
 const photoSuggestionsRoot = "data/photo-suggestions";
@@ -90,6 +92,10 @@ for (const file of collectMarkdown(contentRoot)) {
   const markdown = readFileSync(file, "utf8");
   const frontmatter = parseFrontmatter(markdown);
   const target = relative(".", file);
+
+  for (const { line, rule } of findPublicBoundaryViolations(markdown)) {
+    fail(target, `line ${line}: public-boundary rule '${rule}'`);
+  }
 
   if (frontmatter.draft === "true") continue;
 
